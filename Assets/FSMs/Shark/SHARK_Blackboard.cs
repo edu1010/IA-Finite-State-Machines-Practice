@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class SHARK_Blackboard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    /*[Header("Two-point Wandering")]
+    public GameObject locationA;
+    public GameObject locationB;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float intervalBetweenTimeOuts = 10.0f;
+    public float initialSeekWeight = 0.2f;
+    public float seekIncrement = 0.2f;
+    public float locationReachedRadius = 10.0f;
+    */
+
+    [Header("Escape")]
+    
+    public float hideoutDetectionRadius = 100.0f;
+    public float hideoutReachedRadius = 5.0f;
+    public float harpoonDetectionRadius = 20.0f;
+    public float hideTime = 5.0f;
+
+
+    //[Header("Peril Fleeing")]
+
+
 }

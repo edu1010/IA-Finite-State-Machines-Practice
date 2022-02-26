@@ -12,7 +12,7 @@ namespace FSM
         };
 
         public State currentState = State.INITIAL;
-        private FISH_Blackboard blackboard;
+        private FISH_Blackboard blackboard; 
 
         // Start is called before the first frame update
         void Start()
