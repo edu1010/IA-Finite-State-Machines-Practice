@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class SHARK_Blackboard : MonoBehaviour
 {
-    /*[Header("Two-point Wandering")]
-    public GameObject locationA;
-    public GameObject locationB;
-
-    public float intervalBetweenTimeOuts = 10.0f;
-    public float initialSeekWeight = 0.2f;
-    public float seekIncrement = 0.2f;
-    public float locationReachedRadius = 10.0f;
-    */
+    [Header("Movement")]
+    public float currentStamina = 5.0f;
+    public float maxStamina = 5.0f;
+    public bool newArrivePosition = false;
+    public GameObject ArriveGameObject;
+    public GameObject Attractor;
 
     [Header("Escape")]
     
@@ -22,7 +19,7 @@ public class SHARK_Blackboard : MonoBehaviour
     public float hideTime = 5.0f;
 
 
-    //[Header("Peril Fleeing")]
+    //[Header("Eating")]
 
 
 }
