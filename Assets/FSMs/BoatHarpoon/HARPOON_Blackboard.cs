@@ -11,6 +11,7 @@ public class HARPOON_Blackboard : MonoBehaviour
 
     public float attractorReachedRadious = 10.0f;
     public float sharkDetectableRadious = 10.0f;
+    public float timeAttack = 5.0f;
 
 }
 

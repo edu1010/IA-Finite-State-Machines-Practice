@@ -24,6 +24,8 @@ namespace FSM
         private HARPOON_Blackboard blackboard;
         private Arrive arrive;
 
+        private float elapsedTime = 0.0f;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -74,6 +76,12 @@ namespace FSM
                     break;
                 case State.ATTACK_SHARK:
                     Debug.Log("attack shark");
+                    if (elapsedTime >= blackboard.timeAttack)
+                    {
+                        ChangeState(State.GO_TO_A);
+                        Debug.Log("Me retiro");
+                    }
+                    elapsedTime += Time.deltaTime;
                     break;
                 case State.PICK_HARPOON:
                     break;
@@ -93,6 +101,11 @@ namespace FSM
                     arrive.target = blackboard.attractorB; //target gusano seleccionado
                     arrive.enabled = true;
                     break;
+                case State.ATTACK_SHARK:
+                    elapsedTime = 0;
+                    arrive.target = blackboard.shark; //target gusano seleccionado
+                    arrive.enabled = true;
+                    break;
             }
 
             // EXIT STATE LOGIC. Depends on current state
@@ -103,6 +116,9 @@ namespace FSM
                     break;
                 case State.GO_TO_B:
                     //arrive.enabled = false;
+                    break;
+                case State.ATTACK_SHARK:
+                    elapsedTime = 0;
                     break;
             }
 

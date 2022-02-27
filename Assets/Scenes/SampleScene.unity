@@ -1098,6 +1098,7 @@ MonoBehaviour:
   shark: {fileID: 1580934759}
   attractorReachedRadious: 10
   sharkDetectableRadious: 10
+  timeAttack: 5
 --- !u!4 &773010876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1406885550891484151, guid: aa0bfad96b68c524e8a9005c578afc8f, type: 3}
@@ -2644,7 +2645,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580934759}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c34d736d39863714289b97c23f7fe9af, type: 3}
   m_Name: 
