@@ -53,11 +53,14 @@ namespace FSM
 
         void Update()
         {
+            //New Arrive Position
             if(Input.GetMouseButtonDown(0))
             {
-                blackboard.ArriveGameObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 cameraPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                blackboard.ArriveGameObject.transform.position = new Vector3(cameraPos.x, cameraPos.y, 0.0f);
                 arrive.target = blackboard.ArriveGameObject;
             }
+            //Dash
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 blackboard.canDash = true;
