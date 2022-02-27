@@ -9,6 +9,6 @@ public class TURTLE_Blackboard : MonoBehaviour
 
     [Header("Breathe")]
     public GameObject surface;
-    public float maxOxigen = 100.0f;
-    public float surfaceReachedRadius = 2.0f;
+    public float maxOxigen = 100.0f;    
+    public float surfaceReachedRadius = 1.0f;
 }

@@ -12,6 +12,7 @@ TagManager:
   - ANEMONA
   - FISH_FOOD_EATEN
   - FISH_FOOD
+  - SURFACE
   layers:
   - Default
   - TransparentFX
