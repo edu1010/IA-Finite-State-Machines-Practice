@@ -22,6 +22,7 @@ namespace FSM
         // Start is called before the first frame update
         void Start()
         {
+            blackboard = GetComponent<FISH_Blackboard>();
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
         }
