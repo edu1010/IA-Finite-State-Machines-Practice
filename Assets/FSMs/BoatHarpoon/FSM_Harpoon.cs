@@ -99,10 +99,10 @@ namespace FSM
             switch (currentState)
             {
                 case State.GO_TO_A:
-                    arrive.enabled = false;
+                    //arrive.enabled = false;
                     break;
                 case State.GO_TO_B:
-                    arrive.enabled = false;
+                    //arrive.enabled = false;
                     break;
             }
 
