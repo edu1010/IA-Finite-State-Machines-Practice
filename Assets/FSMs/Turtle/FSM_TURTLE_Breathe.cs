@@ -5,7 +5,7 @@ using Steerings;
 
 namespace FSM
 {
-    [RequireComponent(typeof(TURTLE_Blackboard))]
+    [RequireComponent(typeof(TURTLE_BLACKBOARD))]
     [RequireComponent(typeof(Arrive))]
     //[RequireComponent(typeof(FSM_TURTLE_Wander))]
     public class FSM_TURTLE_Breathe : FiniteStateMachine
@@ -16,7 +16,7 @@ namespace FSM
         };
 
         public State currentState = State.INITIAL;
-        private TURTLE_Blackboard blackboard;
+        private TURTLE_BLACKBOARD blackboard;
 
         //private FSM_TURTLE_Wander turtleWanderFsm;
         private Arrive arrive;
@@ -29,7 +29,7 @@ namespace FSM
         void Start()
         {
             arrive = GetComponent<Arrive>();
-            blackboard = GetComponent<TURTLE_Blackboard>();
+            blackboard = GetComponent<TURTLE_BLACKBOARD>();
             //turtleWanderFsm = GetComponent<FSM_TURTLE_Wander>();
 
             arrive.enabled = false;
