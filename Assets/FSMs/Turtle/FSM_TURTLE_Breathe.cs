@@ -18,27 +18,28 @@ namespace FSM
         public State currentState = State.INITIAL;
         private TURTLE_BLACKBOARD blackboard;
 
-        //private FSM_TURTLE_Wander turtleWanderFsm;
+        private FSM_TURTLE_Wander turtleWanderFsm;
+        private FSM_TURTLE turtleFSM;
         private Arrive arrive;
 
         private GameObject surface;
 
-        public float currentOxigen = 10.0f;
+        //public float currentOxigen = 10.0f;
 
         // Start is called before the first frame update
         void Start()
         {
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<TURTLE_BLACKBOARD>();
-            //turtleWanderFsm = GetComponent<FSM_TURTLE_Wander>();
+            turtleWanderFsm = GetComponent<FSM_TURTLE_Wander>();
 
             arrive.enabled = false;
-            //turtleWanderFsm.enabled = false;
+            turtleWanderFsm.enabled = false;
         }
         public override void Exit()
         {
             arrive.enabled = false;
-            //turtleWanderFsm.enabled = false;
+            turtleWanderFsm.enabled = false;
             base.Exit();
         }
 
@@ -70,14 +71,14 @@ namespace FSM
                     }
                     break;
                 case State.TAKING_BREATH:
-                    if (currentOxigen >= blackboard.maxOxigen)
+                    if (blackboard.currentOxigen >= blackboard.maxOxigen)
                     {
                         ChangeState(State.WANDER);
                         break;
                     }
                     else 
                     {
-                        currentOxigen += 10 * Time.deltaTime;
+                        blackboard.currentOxigen += 10 * Time.deltaTime;
                     }                   
                     Debug.Log("taking breath");
                     break;
@@ -98,10 +99,11 @@ namespace FSM
                     arrive.enabled = false;
                     break;
                 case State.TAKING_BREATH:
-                    currentOxigen = 100.0f;
+                    //currentOxigen = 100.0f;
+                    blackboard.currentOxigen = blackboard.maxOxigen;
                     break;
                 case State.WANDER:
-                    // turtleWanderFsm.Exit();
+                    //turtleWanderFsm.Exit();
                     break;
             }
 
@@ -118,7 +120,7 @@ namespace FSM
                 case State.TAKING_BREATH:                    
                     break;
                 case State.WANDER:
-                    // turtleWanderFsm.ReEnter();
+                    //turtleWanderFsm.ReEnter();
                     break;
             }
             currentState = newState;

@@ -3191,6 +3191,7 @@ GameObject:
   - component: {fileID: 2031947281}
   - component: {fileID: 2031947280}
   - component: {fileID: 2031947283}
+  - component: {fileID: 2031947285}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: TORTOISE
@@ -3273,13 +3274,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031947275}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfb1e9e52fe048340852ee07c9ac1aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  currentOxigen: 50
 --- !u!114 &2031947280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3336,6 +3336,8 @@ MonoBehaviour:
   Attractor: {fileID: 2008915107}
   textTurtle: {fileID: 0}
   surface: {fileID: 872667371}
+  oxigenToBreathe: 20
+  currentOxigen: 0
   maxOxigen: 100
   surfaceReachedRadius: 2
 --- !u!114 &2031947283
@@ -3363,12 +3365,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031947275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c983d5f3f6165924a94f7ba571b6e1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+--- !u!114 &2031947285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031947275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5344d58ff9ae3ca4fb2966cb33dd9741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  oxigen: 100
 --- !u!1 &2045032892
 GameObject:
   m_ObjectHideFlags: 0
