@@ -9,6 +9,7 @@ TagManager:
   - FOOD
   - FishEated
   - TORTOISE
+  - ANEMONA
   layers:
   - Default
   - TransparentFX

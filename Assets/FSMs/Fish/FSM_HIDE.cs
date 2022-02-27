@@ -55,9 +55,16 @@ namespace FSM
                         nearTortoise = SensingUtils.FindInstanceWithinRadius(gameObject, "TORTOISE", blackboard.radiusNearTortoise);
                         arrive.enabled = true;
                         arrive.target = nearTortoise;
+                        elapsedTime += Time.deltaTime;
+                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTime = 0f;
+                            wanderAround.SetSeekWeight(blackboard.incrementSeekWeight + wanderAround.seekWeight);
+                        }
                     }
                     else
                     {
+                        wanderAround.enabled = false;
                         if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.foodReachedRadius)
                         {
                             if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
@@ -110,12 +117,15 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
+                    elapsedTime = 0;
                     arrive.enabled = false;
                     break;
                 case State.SERACH_ANEMONA:
+                    elapsedTime = 0;
                     wanderAround.enabled = false;
                     break;
                 case State.GOTO_ANEMONA:
+                    elapsedTime = 0;
                     arrive.enabled = false;
                     break;
                 case State.WAIT:
@@ -133,6 +143,11 @@ namespace FSM
                     {
                         arrive.enabled = true;
                         arrive.target = nearTortoise;
+                    }
+                    else
+                    {
+                        wanderAround.enabled = true;
+                        wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     }
                     break;
                 case State.SERACH_ANEMONA:
