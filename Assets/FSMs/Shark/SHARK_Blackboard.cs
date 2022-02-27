@@ -7,7 +7,7 @@ public class SHARK_Blackboard : MonoBehaviour
     [Header("Movement")]
     public float currentStamina = 5.0f;
     public float maxStamina = 5.0f;
-    public bool newArrivePosition = false;
+    public bool canDash = false;
     public GameObject ArriveGameObject;
     public GameObject Attractor;
 

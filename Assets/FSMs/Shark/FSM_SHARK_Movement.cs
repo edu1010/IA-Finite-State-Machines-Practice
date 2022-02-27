@@ -35,6 +35,7 @@ namespace FSM
 
             wanderAround.enabled = false;
             arrive.enabled = false;
+            arrive.target = null;
         }
 
         public override void Exit()
@@ -52,10 +53,18 @@ namespace FSM
 
         void Update()
         {
-            //Debug.Log(currentState);
             if(Input.GetMouseButtonDown(0))
             {
                 blackboard.ArriveGameObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                arrive.target = blackboard.ArriveGameObject;
+            }
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                blackboard.canDash = true;
+            }
+            else
+            {
+                blackboard.canDash = false;
             }
 
             switch (currentState)
@@ -68,14 +77,12 @@ namespace FSM
                     {
                         blackboard.currentStamina += Time.deltaTime;
                     }
-                    Debug.Log("charching " + blackboard.currentStamina);
-                    Debug.Log("max stamina " + blackboard.maxStamina);
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && blackboard.currentStamina >= 0.0f)
+                    if (blackboard.canDash && blackboard.currentStamina >= 0.0f)
                     {
                         ChangeState(State.DASH); break;
                     }
 
-                    if (blackboard.ArriveGameObject.transform.position != Vector3.zero)
+                    if (arrive.target != null)
                     {
                         ChangeState(State.ARRIVE_AT_MARK); break;
                     }
@@ -86,9 +93,7 @@ namespace FSM
                         blackboard.currentStamina += Time.deltaTime;
                     }
 
-                    Debug.Log("charching " + blackboard.currentStamina);
-                    Debug.Log("max stamina " + blackboard.maxStamina);
-                    if (Input.GetKeyDown(KeyCode.LeftShift) && blackboard.currentStamina >= 0.0f)
+                    if (blackboard.canDash && blackboard.currentStamina >= 0.0f)
                     {
                         ChangeState(State.DASH); break;
                     }
@@ -98,9 +103,8 @@ namespace FSM
                     }
                     break;
                 case State.DASH:
-                    Debug.Log("dash: " + blackboard.currentStamina);
-                    blackboard.currentStamina -= Time.deltaTime;
-                    if (blackboard.currentStamina <= 0.0f)
+                    blackboard.currentStamina -= Time.deltaTime*4;
+                    if (blackboard.currentStamina <= 0.0f || blackboard.canDash == false)
                     {
                         ChangeState(State.WANDER); break;
                     }
@@ -118,12 +122,10 @@ namespace FSM
                     break;
                 case State.ARRIVE_AT_MARK:
                     arrive.enabled = false;
-                    blackboard.ArriveGameObject.transform.position = Vector3.zero;
                     arrive.target = null;
                     break;
                 case State.DASH:
                     arrive.enabled = false;
-                    blackboard.ArriveGameObject.transform.position = Vector3.zero;
                     arrive.target = null;
                     GetComponent<KinematicState>().maxSpeed /= 5.0f;
                     GetComponent<KinematicState>().maxAcceleration /= 5.0f;
@@ -141,7 +143,8 @@ namespace FSM
                     arrive.enabled = true;
                     break;
                 case State.DASH:
-                    arrive.target = blackboard.ArriveGameObject; //FALTA CAMBIAR ESTO, AHORA VA AL 0,0.
+                    
+                    arrive.target = blackboard.ArriveGameObject;
                     arrive.enabled = true;
                     GetComponent<KinematicState>().maxSpeed *= 5.0f;
                     GetComponent<KinematicState>().maxAcceleration *= 5.0f;
