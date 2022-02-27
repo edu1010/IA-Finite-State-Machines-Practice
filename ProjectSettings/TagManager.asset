@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - HIDEOUT
+  - FISH
+  - FOOD
+  - FishEated
   layers:
   - Default
   - TransparentFX

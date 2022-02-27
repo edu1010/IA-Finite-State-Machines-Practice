@@ -14,6 +14,10 @@ public class FISH_Blackboard : MonoBehaviour
     public float foodDetectableRadius;
     public float foodReachedRadius=2f;
     public float timeToEat = 2f;
+    public float incrementSeekWeight = 0.2f;
+    public float frecuencyIncrementWeight = 0.5f;
+    public float maxDistanceAtractor = 40;
+    public float minWeight = 0.2f;
     // Start is called before the first frame update
     void Start()
     {

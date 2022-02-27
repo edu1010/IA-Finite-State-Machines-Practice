@@ -16,8 +16,9 @@ namespace FSM
 
         public State currentState = State.INITIAL;
         private FISH_Blackboard blackboard;
-        private float hungry =0f;
+        private float hungry = 0f;
         private float elapsedTime = 0;
+        private float elapsedTimeFlocking = 0;
         private FlockingAroundPlusAvoid flocking;
         private WanderAround wanderAround;
         private Arrive arrive;
@@ -51,11 +52,32 @@ namespace FSM
                     ChangeState(State.FLOACKING);
                     break;
                 case State.SEARCH:
-                    food = SensingUtils.FindInstanceWithinRadius(gameObject, "food", blackboard.foodDetectableRadius);
+                    elapsedTime += Time.deltaTime;
+                    food = SensingUtils.FindInstanceWithinRadius(gameObject, "FOOD", blackboard.foodDetectableRadius);
                     if (food != null)
                     {
                         ChangeState(State.GOTO_PLANKTON);
                         break;
+                    }
+                    if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= blackboard.maxDistanceAtractor)
+                    {
+                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTime = 0f;
+                            wanderAround.SetSeekWeight(wanderAround.seekWeight + blackboard.incrementSeekWeight);
+                        }
+                    }
+                    else
+                    {
+                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTime = 0f;
+                            wanderAround.SetSeekWeight(wanderAround.seekWeight - blackboard.incrementSeekWeight);
+                            if (wanderAround.seekWeight < blackboard.minWeight)
+                            {
+                                wanderAround.SetSeekWeight(blackboard.minWeight);
+                            }
+                        }
                     }
                     break;
                 case State.GOTO_PLANKTON:
@@ -71,7 +93,6 @@ namespace FSM
                         ChangeState(State.EAT);
                         break;
                     }
-
                     break;
                 case State.EAT:
                     elapsedTime += Time.deltaTime;
@@ -94,14 +115,46 @@ namespace FSM
                     break;
                 case State.FLOACKING:
                     elapsedTime += Time.deltaTime;
+                    elapsedTimeFlocking += Time.deltaTime;
                     if (elapsedTime > 1)
                     {
                         hungry += blackboard.eatPlnktonValue;
+                        elapsedTime = 0f;
                     }
                     if (hungry > blackboard.timeFloking)
                     {
                         ChangeState(State.SEARCH);
+                        break;
                     }
+
+                    if (SensingUtils.DistanceToTarget(gameObject, flocking.attractor) >= blackboard.maxDistanceAtractor)
+                    {
+                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTimeFlocking = 0f;
+                            flocking.seekWeight += blackboard.incrementSeekWeight;
+                            if(flocking.seekWeight < blackboard.minWeight)
+                            {
+                                flocking.seekWeight = blackboard.minWeight;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTimeFlocking = 0f;
+                            flocking.seekWeight -= blackboard.incrementSeekWeight;
+                            if (flocking.seekWeight < blackboard.minWeight)
+                            {
+                                flocking.seekWeight = blackboard.minWeight;
+                            }
+                        }
+                    }
+
+
+
+
                     break;
 
             }
@@ -125,6 +178,7 @@ namespace FSM
                     arrive.enabled = false;
                     break;
                 case State.EAT:
+                    elapsedTime = 0f;
                     break;
                 case State.FLOACKING:
                     flocking.enabled = false;
@@ -142,7 +196,9 @@ namespace FSM
                     wanderAround.enabled = true;
                     break;
                 case State.GOTO_PLANKTON:
+                    elapsedTime = 0f;
                     arrive.target = food;
+                    arrive.enabled = true;
                     break;
                 case State.EAT:
                     elapsedTime = 0f;
@@ -150,7 +206,7 @@ namespace FSM
                 case State.FLOACKING:
                     elapsedTime = 0f;
                     flocking.enabled = true;
-                    flocking.idTag = "Fish";
+                    flocking.idTag = "FISH";
                     flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
 
                     break;

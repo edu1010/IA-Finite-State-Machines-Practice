@@ -4,7 +4,6 @@ using UnityEngine;
 using Steerings;
 namespace FSM
 {
-    [RequireComponent(typeof(Arrive))]
     [RequireComponent(typeof(FSM_EAT_EAT_PLANKTON))]
     [RequireComponent(typeof(FSM_HIDE))]
     
@@ -17,9 +16,7 @@ namespace FSM
 
         public State currentState = State.INITIAL;
         private FISH_Blackboard blackboard;
-        private Arrive arrive;
-        private Flocking flocking;
-
+       
         private FSM_EAT_EAT_PLANKTON eatFSM;
         private FSM_HIDE hideFSM;
         
@@ -28,6 +25,7 @@ namespace FSM
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
             hideFSM = GetComponent<FSM_HIDE>();
+            blackboard = GetComponent<FISH_Blackboard>();
         }
         public override void Exit()
         {
@@ -48,8 +46,6 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    hideFSM.enabled = false;
-                    eatFSM.enabled = false;
                     ChangeState(State.EAT);
                     break;
                 case State.EAT:
@@ -75,7 +71,8 @@ namespace FSM
             switch (currentState) 
             {
                 case State.INITIAL:
-                    //ChangeState(State.EAT);
+                    hideFSM.Exit();
+                    eatFSM.Exit();
                     break;
                 case State.EAT:
                     eatFSM.Exit();
