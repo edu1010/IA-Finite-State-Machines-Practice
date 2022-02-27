@@ -84,7 +84,6 @@ namespace FSM
                         }
                         else
                         {
-                            //ChangeState(State.GOTO_FISH); //?
                             ChangeState(State.CHANGE_MOVEMENT);
                         }
                         break;
@@ -92,10 +91,15 @@ namespace FSM
                     break;
                 case State.EAT_FISH:
                     elapsedTime += Time.deltaTime;
+                    GameObject[] fishesEated = GameObject.FindGameObjectsWithTag("FishEated");
                     if (elapsedTime >= blackboard.maxTimeEatting)
                     {
+                        //fishes tag "FishEated" delete
+                        foreach (GameObject target in fishesEated)
+                        {
+                            GameObject.Destroy(target);
+                        }
                         blackboard.currentFishes = 0;
-                        //fishes tag "" delete
                         ChangeState(State.CHANGE_MOVEMENT);
                         break;
                     }
@@ -120,6 +124,7 @@ namespace FSM
                     fish.transform.parent = gameObject.transform;
                     break;
                 case State.EAT_FISH:
+                    blackboard.currentFishes = 0;
                     break;
                 case State.CHANGE_MOVEMENT:
                     sharkFsmMovement.ReEnter();
