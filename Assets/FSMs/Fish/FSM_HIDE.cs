@@ -8,7 +8,7 @@ namespace FSM
     {
         public enum State
         {
-            INITIAL,GOTO_TORTOISE,SERACH_ANEMONA,GOTO_ANEMONA,WAIT
+            INITIAL,GOTO_TORTOISE,SEARCH_ANEMONA,GOTO_ANEMONA,WAIT,SEARCH_TORTOISE
         };
 
         public State currentState = State.INITIAL;
@@ -46,42 +46,38 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.GOTO_TORTOISE);
+                    ChangeState(State.SEARCH_TORTOISE);
                     break; 
                 case State.GOTO_TORTOISE:
-                   
-                    if (nearTortoise == null)
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.foodReachedRadius)
                     {
-                        nearTortoise = SensingUtils.FindInstanceWithinRadius(gameObject, "TORTOISE", blackboard.radiusNearTortoise);
-                        arrive.enabled = true;
-                        arrive.target = nearTortoise;
-                        elapsedTime += Time.deltaTime;
-                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                        if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
                         {
-                            elapsedTime = 0f;
-                            wanderAround.SetSeekWeight(blackboard.incrementSeekWeight + wanderAround.seekWeight);
+                            transform.parent = nearTortoise.transform;
+                            ChangeState(State.WAIT);
+                            break;
+                        }
+                        else
+                        {
+                            ChangeState(State.SEARCH_ANEMONA);
+                            break;
                         }
                     }
-                    else
+                    break;
+                case State.SEARCH_TORTOISE:
+                    nearTortoise = SensingUtils.FindInstanceWithinRadius(gameObject, "TORTOISE", blackboard.radiusNearTortoise);
+                    if(nearTortoise != null)
                     {
-                        wanderAround.enabled = false;
-                        if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.foodReachedRadius)
-                        {
-                            if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
-                            {
-                                transform.parent = nearTortoise.transform;
-                                ChangeState(State.WAIT);
-                                break;
-                            }
-                            else
-                            {
-                                ChangeState(State.SERACH_ANEMONA);
-                                break;
-                            }
-                        }
+                        ChangeState(State.GOTO_TORTOISE);
                     }
-                    break; 
-                case State.SERACH_ANEMONA:
+                    elapsedTime += Time.deltaTime;
+                    if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                    {
+                        elapsedTime = 0f;
+                        wanderAround.SetSeekWeight(blackboard.incrementSeekWeight + wanderAround.seekWeight);
+                    }
+                    break;
+                case State.SEARCH_ANEMONA:
                     elapsedTime += Time.deltaTime;
                     elapsedTimeSearch += Time.deltaTime;
                     if (elapsedTimeSearch > blackboard.maxTimeSearchAnemona)
@@ -120,7 +116,11 @@ namespace FSM
                     elapsedTime = 0;
                     arrive.enabled = false;
                     break;
-                case State.SERACH_ANEMONA:
+                case State.SEARCH_ANEMONA:
+                    elapsedTime = 0;
+                    wanderAround.enabled = false;
+                    break; 
+                case State.SEARCH_TORTOISE:
                     elapsedTime = 0;
                     wanderAround.enabled = false;
                     break;
@@ -138,20 +138,16 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
-                    nearTortoise = SensingUtils.FindInstanceWithinRadius(gameObject, "TORTOISE", blackboard.radiusNearTortoise);
-                    if (nearTortoise != null)
-                    {
-                        arrive.enabled = true;
-                        arrive.target = nearTortoise;
-                    }
-                    else
-                    {
-                        wanderAround.enabled = true;
-                        wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
-                    }
+                  arrive.enabled = true;
+                  arrive.target = nearTortoise;
+
                     break;
-                case State.SERACH_ANEMONA:
+                case State.SEARCH_ANEMONA:
                     wanderAround.enabled = true;
+                    break;
+                case State.SEARCH_TORTOISE:
+                    wanderAround.enabled = true;
+                    wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     break;
                 case State.GOTO_ANEMONA:
                     arrive.enabled = true;

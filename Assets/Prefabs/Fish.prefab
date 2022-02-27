@@ -102,7 +102,7 @@ MonoBehaviour:
   wdWeight: 0.23
   showWhisker: 1
   lookAheadLength: 10
-  avoidDistance: 10
+  avoidDistance: 1.22
   secondaryWhiskerAngle: 30
   secondaryWhiskerRatio: 0.7
 --- !u!114 &1406885550891484147
@@ -118,9 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
-  wanderRate: 30
-  wanderRadius: 10
-  wanderOffset: 20
+  wanderRate: 5
+  wanderRadius: 2
+  wanderOffset: 2
   attractor: {fileID: 0}
   seekWeight: 0.2
 --- !u!114 &1406885550891498508
@@ -178,15 +178,19 @@ MonoBehaviour:
   maxDistanceToShark: 10
   WhenIsfeed: 10
   eatPlnktonValue: 1
-  timeFloking: 4
+  timeFloking: 20
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 4
-  foodReachedRadius: 2
+  foodReachedRadius: 4
   timeToEat: 2
   incrementSeekWeight: 0.2
   frecuencyIncrementWeight: 0.5
   maxDistanceAtractor: 40
+  minWeight: 0.2
+  radiusNearTortoise: 20
+  maxFishInTortoise: 5
+  maxTimeSearchAnemona: 4
 --- !u!1 &1406885551225127887
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ namespace FSM
                     break;
                 case State.SEARCH:
                     elapsedTime += Time.deltaTime;
-                    food = SensingUtils.FindInstanceWithinRadius(gameObject, "FOOD", blackboard.foodDetectableRadius);
+                    food = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH_FOOD", blackboard.foodDetectableRadius);
                     if (food != null)
                     {
                         ChangeState(State.GOTO_PLANKTON);
@@ -74,6 +74,7 @@ namespace FSM
                     // check if the food has been reached 
                     if (SensingUtils.DistanceToTarget(gameObject, food) <= blackboard.foodReachedRadius)
                     {
+                        food.tag = "FISH_FOOD_EATEN";
                         ChangeState(State.EAT);
                         break;
                     }
