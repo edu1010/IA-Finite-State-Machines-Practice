@@ -5,11 +5,17 @@ using Steerings;
 
 namespace FSM
 {
+    [RequireComponent(typeof(Arrive))]
+    [RequireComponent(typeof(Seek))]
+    [RequireComponent(typeof(SHARK_Blackboard))]
     public class FSM_Harpoon : FiniteStateMachine
     {
         public enum State
         {
-            INITIAL
+            INITIAL,
+            WANDER,
+            ATTACK_SHARK,
+            PICK_HARPOON
         };
 
         public State currentState = State.INITIAL;
@@ -36,7 +42,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.INITIAL);
+                    ChangeState(State.WANDER);
                     break;
             }
         }

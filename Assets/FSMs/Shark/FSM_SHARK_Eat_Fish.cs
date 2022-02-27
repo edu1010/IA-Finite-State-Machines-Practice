@@ -5,7 +5,6 @@ using Steerings;
 
 namespace FSM
 {
-    [RequireComponent(typeof(WanderAround))]
     [RequireComponent(typeof(Arrive))]
     [RequireComponent(typeof(SHARK_Blackboard))]
     public class FSM_SHARK_Eat_Fish : FiniteStateMachine
