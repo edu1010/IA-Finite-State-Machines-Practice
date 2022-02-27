@@ -8,6 +8,7 @@ TagManager:
   - FISH
   - FOOD
   - FishEated
+  - TORTOISE
   layers:
   - Default
   - TransparentFX

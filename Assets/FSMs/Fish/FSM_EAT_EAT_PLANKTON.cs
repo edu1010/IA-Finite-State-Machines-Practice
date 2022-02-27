@@ -34,6 +34,9 @@ namespace FSM
         }
         public override void Exit()
         {
+            arrive.enabled = false;
+            wanderAround.enabled = false;
+            flocking.enabled = false;
             base.Exit();
         }
 
@@ -59,26 +62,7 @@ namespace FSM
                         ChangeState(State.GOTO_PLANKTON);
                         break;
                     }
-                    if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= blackboard.maxDistanceAtractor)
-                    {
-                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTime = 0f;
-                            wanderAround.SetSeekWeight(wanderAround.seekWeight + blackboard.incrementSeekWeight);
-                        }
-                    }
-                    else
-                    {
-                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTime = 0f;
-                            wanderAround.SetSeekWeight(wanderAround.seekWeight - blackboard.incrementSeekWeight);
-                            if (wanderAround.seekWeight < blackboard.minWeight)
-                            {
-                                wanderAround.SetSeekWeight(blackboard.minWeight);
-                            }
-                        }
-                    }
+                    elapsedTime = blackboard.ChangeWeightWander(wanderAround, elapsedTime);
                     break;
                 case State.GOTO_PLANKTON:
                     // check if the food has vanished
@@ -214,6 +198,7 @@ namespace FSM
             }
             currentState = newState;
         }
+
     }
 }
 

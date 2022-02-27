@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Steerings;
 public class FISH_Blackboard : MonoBehaviour
 {
     public GameObject shark;
@@ -18,15 +18,32 @@ public class FISH_Blackboard : MonoBehaviour
     public float frecuencyIncrementWeight = 0.5f;
     public float maxDistanceAtractor = 40;
     public float minWeight = 0.2f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float radiusNearTortoise = 20f;
+    public int maxFishInTortoise = 5;
+    public float maxTimeSearchAnemona = 4f;
 
-    // Update is called once per frame
-    void Update()
+    public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
-        
+        if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= maxDistanceAtractor)
+        {
+            if (elapsedTime > frecuencyIncrementWeight)
+            {
+                elapsedTime = 0f;
+                wanderAround.SetSeekWeight(wanderAround.seekWeight + incrementSeekWeight);
+            }
+        }
+        else
+        {
+            if (elapsedTime > frecuencyIncrementWeight)
+            {
+                elapsedTime = 0f;
+                wanderAround.SetSeekWeight(wanderAround.seekWeight - incrementSeekWeight);
+                if (wanderAround.seekWeight < minWeight)
+                {
+                    wanderAround.SetSeekWeight(minWeight);
+                }
+            }
+        }
+        return elapsedTime;
     }
 }
