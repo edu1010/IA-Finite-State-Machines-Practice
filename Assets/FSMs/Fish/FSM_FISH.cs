@@ -5,7 +5,9 @@ using Steerings;
 namespace FSM
 {
     [RequireComponent(typeof(Arrive))]
-    [RequireComponent(typeof(Flocking))]
+    [RequireComponent(typeof(FSM_EAT_EAT_PLANKTON))]
+    [RequireComponent(typeof(FSM_HIDE))]
+    
     public class FSM_FISH : FiniteStateMachine
     {
         public enum State
@@ -18,14 +20,14 @@ namespace FSM
         private Arrive arrive;
         private Flocking flocking;
 
-        private FSM_EAT_EAT_PLANKTON eatBehievour;
-        private FSM_HIDE hideBehievour;
+        private FSM_EAT_EAT_PLANKTON eatFSM;
+        private FSM_HIDE hideFSM;
         
         // Start is called before the first frame update
         void Start()
         {
-            eatBehievour = GetComponent<FSM_EAT_EAT_PLANKTON>();
-            hideBehievour = GetComponent<FSM_HIDE>();
+            eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
+            hideFSM = GetComponent<FSM_HIDE>();
         }
         public override void Exit()
         {
@@ -35,6 +37,8 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            hideFSM.enabled = false;
+            eatFSM.enabled = false;
             base.ReEnter();
         }
 
@@ -44,11 +48,22 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
+                    hideFSM.enabled = false;
+                    eatFSM.enabled = false;
                     ChangeState(State.EAT);
                     break;
                 case State.EAT:
+                    if(blackboard.maxDistanceToShark > SensingUtils.DistanceToTarget(gameObject, blackboard.shark)){
+                        ChangeState(State.HIDE);
+                    }
+
                     break;
                 case State.HIDE:
+                    if (blackboard.maxDistanceToShark < SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
+                    {
+                        ChangeState(State.EAT);
+                    }
+
                     break;
             }
         }
@@ -60,13 +75,13 @@ namespace FSM
             switch (currentState) 
             {
                 case State.INITIAL:
-                    ChangeState(State.EAT);
+                    //ChangeState(State.EAT);
                     break;
                 case State.EAT:
-                    eatBehievour.Exit();
+                    eatFSM.Exit();
                     break;
                 case State.HIDE:
-                    hideBehievour.Exit();
+                    hideFSM.Exit();
                     break;
 
             }
@@ -75,10 +90,10 @@ namespace FSM
             switch (newState)
             {
                 case State.EAT:
-                    eatBehievour.ReEnter();
+                    eatFSM.ReEnter();
                     break;
                 case State.HIDE:
-                    hideBehievour.ReEnter();
+                    hideFSM.ReEnter();
                     break;
             }
             currentState = newState;
