@@ -57,14 +57,23 @@ namespace FSM
                     {
                         ChangeState(State.GO_TO_B);
                     }
+                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+                    {
+                        ChangeState(State.ATTACK_SHARK);
+                    }
                     break;
                 case State.GO_TO_B:
                     if ((transform.position - blackboard.attractorB.transform.position).magnitude < blackboard.attractorReachedRadious)
                     {
                         ChangeState(State.GO_TO_A);
                     }
+                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+                    {
+                        ChangeState(State.ATTACK_SHARK);
+                    }
                     break;
                 case State.ATTACK_SHARK:
+                    Debug.Log("attack shark");
                     break;
                 case State.PICK_HARPOON:
                     break;

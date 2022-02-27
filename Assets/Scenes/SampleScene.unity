@@ -1095,7 +1095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorA: {fileID: 599769833}
   attractorB: {fileID: 191513530}
+  shark: {fileID: 1580934759}
   attractorReachedRadious: 10
+  sharkDetectableRadious: 10
 --- !u!4 &773010876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1406885550891484151, guid: aa0bfad96b68c524e8a9005c578afc8f, type: 3}
