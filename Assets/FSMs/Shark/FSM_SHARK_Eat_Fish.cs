@@ -59,10 +59,12 @@ namespace FSM
                     fish = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishDetectionRadius);
                     if (fish != null)
                     {
+                        Debug.Log("fish detected");
                         ChangeState(State.GOTO_FISH);
                     }
                     break;
                 case State.GOTO_FISH:
+                    Debug.Log("go to fish");
                     if (fish == null || fish.Equals(null))
                     {
                         ChangeState(State.CHANGE_MOVEMENT);
@@ -90,6 +92,7 @@ namespace FSM
                     }
                     break;
                 case State.EAT_FISH:
+                    Debug.Log("eat fish");
                     elapsedTime += Time.deltaTime;
                     GameObject[] fishesEated = GameObject.FindGameObjectsWithTag("FishEated");
                     if (elapsedTime >= blackboard.maxTimeEatting)
@@ -127,6 +130,7 @@ namespace FSM
                     blackboard.currentFishes = 0;
                     break;
                 case State.CHANGE_MOVEMENT:
+                    Debug.Log("change FSM movement");
                     sharkFsmMovement.ReEnter();
                     break;
 
