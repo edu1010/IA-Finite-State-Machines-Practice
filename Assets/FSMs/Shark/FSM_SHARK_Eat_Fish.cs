@@ -5,7 +5,6 @@ using Steerings;
 
 namespace FSM
 {
-    [RequireComponent(typeof(WanderAround))]
     [RequireComponent(typeof(Arrive))]
     [RequireComponent(typeof(SHARK_Blackboard))]
     public class FSM_SHARK_Eat_Fish : FiniteStateMachine
@@ -59,10 +58,12 @@ namespace FSM
                     fish = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishDetectionRadius);
                     if (fish != null)
                     {
+                        Debug.Log("fish detected");
                         ChangeState(State.GOTO_FISH);
                     }
                     break;
                 case State.GOTO_FISH:
+                    Debug.Log("go to fish");
                     if (fish == null || fish.Equals(null))
                     {
                         ChangeState(State.CHANGE_MOVEMENT);
@@ -84,18 +85,23 @@ namespace FSM
                         }
                         else
                         {
-                            //ChangeState(State.GOTO_FISH); //?
                             ChangeState(State.CHANGE_MOVEMENT);
                         }
                         break;
                     }
                     break;
                 case State.EAT_FISH:
+                    Debug.Log("eat fish");
                     elapsedTime += Time.deltaTime;
+                    GameObject[] fishesEated = GameObject.FindGameObjectsWithTag("FishEated");
                     if (elapsedTime >= blackboard.maxTimeEatting)
                     {
+                        //fishes tag "FishEated" delete
+                        foreach (GameObject target in fishesEated)
+                        {
+                            GameObject.Destroy(target);
+                        }
                         blackboard.currentFishes = 0;
-                        //fishes tag "" delete
                         ChangeState(State.CHANGE_MOVEMENT);
                         break;
                     }
@@ -120,8 +126,10 @@ namespace FSM
                     fish.transform.parent = gameObject.transform;
                     break;
                 case State.EAT_FISH:
+                    blackboard.currentFishes = 0;
                     break;
                 case State.CHANGE_MOVEMENT:
+                    Debug.Log("change FSM movement");
                     sharkFsmMovement.ReEnter();
                     break;
 
