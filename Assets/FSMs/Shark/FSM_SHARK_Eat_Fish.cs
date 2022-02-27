@@ -11,13 +11,15 @@ namespace FSM
     public class FSM_SHARK_Eat_Fish : FiniteStateMachine
     {
         private GameObject fish;
+        private FSM_SHARK_Movement sharkFsmMovement;
         public enum State
         {
                 INITIAL,
                 DETECT_FISH,
                 GOTO_FISH,
                 ARRIVE_AT_FISHBOWL,
-                EAT_FISH
+                EAT_FISH,
+                CHANGE_MOVEMENT
         };
         public State currentState = State.INITIAL;
 
@@ -27,16 +29,17 @@ namespace FSM
         
         void Start()
         {
-                arrive = GetComponent<Arrive>();
-                blackboard = GetComponent<SHARK_Blackboard>();
+            arrive = GetComponent<Arrive>();
+            blackboard = GetComponent<SHARK_Blackboard>();
+            sharkFsmMovement = GetComponent<FSM_SHARK_Movement>();
 
-
-                arrive.enabled = false;
+            arrive.enabled = false;
         }
         
         public override void Exit()
         {
             arrive.enabled = false;
+            sharkFsmMovement.enabled = false;
             base.Exit();
         }
         public override void ReEnter()
@@ -62,7 +65,7 @@ namespace FSM
                 case State.GOTO_FISH:
                     if (fish == null || fish.Equals(null))
                     {
-                        //FSM_MOVEMENT
+                        ChangeState(State.CHANGE_MOVEMENT);
                         break;
                     }
                     if ((SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishReachedRadius))
@@ -81,7 +84,8 @@ namespace FSM
                         }
                         else
                         {
-                            ChangeState(State.GOTO_FISH); //?
+                            //ChangeState(State.GOTO_FISH); //?
+                            ChangeState(State.CHANGE_MOVEMENT);
                         }
                         break;
                     }
@@ -92,7 +96,7 @@ namespace FSM
                     {
                         blackboard.currentFishes = 0;
                         //fishes tag "" delete
-                        //FSM_MOVEMENT 
+                        ChangeState(State.CHANGE_MOVEMENT);
                         break;
                     }
                     break;
@@ -117,6 +121,9 @@ namespace FSM
                     break;
                 case State.EAT_FISH:
                     break;
+                case State.CHANGE_MOVEMENT:
+                    sharkFsmMovement.ReEnter();
+                    break;
 
             }
             
@@ -134,7 +141,9 @@ namespace FSM
                     fish.tag = "FishEated";
                     break;
                 case State.EAT_FISH:
-                    
+                    break;
+                case State.CHANGE_MOVEMENT:
+                    sharkFsmMovement.Exit();
                     break;
 
             }
