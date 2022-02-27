@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 716207447}
   - component: {fileID: 716207446}
   - component: {fileID: 716207450}
-  - component: {fileID: 716207449}
+  - component: {fileID: 716207451}
   m_Layer: 0
   m_Name: Harpoon
   m_TagString: Untagged
@@ -1064,20 +1064,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &716207449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716207445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05a7351400fffc349b5c0699488d25c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rotationalPolicy: 1
 --- !u!114 &716207450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1081,21 @@ MonoBehaviour:
   slowDownRadius: 20
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
+--- !u!114 &716207451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716207445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6426297da9ced4499fd3f898997ee6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractorA: {fileID: 599769833}
+  attractorB: {fileID: 191513530}
+  attractorReachedRadious: 10
 --- !u!4 &773010876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1406885550891484151, guid: aa0bfad96b68c524e8a9005c578afc8f, type: 3}
