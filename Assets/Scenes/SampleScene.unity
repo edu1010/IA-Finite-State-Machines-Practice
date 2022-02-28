@@ -442,7 +442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191513531}
   m_Layer: 0
-  m_Name: Attractor Harpoon B
+  m_Name: Attractor Boat B
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1284,7 +1284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599769834}
   m_Layer: 0
-  m_Name: Attractor Harpoon A
+  m_Name: Attractor Boat A
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4092,6 +4092,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
+--- !u!1 &846423294249241554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5445777499435410966, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
+  m_PrefabInstance: {fileID: 846423294249241553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &846423294249241555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846423294249241554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAcceleration: 2
+  maxSpeed: 10
+  maxAngularAcceleration: 45
+  maxAngularSpeed: 45
+  position: {x: 0, y: 0, z: 0}
+  orientation: 0
+  linearVelocity: {x: 0, y: 0, z: 0}
+  angularSpeed: 0
+--- !u!114 &846423294249241556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846423294249241554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6426297da9ced4499fd3f898997ee6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractorA: {fileID: 599769833}
+  attractorB: {fileID: 191513530}
+  shark: {fileID: 1580934759}
+  sharkDetectableRadious: 10
+  timeAttack: 5
+  attractorReachedRadious: 10
+  attack: 0
 --- !u!1001 &1406885551362565107
 PrefabInstance:
   m_ObjectHideFlags: 0

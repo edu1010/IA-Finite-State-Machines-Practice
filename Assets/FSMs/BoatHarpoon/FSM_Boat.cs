@@ -7,14 +7,15 @@ namespace FSM
 {
     [RequireComponent(typeof(Arrive))]
     [RequireComponent(typeof(HARPOON_Blackboard))]
-    public class FSM_Harpoon : FiniteStateMachine
+    public class FSM_Boat : FiniteStateMachine
     {
         
         public enum State
         {
             INITIAL,
-            ATTACK_SHARK,
-            PICK_HARPOON
+            GO_TO_A,
+            GO_TO_B
+            
         };
 
         public State currentState = State.INITIAL;
@@ -50,19 +51,29 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.ATTACK_SHARK);
+                    ChangeState(State.GO_TO_A);
                     break;
-                case State.ATTACK_SHARK:
-                    Debug.Log("attack shark");
-                    if (elapsedTime >= blackboard.timeAttack)
+                case State.GO_TO_A:
+                    if ((transform.position - blackboard.attractorA.transform.position).magnitude < blackboard.attractorReachedRadious)
                     {
-                        ChangeState(State.PICK_HARPOON);
-                        Debug.Log("Me retiro");
+                        ChangeState(State.GO_TO_B);
                     }
-                    elapsedTime += Time.deltaTime;
+                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+                    {
+                        blackboard.attack = true;
+                    }
                     break;
-                case State.PICK_HARPOON:
+                case State.GO_TO_B:
+                    if ((transform.position - blackboard.attractorB.transform.position).magnitude < blackboard.attractorReachedRadious)
+                    {
+                        ChangeState(State.GO_TO_A);
+                    }
+                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+                    {
+                        blackboard.attack = true;
+                    }
                     break;
+                
             }
         }
 
@@ -71,21 +82,27 @@ namespace FSM
             // ENTER STATE LOGIC. Depends on newState
             switch (newState)
             {
-                
-                case State.ATTACK_SHARK:
-                    elapsedTime = 0;
-                    arrive.target = blackboard.shark; //target gusano seleccionado
+                case State.GO_TO_A:
+                    arrive.target = blackboard.attractorA; //target gusano seleccionado
                     arrive.enabled = true;
                     break;
+                case State.GO_TO_B:
+                    arrive.target = blackboard.attractorB; //target gusano seleccionado
+                    arrive.enabled = true;
+                    break;
+                
             }
 
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
             {
-                
-                case State.ATTACK_SHARK:
-                    elapsedTime = 0;
+                case State.GO_TO_A:
+                    //arrive.enabled = false;
                     break;
+                case State.GO_TO_B:
+                    //arrive.enabled = false;
+                    break;
+                
             }
 
             currentState = newState;
