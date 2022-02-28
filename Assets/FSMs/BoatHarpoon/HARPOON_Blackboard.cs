@@ -9,9 +9,15 @@ public class HARPOON_Blackboard : MonoBehaviour
     public GameObject attractorB;
     public GameObject shark;
 
-    public float attractorReachedRadious = 10.0f;
+    [Header("Harpoon")]
     public float sharkDetectableRadious = 10.0f;
     public float timeAttack = 5.0f;
+
+    [Header("Boat")]
+    public float attractorReachedRadious = 10.0f;
+
+    public bool attack = false;
+
 
 }
 
