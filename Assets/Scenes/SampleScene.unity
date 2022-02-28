@@ -5687,6 +5687,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5980369973846335298, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
+      propertyPath: closeEnoughRadius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5980369973846335299, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
       propertyPath: boat
       value: 
@@ -5703,6 +5707,10 @@ PrefabInstance:
       propertyPath: attractorB
       value: 
       objectReference: {fileID: 191513530}
+    - target: {fileID: 5980369973846335299, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
+      propertyPath: boatCloseEnoughtRadius
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5980369973846335299, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
       propertyPath: sharkDetectableRadious
       value: 100
