@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 180357112}
   - component: {fileID: 180357111}
   m_Layer: 0
-  m_Name: FoodSpawner
+  m_Name: FoodSpawnerFishInCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5458,11 +5458,15 @@ MonoBehaviour:
   attractorA: {fileID: 599769833}
   attractorB: {fileID: 191513530}
   shark: {fileID: 1580934759}
+  boat: {fileID: 0}
   sharkDetectableRadious: 10
   timeAttack: 5
+  timeToAttackAgain: 10
+  boatCloseEnoughtRadius: 10
   attractorReachedRadious: 10
   maxTimeStay: 4
   attack: 0
+  harpoonPicked: 0
 --- !u!114 &846423294249241560
 MonoBehaviour:
   m_ObjectHideFlags: 0
