@@ -5,7 +5,7 @@ using Steerings;
 public class FISH_Blackboard : MonoBehaviour
 {
     public GameObject shark;
-    public float maxDistanceToShark = 10f;
+    public float maxDistanceToShark = 20f;
     public float WhenIsfeed = 10f;
     public float eatPlnktonValue = 1f;
     public float timeFloking = 4f;

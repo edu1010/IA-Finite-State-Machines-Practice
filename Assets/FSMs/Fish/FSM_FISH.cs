@@ -22,6 +22,7 @@ namespace FSM
         private float elapsedTime;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
+        public float distance;
         
         // Start is called before the first frame update
         void Start()
@@ -53,6 +54,7 @@ namespace FSM
                     ChangeState(State.FLOKING);
                     break;
                 case State.EAT:
+                    distance = SensingUtils.DistanceToTarget(gameObject, blackboard.shark);
                     if(blackboard.maxDistanceToShark > SensingUtils.DistanceToTarget(gameObject, blackboard.shark)){
                         ChangeState(State.HIDE);
                     }

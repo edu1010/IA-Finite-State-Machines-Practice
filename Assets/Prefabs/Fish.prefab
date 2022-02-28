@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  distance: 0
 --- !u!114 &1406885550891498511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shark: {fileID: 0}
-  maxDistanceToShark: 10
+  maxDistanceToShark: 20
   WhenIsfeed: 10
   eatPlnktonValue: 1
   timeFloking: 4
@@ -164,6 +165,7 @@ MonoBehaviour:
   maxFishInTortoise: 5
   maxTimeSearchAnemona: 4
   currentHungry: 0
+  maxWeitghWander: 0.6
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0

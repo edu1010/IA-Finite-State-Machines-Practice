@@ -13,6 +13,7 @@ TagManager:
   - FISH_FOOD_EATEN
   - FISH_FOOD
   - SURFACE
+  - SHARK
   layers:
   - Default
   - TransparentFX

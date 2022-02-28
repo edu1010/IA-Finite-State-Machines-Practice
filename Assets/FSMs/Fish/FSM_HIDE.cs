@@ -4,6 +4,7 @@ using UnityEngine;
 using Steerings;
 namespace FSM
 {
+    [RequireComponent(typeof(Flee))]
     public class FSM_HIDE : FiniteStateMachine
     {
         public enum State
@@ -19,17 +20,20 @@ namespace FSM
         private float elapsedTime = 0;
         private float elapsedTimeSearch = 0;
         private GameObject anemona;
+        private Flee flee;
         // Start is called before the first frame update
         void Awake()
         {
             blackboard = GetComponent<FISH_Blackboard>();
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
+            flee = GetComponent<Flee>();
         }
         public override void Exit()
         {
             arrive.enabled = false;
             wanderAround.enabled = false;
+            flee.enabled = false;
             transform.parent = null;
             base.Exit();
         }
@@ -69,12 +73,6 @@ namespace FSM
                     if(nearTortoise != null)
                     {
                         ChangeState(State.GOTO_TORTOISE);
-                    }
-                    elapsedTime += Time.deltaTime;
-                    if (elapsedTime > blackboard.frecuencyIncrementWeight)
-                    {
-                        elapsedTime = 0f;
-                        wanderAround.SetSeekWeight(blackboard.incrementSeekWeight + wanderAround.seekWeight);
                     }
                     break;
                 case State.SEARCH_ANEMONA:
@@ -123,9 +121,11 @@ namespace FSM
                 case State.SEARCH_TORTOISE:
                     elapsedTime = 0;
                     wanderAround.enabled = false;
+                    flee.enabled = false;
                     break;
                 case State.GOTO_ANEMONA:
                     elapsedTime = 0;
+
                     arrive.enabled = false;
                     break;
                 case State.WAIT:
@@ -146,7 +146,9 @@ namespace FSM
                     wanderAround.enabled = true;
                     break;
                 case State.SEARCH_TORTOISE:
-                    wanderAround.enabled = true;
+                    flee.enabled = true;
+                    flee.target = blackboard.shark;
+                   // wanderAround.enabled = true;
                     wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     break;
                 case State.GOTO_ANEMONA:
