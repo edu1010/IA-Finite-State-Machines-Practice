@@ -5218,7 +5218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.45
+      value: 14.6
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5275,7 +5275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 2
+  maxAcceleration: 8
   maxSpeed: 10
   maxAngularAcceleration: 45
   maxAngularSpeed: 45
@@ -5327,7 +5327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8d7fc7ec5bee74d8f10388aa85895a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationalPolicy: 1
+  rotationalPolicy: 4
   closeEnoughRadius: 5
   slowDownRadius: 20
   timeToDesiredSpeed: 0.1
