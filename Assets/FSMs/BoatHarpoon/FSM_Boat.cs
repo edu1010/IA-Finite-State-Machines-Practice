@@ -5,7 +5,7 @@ using Steerings;
 
 namespace FSM
 {
-    [RequireComponent(typeof(Arrive))]
+    [RequireComponent(typeof(ArriveBoat))]
     [RequireComponent(typeof(HARPOON_Blackboard))]
     public class FSM_Boat : FiniteStateMachine
     {
@@ -21,21 +21,24 @@ namespace FSM
         public State currentState = State.INITIAL;
 
         private HARPOON_Blackboard blackboard;
-        private Arrive arrive;
+        private ArriveBoat arriveBoat;
 
         private float elapsedTime = 0.0f;
+
+        private float posY;
 
         // Start is called before the first frame update
         void Start()
         {
-            arrive = GetComponent<Arrive>();
+            posY = transform.position.y;
+            arriveBoat = GetComponent<ArriveBoat>();
             blackboard = GetComponent<HARPOON_Blackboard>();
 
-            arrive.enabled = false;
+            arriveBoat.enabled = false;
         }
         public override void Exit()
         {
-            arrive.enabled = false;
+            arriveBoat.enabled = false;
 
             base.Exit();
         }
@@ -48,6 +51,7 @@ namespace FSM
         // Update is called once per frame
         void Update()
         {
+            transform.position = new Vector2( transform.position.x ,posY);
             switch (currentState)
             {
                 case State.INITIAL:
@@ -83,12 +87,12 @@ namespace FSM
             switch (newState)
             {
                 case State.GO_TO_A:
-                    arrive.target = blackboard.attractorA; //target gusano seleccionado
-                    arrive.enabled = true;
+                    arriveBoat.target = blackboard.attractorA; //target gusano seleccionado
+                    arriveBoat.enabled = true;
                     break;
                 case State.GO_TO_B:
-                    arrive.target = blackboard.attractorB; //target gusano seleccionado
-                    arrive.enabled = true;
+                    arriveBoat.target = blackboard.attractorB; //target gusano seleccionado
+                    arriveBoat.enabled = true;
                     break;
                 
             }
@@ -97,10 +101,10 @@ namespace FSM
             switch (currentState)
             {
                 case State.GO_TO_A:
-                    //arrive.enabled = false;
+                    //arriveBoat.enabled = false;
                     break;
                 case State.GO_TO_B:
-                    //arrive.enabled = false;
+                    //arriveBoat.enabled = false;
                     break;
                 
             }
