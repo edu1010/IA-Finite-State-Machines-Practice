@@ -24,7 +24,7 @@ namespace FSM
         private GameObject food;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             blackboard = GetComponent<FISH_Blackboard>();
             flocking = GetComponent<FlockingAround>();

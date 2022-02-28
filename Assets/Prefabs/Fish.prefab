@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406885550891498504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.260185, y: 0.18141413, z: 0.7449138}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406885550891498504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc66d768a4825a418beebe7b6fe6a56, type: 3}
   m_Name: 
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406885550891498504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9015112249c270946897302dd5144606, type: 3}
   m_Name: 
@@ -150,7 +150,7 @@ MonoBehaviour:
   maxDistanceToShark: 10
   WhenIsfeed: 10
   eatPlnktonValue: 1
-  timeFloking: 11.29
+  timeFloking: 2
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 4
@@ -163,6 +163,7 @@ MonoBehaviour:
   radiusNearTortoise: 20
   maxFishInTortoise: 5
   maxTimeSearchAnemona: 4
+  currentHungry: 0
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0

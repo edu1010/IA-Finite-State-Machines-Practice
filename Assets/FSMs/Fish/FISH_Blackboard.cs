@@ -47,4 +47,8 @@ public class FISH_Blackboard : MonoBehaviour
         }
         return elapsedTime;
     }
+    public void IncrementHungry()
+    {
+        currentHungry += eatPlnktonValue;
+    }
 }
