@@ -22,6 +22,7 @@ public class FISH_Blackboard : MonoBehaviour
     public int maxFishInTortoise = 5;
     public float maxTimeSearchAnemona = 4f;
     public float currentHungry;
+    public float maxWeitghWander = 0.6f;
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
         if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= maxDistanceAtractor)
@@ -38,9 +39,14 @@ public class FISH_Blackboard : MonoBehaviour
             {
                 elapsedTime = 0f;
                 wanderAround.SetSeekWeight(wanderAround.seekWeight - incrementSeekWeight);
+                
                 if (wanderAround.seekWeight < minWeight)
                 {
                     wanderAround.SetSeekWeight(minWeight);
+                }
+                if (wanderAround.seekWeight > maxWeitghWander)
+                {
+                    wanderAround.SetSeekWeight(maxWeitghWander);
                 }
             }
         }
