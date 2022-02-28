@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shark: {fileID: 0}
-  maxDistanceToShark: 20
+  maxDistanceToShark: 40
   WhenIsfeed: 10
   eatPlnktonValue: 1
   timeFloking: 4
