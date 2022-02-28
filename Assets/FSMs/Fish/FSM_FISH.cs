@@ -24,7 +24,6 @@ namespace FSM
         private FlockingAround flocking;
         public float distance;
         
-        // Start is called before the first frame update
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
@@ -34,6 +33,9 @@ namespace FSM
         }
         public override void Exit()
         {
+            eatFSM.Exit();
+            hideFSM.Exit();
+            flocking.enabled = false;
             base.Exit();
         }
 
@@ -45,7 +47,6 @@ namespace FSM
             base.ReEnter();
         }
 
-        // Update is called once per frame
         void Update()
         {
             switch (currentState)

@@ -13,8 +13,6 @@ namespace FSM
         public enum State
         {
                 INITIAL,
-                DETECT_FISH,
-                GO_TO_FISH,
                 ARRIVE_AT_FISHBOWL,
                 EAT_FISH,
         };
@@ -24,7 +22,7 @@ namespace FSM
         private Arrive arrive;
         private float elapsedTime = 0.0f;
         
-        void Start()
+        void Awake()
         {
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
@@ -51,20 +49,8 @@ namespace FSM
                 case State.INITIAL:
                     ChangeState(State.ARRIVE_AT_FISHBOWL);
                     break;
-                case State.GO_TO_FISH:
-                    if (fish == null || fish.Equals(null))
-                    {
-                        // change movement?
-                        break;
-                    }
-                    if (SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishReachedRadius)
-                    {
-                        blackboard.changeToMovementState = true;
-                        break;
-                    }
-                    break;
                 case State.ARRIVE_AT_FISHBOWL:
-                    if (SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishBowlReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.FishbowlGameObject) <= blackboard.fishBowlReachedRadius)
                     {
                         blackboard.currentFishes += 1;
                         if (blackboard.currentFishes >= blackboard.maxFishes)
@@ -102,16 +88,11 @@ namespace FSM
             // ENTER STATE LOGIC. Depends on newState
             switch (newState)
             {
-                case State.DETECT_FISH:
-                    break;
-                case State.GO_TO_FISH:
-                    arrive.enabled = true;
-                    arrive.target = blackboard.FishbowlGameObject;
-                    break;
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = true;
                     arrive.target = blackboard.FishbowlGameObject;
-                    blackboard.fishPicked.transform.parent = gameObject.transform;
+                    blackboard.fishPicked.GetComponent<FSM_FISH>().Exit();
+                    blackboard.fishPicked.transform.parent = transform;
                     break;
                 case State.EAT_FISH:
                     blackboard.currentFishes = 0;
@@ -121,11 +102,6 @@ namespace FSM
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
             {
-                case State.DETECT_FISH:
-                    break;
-                case State.GO_TO_FISH:
-                    arrive.enabled = false;
-                    break;
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = false;
                     blackboard.fishPicked.transform.parent = null;

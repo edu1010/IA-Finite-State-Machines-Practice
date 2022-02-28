@@ -25,7 +25,7 @@ namespace FSM
         private Arrive arrive;
         private WanderAround wanderAround;
 
-        void Start()
+        void Awake()
         {
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();

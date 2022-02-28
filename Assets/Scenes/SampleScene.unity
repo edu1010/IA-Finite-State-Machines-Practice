@@ -2567,6 +2567,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5980369973846335296, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
   m_PrefabInstance: {fileID: 5980369974277286424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1060667640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5980369973846335309, guid: f3e9dfda62a60b04e8778706f89812ba, type: 3}
+  m_PrefabInstance: {fileID: 5980369974277286424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1212788398
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,18 +5560,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6.124926
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6.124926
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 6.124926
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: m_LocalPosition.x
       value: -149.1
       objectReference: {fileID: 0}
@@ -5607,6 +5600,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
+      propertyPath: harpoon
+      value: 
+      objectReference: {fileID: 1060667640}
+    - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: Attractor
       value: 
       objectReference: {fileID: 1794041621}
@@ -5614,6 +5611,10 @@ PrefabInstance:
       propertyPath: ArriveGameObject
       value: 
       objectReference: {fileID: 1654342259}
+    - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
+      propertyPath: fishReachedRadius
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: FishbowlGameObject
       value: 

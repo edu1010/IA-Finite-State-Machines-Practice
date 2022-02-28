@@ -51,12 +51,10 @@ namespace FSM
                     break;
                 case State.MOVEMENT:
                     //Change to Escape
-                    /*
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.harpoon) < blackboard.hideoutDetectionRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.harpoon) < blackboard.harpoonDetectionRadius)
                     {
                         ChangeState(State.ESCAPE);
                     }
-                    */
                     //Change to Eat Fish
                     blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
                     if (blackboard.fishPicked != null)
@@ -67,7 +65,7 @@ namespace FSM
                     break;
                 case State.EAT_FISH:
                     //Change to Escape
-                    if (SensingUtils.DistanceToTarget(blackboard.harpoon, gameObject) < blackboard.hideoutDetectionRadius)
+                    if (SensingUtils.DistanceToTarget(blackboard.harpoon, gameObject) < blackboard.harpoonDetectionRadius)
                     {
                         ChangeState(State.ESCAPE);
                     }
