@@ -21,6 +21,7 @@ public class FISH_Blackboard : MonoBehaviour
     public float radiusNearTortoise = 20f;
     public int maxFishInTortoise = 5;
     public float maxTimeSearchAnemona = 4f;
+    public float currentHungry = 0;
 
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {

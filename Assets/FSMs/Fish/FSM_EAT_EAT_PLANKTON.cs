@@ -4,22 +4,21 @@ using UnityEngine;
 using Steerings;
 namespace FSM
 {
-    [RequireComponent(typeof(FlockingAroundPlusAvoid))]
+    
     [RequireComponent(typeof(WanderAround))]
     [RequireComponent(typeof(Arrive))]
     public class FSM_EAT_EAT_PLANKTON : FiniteStateMachine
     {
         public enum State
         {
-            INITIAL,SEARCH,GOTO_PLANKTON,EAT,FLOACKING
+            INITIAL,SEARCH,GOTO_PLANKTON,EAT
         };
 
         public State currentState = State.INITIAL;
         private FISH_Blackboard blackboard;
-        private float hungry = 0f;
         private float elapsedTime = 0;
         private float elapsedTimeFlocking = 0;
-        private FlockingAroundPlusAvoid flocking;
+        private FlockingAround flocking;
         private WanderAround wanderAround;
         private Arrive arrive;
         private GameObject food;
@@ -28,7 +27,7 @@ namespace FSM
         void Start()
         {
             blackboard = GetComponent<FISH_Blackboard>();
-            flocking = GetComponent<FlockingAroundPlusAvoid>();
+            flocking = GetComponent<FlockingAround>();
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
         }
@@ -42,7 +41,6 @@ namespace FSM
 
         public override void ReEnter()
         {
-            hungry = 0f;
             currentState = State.INITIAL;
             base.ReEnter();
         }
@@ -52,7 +50,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.FLOACKING);
+                    ChangeState(State.SEARCH);
                     break;
                 case State.SEARCH:
                     elapsedTime += Time.deltaTime;
@@ -84,62 +82,17 @@ namespace FSM
                     if (elapsedTime>= blackboard.timeToEat)
                     {
                         Destroy(food);
-                        hungry--;
-                        if (hungry <= 0)
+                        blackboard.currentHungry--;
+                        if (blackboard.currentHungry <= 0)
                         {
-                            ChangeState(State.FLOACKING);
-                            break;
+                            //FISH MACHINE CHANGE THE STATE
                         }
                         else
                         {
                             ChangeState(State.SEARCH);
                             break;
                         }
-                        
                     }
-                    break;
-                case State.FLOACKING:
-                    elapsedTime += Time.deltaTime;
-                    elapsedTimeFlocking += Time.deltaTime;
-                    if (elapsedTime > 1)
-                    {
-                        hungry += blackboard.eatPlnktonValue;
-                        elapsedTime = 0f;
-                    }
-                    if (hungry > blackboard.timeFloking)
-                    {
-                        ChangeState(State.SEARCH);
-                        break;
-                    }
-
-                    if (SensingUtils.DistanceToTarget(gameObject, flocking.attractor) >= blackboard.maxDistanceAtractor)
-                    {
-                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTimeFlocking = 0f;
-                            flocking.seekWeight += blackboard.incrementSeekWeight;
-                            if(flocking.seekWeight < blackboard.minWeight)
-                            {
-                                flocking.seekWeight = blackboard.minWeight;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTimeFlocking = 0f;
-                            flocking.seekWeight -= blackboard.incrementSeekWeight;
-                            if (flocking.seekWeight < blackboard.minWeight)
-                            {
-                                flocking.seekWeight = blackboard.minWeight;
-                            }
-                        }
-                    }
-
-
-
-
                     break;
 
             }
@@ -165,9 +118,6 @@ namespace FSM
                 case State.EAT:
                     elapsedTime = 0f;
                     break;
-                case State.FLOACKING:
-                    flocking.enabled = false;
-                    break;
 
             }
 
@@ -187,13 +137,6 @@ namespace FSM
                     break;
                 case State.EAT:
                     elapsedTime = 0f;
-                    break;
-                case State.FLOACKING:
-                    elapsedTime = 0f;
-                    flocking.enabled = true;
-                    flocking.idTag = "FISH";
-                    flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
-
                     break;
 
             }
