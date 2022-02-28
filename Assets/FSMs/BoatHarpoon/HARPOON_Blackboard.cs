@@ -15,6 +15,7 @@ public class HARPOON_Blackboard : MonoBehaviour
 
     [Header("Boat")]
     public float attractorReachedRadious = 10.0f;
+    public float maxTimeStay = 4.0f;
 
     public bool attack = false;
 

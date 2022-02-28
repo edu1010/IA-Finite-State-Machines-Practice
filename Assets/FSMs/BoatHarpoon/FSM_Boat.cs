@@ -9,13 +9,15 @@ namespace FSM
     [RequireComponent(typeof(HARPOON_Blackboard))]
     public class FSM_Boat : FiniteStateMachine
     {
-        
+
         public enum State
         {
             INITIAL,
             GO_TO_A,
-            GO_TO_B
-            
+            GO_TO_B,
+            STAYA,
+            STAYB
+
         };
 
         public State currentState = State.INITIAL;
@@ -51,7 +53,7 @@ namespace FSM
         // Update is called once per frame
         void Update()
         {
-            transform.position = new Vector2( transform.position.x ,posY);
+            transform.position = new Vector2(transform.position.x, posY);
             switch (currentState)
             {
                 case State.INITIAL:
@@ -60,24 +62,41 @@ namespace FSM
                 case State.GO_TO_A:
                     if ((transform.position - blackboard.attractorA.transform.position).magnitude < blackboard.attractorReachedRadious)
                     {
-                        ChangeState(State.GO_TO_B);
+                        ChangeState(State.STAYA);
                     }
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
-                        blackboard.attack = true;
+                        //blackboard.attack = true;
                     }
                     break;
                 case State.GO_TO_B:
                     if ((transform.position - blackboard.attractorB.transform.position).magnitude < blackboard.attractorReachedRadious)
                     {
-                        ChangeState(State.GO_TO_A);
+                        ChangeState(State.STAYA);
                     }
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
-                        blackboard.attack = true;
+                        //blackboard.attack = true;
+                        //ChangeState(State.STAY);
                     }
                     break;
-                
+                case State.STAYA:
+                    if (elapsedTime >= blackboard.maxTimeStay)
+                    {
+                        ChangeState(State.GO_TO_B);
+
+                    }
+                    elapsedTime += Time.deltaTime;
+                    break;
+                case State.STAYB:
+                    if (elapsedTime >= blackboard.maxTimeStay)
+                    {
+                        ChangeState(State.GO_TO_A);
+
+                    }
+                    elapsedTime += Time.deltaTime;
+                    break;
+
             }
         }
 
@@ -94,7 +113,15 @@ namespace FSM
                     arriveBoat.target = blackboard.attractorB; //target gusano seleccionado
                     arriveBoat.enabled = true;
                     break;
-                
+                case State.STAYA:
+                    elapsedTime = 0.0f;
+                    arriveBoat.enabled = false;
+                    break;
+                case State.STAYB:
+                    elapsedTime = 0.0f;
+                    arriveBoat.enabled = false;
+                    break;
+
             }
 
             // EXIT STATE LOGIC. Depends on current state
@@ -106,7 +133,13 @@ namespace FSM
                 case State.GO_TO_B:
                     //arriveBoat.enabled = false;
                     break;
-                
+                case State.STAYA:
+                    elapsedTime = 0.0f;
+                    break;
+                case State.STAYB:
+                    elapsedTime = 0.0f;
+                    break;
+
             }
 
             currentState = newState;
