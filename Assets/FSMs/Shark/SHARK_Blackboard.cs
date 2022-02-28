@@ -12,12 +12,10 @@ public class SHARK_Blackboard : MonoBehaviour
     public GameObject Attractor;
 
     [Header("Escape")]
-    
     public float hideoutDetectionRadius = 100.0f;
     public float hideoutReachedRadius = 5.0f;
     public float harpoonDetectionRadius = 20.0f;
     public float hideTime = 5.0f;
-
 
     [Header("Eating")]
     public GameObject FishbowlGameObject;
@@ -28,4 +26,8 @@ public class SHARK_Blackboard : MonoBehaviour
     public int currentFishes = 0;
     public float maxTimeEatting = 3.0f;
 
+    [Header("General")]
+    public bool changeToMovementState = false;
+    public GameObject fishPicked;
+    public GameObject harpoon;
 }

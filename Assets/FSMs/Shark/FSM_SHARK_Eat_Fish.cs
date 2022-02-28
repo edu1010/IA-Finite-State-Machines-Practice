@@ -10,15 +10,13 @@ namespace FSM
     public class FSM_SHARK_Eat_Fish : FiniteStateMachine
     {
         private GameObject fish;
-        private FSM_SHARK_Movement sharkFsmMovement;
         public enum State
         {
                 INITIAL,
                 DETECT_FISH,
-                GOTO_FISH,
+                GO_TO_FISH,
                 ARRIVE_AT_FISHBOWL,
                 EAT_FISH,
-                CHANGE_MOVEMENT
         };
         public State currentState = State.INITIAL;
 
@@ -30,7 +28,6 @@ namespace FSM
         {
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
-            sharkFsmMovement = GetComponent<FSM_SHARK_Movement>();
 
             arrive.enabled = false;
         }
@@ -38,12 +35,12 @@ namespace FSM
         public override void Exit()
         {
             arrive.enabled = false;
-            sharkFsmMovement.enabled = false;
             base.Exit();
         }
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            blackboard.changeToMovementState = false;
             base.ReEnter();
         } 
         void Update()
@@ -52,31 +49,22 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.DETECT_FISH);
+                    ChangeState(State.ARRIVE_AT_FISHBOWL);
                     break;
-                case State.DETECT_FISH:
-                    fish = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishDetectionRadius);
-                    if (fish != null)
-                    {
-                        Debug.Log("fish detected");
-                        ChangeState(State.GOTO_FISH);
-                    }
-                    break;
-                case State.GOTO_FISH:
-                    Debug.Log("go to fish");
+                case State.GO_TO_FISH:
                     if (fish == null || fish.Equals(null))
                     {
-                        ChangeState(State.CHANGE_MOVEMENT);
+                        // change movement?
                         break;
                     }
-                    if ((SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishReachedRadius))
+                    if (SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishReachedRadius)
                     {
-                        ChangeState(State.ARRIVE_AT_FISHBOWL);
+                        blackboard.changeToMovementState = true;
                         break;
                     }
                     break;
                 case State.ARRIVE_AT_FISHBOWL:
-                    if ((SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishBowlReachedRadius))
+                    if (SensingUtils.DistanceToTarget(gameObject, fish) <= blackboard.fishBowlReachedRadius)
                     {
                         blackboard.currentFishes += 1;
                         if (blackboard.currentFishes >= blackboard.maxFishes)
@@ -85,7 +73,7 @@ namespace FSM
                         }
                         else
                         {
-                            ChangeState(State.CHANGE_MOVEMENT);
+                            blackboard.changeToMovementState = true;
                         }
                         break;
                     }
@@ -102,7 +90,7 @@ namespace FSM
                             GameObject.Destroy(target);
                         }
                         blackboard.currentFishes = 0;
-                        ChangeState(State.CHANGE_MOVEMENT);
+                        blackboard.changeToMovementState = true;
                         break;
                     }
                     break;
@@ -116,23 +104,18 @@ namespace FSM
             {
                 case State.DETECT_FISH:
                     break;
-                case State.GOTO_FISH:
+                case State.GO_TO_FISH:
                     arrive.enabled = true;
                     arrive.target = blackboard.FishbowlGameObject;
                     break;
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = true;
                     arrive.target = blackboard.FishbowlGameObject;
-                    fish.transform.parent = gameObject.transform;
+                    blackboard.fishPicked.transform.parent = gameObject.transform;
                     break;
                 case State.EAT_FISH:
                     blackboard.currentFishes = 0;
                     break;
-                case State.CHANGE_MOVEMENT:
-                    Debug.Log("change FSM movement");
-                    sharkFsmMovement.ReEnter();
-                    break;
-
             }
             
             // EXIT STATE LOGIC. Depends on current state
@@ -140,20 +123,16 @@ namespace FSM
             {
                 case State.DETECT_FISH:
                     break;
-                case State.GOTO_FISH:
+                case State.GO_TO_FISH:
                     arrive.enabled = false;
                     break;
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = false;
-                    fish.transform.parent = null;
-                    fish.tag = "FishEated";
+                    blackboard.fishPicked.transform.parent = null;
+                    blackboard.fishPicked.tag = "FishEated";
                     break;
                 case State.EAT_FISH:
                     break;
-                case State.CHANGE_MOVEMENT:
-                    sharkFsmMovement.Exit();
-                    break;
-
             }
             currentState = newState;
         }

@@ -7,22 +7,17 @@ namespace FSM
 {
     [RequireComponent(typeof(SHARK_Blackboard))]
     [RequireComponent(typeof(Arrive))]
-    [RequireComponent(typeof(FSM_SHARK_Movement))]
 
     public class FSM_SHARK_Escape : FiniteStateMachine
     {
         
         public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, MOVEMENT};
              
-
         public State currentState = State.INITIAL;
 
-        //private FSM_SHARK;
-        private FSM_SHARK_Movement sharkFsmMovement;
         private Arrive arrive;
         private SHARK_Blackboard blackboard;
 
-        private GameObject harpoon;
         private GameObject hideout;
 
         private float elapsedTime;
@@ -32,22 +27,19 @@ namespace FSM
         {            
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
-            sharkFsmMovement = GetComponent<FSM_SHARK_Movement>();
 
             arrive.enabled = false;
-            sharkFsmMovement.enabled = false;
-            
         }
         public override void Exit()
         {
             arrive.enabled = false;
-            sharkFsmMovement.enabled = false;
             base.Exit();
         }
 
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            blackboard.changeToMovementState = false;
             base.ReEnter();
         }
         // Update is called once per frame
@@ -77,14 +69,10 @@ namespace FSM
                 case State.WAIT_IN:
                     if (elapsedTime >= blackboard.hideTime)
                     {
-                        ChangeState(State.MOVEMENT);
-                        Debug.Log("I'm not hiding");
+                        blackboard.changeToMovementState = true;
                         break;
                     }
                     elapsedTime += Time.deltaTime;                    
-                    break;
-                case State.MOVEMENT:
-                    Debug.Log("I'm moving");
                     break;
             }
         }
@@ -101,10 +89,6 @@ namespace FSM
                     break;
                 case State.WAIT_IN:
                     break;
-                case State.MOVEMENT:
-                    sharkFsmMovement.Exit();
-                    break;
-
             }
 
             // ENTER STATE LOGIC. Depends on newState
@@ -120,10 +104,6 @@ namespace FSM
                     Debug.Log("Hiding");
                     elapsedTime = 0.0f;
                     break;
-                case State.MOVEMENT:
-                    sharkFsmMovement.ReEnter();
-                    break;
-
             }
             currentState = newState;
         }

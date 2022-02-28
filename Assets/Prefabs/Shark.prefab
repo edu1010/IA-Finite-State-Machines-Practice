@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3126093857882453337}
   - component: {fileID: 3126093857882453342}
-  - component: {fileID: 3126093857882453343}
+  - component: {fileID: 1400691823848780426}
   - component: {fileID: 3126093857882453340}
   - component: {fileID: 3126093857882453341}
-  - component: {fileID: 3126093857882453336}
-  - component: {fileID: 3126093857882453338}
   - component: {fileID: 3126093857882453339}
   - component: {fileID: 3126093857882453317}
+  - component: {fileID: 3126093857882453336}
+  - component: {fileID: 3126093857882453338}
+  - component: {fileID: 3126093857882453343}
   - component: {fileID: 5984467699422980656}
   m_Layer: 0
   m_Name: Shark
@@ -60,23 +61,19 @@ MonoBehaviour:
   orientation: 0
   linearVelocity: {x: 0, y: 0, z: 0}
   angularSpeed: 0
---- !u!114 &3126093857882453343
+--- !u!114 &1400691823848780426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3126093857882453330}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47dcfdf0319fb374ea2b04e8621fa0d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f023106aa8eb4840956fe85c6636e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationalPolicy: 1
-  closeEnoughRadius: 1
-  slowDownRadius: 20
-  timeToDesiredSpeed: 0.1
-  target: {fileID: 0}
+  currentState: 0
 --- !u!114 &3126093857882453340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +91,7 @@ MonoBehaviour:
   canDash: 0
   ArriveGameObject: {fileID: 0}
   Attractor: {fileID: 0}
+  fishPicked: {fileID: 0}
   hideoutDetectionRadius: 20
   hideoutReachedRadius: 1
   harpoonDetectionRadius: 20
@@ -105,6 +103,7 @@ MonoBehaviour:
   maxFishes: 5
   currentFishes: 0
   maxTimeEatting: 3
+  changeToMovementState: 0
 --- !u!114 &3126093857882453341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +114,32 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7c6a1350072ad94aae0734f2017250f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+--- !u!114 &3126093857882453339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126093857882453330}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34d736d39863714289b97c23f7fe9af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+--- !u!114 &3126093857882453317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126093857882453330}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ea89c4cd9c654ab95031808dba8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
@@ -151,20 +176,7 @@ MonoBehaviour:
   wanderOffset: 7
   attractor: {fileID: 0}
   seekWeight: 0.4
---- !u!114 &3126093857882453339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3126093857882453330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34d736d39863714289b97c23f7fe9af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
---- !u!114 &3126093857882453317
+--- !u!114 &3126093857882453343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,10 +185,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3126093857882453330}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ea89c4cd9c654ab95031808dba8b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 47dcfdf0319fb374ea2b04e8621fa0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  rotationalPolicy: 1
+  closeEnoughRadius: 1
+  slowDownRadius: 20
+  timeToDesiredSpeed: 0.1
+  target: {fileID: 0}
 --- !u!212 &5984467699422980656
 SpriteRenderer:
   m_ObjectHideFlags: 0
