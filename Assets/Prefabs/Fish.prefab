@@ -150,7 +150,7 @@ MonoBehaviour:
   maxDistanceToShark: 10
   WhenIsfeed: 10
   eatPlnktonValue: 1
-  timeFloking: 11.29
+  timeFloking: 10
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 4
@@ -163,6 +163,7 @@ MonoBehaviour:
   radiusNearTortoise: 20
   maxFishInTortoise: 5
   maxTimeSearchAnemona: 4
+  currentHungry: 0
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0

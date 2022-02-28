@@ -72,7 +72,7 @@ namespace FSM
 
                     if (elapsedTime > 1)
                     {
-                        blackboard.currentHungry += blackboard.eatPlnktonValue;
+                        blackboard.IncrementHungry();
                         elapsedTime = 0f;
                     }
                     if (blackboard.currentHungry > blackboard.timeFloking)
@@ -144,9 +144,9 @@ namespace FSM
                     break;
                 case State.FLOKING:
                     elapsedTime = 0f;
-                    flocking.enabled = true;
                     flocking.idTag = "FISH";
                     flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
+                    flocking.enabled = true;
                     break;
             }
             currentState = newState;
