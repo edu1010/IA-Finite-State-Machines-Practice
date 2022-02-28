@@ -60,7 +60,7 @@ namespace FSM
                     }
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
-                        
+                        blackboard.attack = true;
                     }
                     break;
                 case State.GO_TO_B:
@@ -70,7 +70,7 @@ namespace FSM
                     }
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
-                        
+                        blackboard.attack = true;
                     }
                     break;
                 
