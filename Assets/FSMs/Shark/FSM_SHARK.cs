@@ -23,12 +23,12 @@ namespace FSM
         private FSM_SHARK_Eat_Fish eatFish;
         private FSM_SHARK_Escape escape;
 
-        // Start is called before the first frame update
         void Start()
         {
             movement = GetComponent<FSM_SHARK_Movement>();
             eatFish = GetComponent<FSM_SHARK_Eat_Fish>();
             escape = GetComponent<FSM_SHARK_Escape>();
+            blackboard = GetComponent<SHARK_Blackboard>();
         }
         public override void Exit()
         {
@@ -43,6 +43,7 @@ namespace FSM
         // Update is called once per frame
         void Update()
         {
+            Debug.Log(currentState);
             switch (currentState)
             {
                 case State.INITIAL:
@@ -50,14 +51,17 @@ namespace FSM
                     break;
                 case State.MOVEMENT:
                     //Change to Escape
-                    if (SensingUtils.DistanceToTarget(blackboard.harpoon, gameObject) < blackboard.hideoutDetectionRadius)
+                    /*
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.harpoon) < blackboard.hideoutDetectionRadius)
                     {
                         ChangeState(State.ESCAPE);
                     }
+                    */
                     //Change to Eat Fish
-                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishDetectionRadius);
+                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
                     if (blackboard.fishPicked != null)
                     {
+                        Debug.Log("Fish picked");
                         ChangeState(State.EAT_FISH);
                     }
                     break;

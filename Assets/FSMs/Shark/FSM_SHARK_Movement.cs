@@ -106,7 +106,7 @@ namespace FSM
                     }
                     break;
                 case State.DASH:
-                    blackboard.currentStamina -= Time.deltaTime*4;
+                    blackboard.currentStamina -= Time.deltaTime*2;
                     if (blackboard.currentStamina <= 0.0f || blackboard.canDash == false)
                     {
                         ChangeState(State.WANDER); break;
@@ -130,8 +130,8 @@ namespace FSM
                 case State.DASH:
                     arrive.enabled = false;
                     arrive.target = null;
-                    GetComponent<KinematicState>().maxSpeed /= 5.0f;
-                    GetComponent<KinematicState>().maxAcceleration /= 5.0f;
+                    GetComponent<KinematicState>().maxSpeed /= 7.0f;
+                    GetComponent<KinematicState>().maxAcceleration /= 7.0f;
                     break;
             }
 
@@ -149,8 +149,8 @@ namespace FSM
                     
                     arrive.target = blackboard.ArriveGameObject;
                     arrive.enabled = true;
-                    GetComponent<KinematicState>().maxSpeed *= 5.0f;
-                    GetComponent<KinematicState>().maxAcceleration *= 5.0f;
+                    GetComponent<KinematicState>().maxSpeed *= 7.0f;
+                    GetComponent<KinematicState>().maxAcceleration *= 7.0f;
                     break;
             }
             currentState = newState;

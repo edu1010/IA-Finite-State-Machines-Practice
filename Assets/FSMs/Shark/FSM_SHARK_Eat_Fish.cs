@@ -39,8 +39,8 @@ namespace FSM
         }
         public override void ReEnter()
         {
-            currentState = State.INITIAL;
             blackboard.changeToMovementState = false;
+            currentState = State.INITIAL;
             base.ReEnter();
         } 
         void Update()
