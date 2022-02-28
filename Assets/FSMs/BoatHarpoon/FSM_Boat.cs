@@ -5,18 +5,18 @@ using Steerings;
 
 namespace FSM
 {
-    [RequireComponent(typeof(ArriveBoat))]
+    //[RequireComponent(typeof(ArriveBoat))]
+    //[RequireComponent(typeof(FSM_Harpoon))]
     [RequireComponent(typeof(HARPOON_Blackboard))]
     public class FSM_Boat : FiniteStateMachine
     {
-
         public enum State
         {
             INITIAL,
             GO_TO_A,
             GO_TO_B,
             STAYA,
-            STAYB
+            STAYB            
 
         };
 
@@ -24,6 +24,7 @@ namespace FSM
 
         private HARPOON_Blackboard blackboard;
         private ArriveBoat arriveBoat;
+        private FSM_Harpoon fsmHarpoon;
 
         private float elapsedTime = 0.0f;
 
@@ -34,14 +35,16 @@ namespace FSM
         {
             posY = transform.position.y;
             arriveBoat = GetComponent<ArriveBoat>();
-            blackboard = GetComponent<HARPOON_Blackboard>();
+            blackboard = GetComponentInParent<HARPOON_Blackboard>();
+            //fsmHarpoon = GetComponent<FSM_Harpoon>();
 
             arriveBoat.enabled = false;
+            //fsmHarpoon.Exit();
         }
         public override void Exit()
         {
             arriveBoat.enabled = false;
-
+            //fsmHarpoon.Exit();
             base.Exit();
         }
 
@@ -64,6 +67,7 @@ namespace FSM
                     {
                         ChangeState(State.STAYA);
                     }
+                    
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
                         //blackboard.attack = true;
@@ -74,6 +78,7 @@ namespace FSM
                     {
                         ChangeState(State.STAYA);
                     }
+                    
                     if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
                     {
                         //blackboard.attack = true;
@@ -84,16 +89,16 @@ namespace FSM
                     if (elapsedTime >= blackboard.maxTimeStay)
                     {
                         ChangeState(State.GO_TO_B);
-
                     }
+                    
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.STAYB:
                     if (elapsedTime >= blackboard.maxTimeStay)
                     {
                         ChangeState(State.GO_TO_A);
-
                     }
+                    
                     elapsedTime += Time.deltaTime;
                     break;
 
@@ -120,7 +125,7 @@ namespace FSM
                 case State.STAYB:
                     elapsedTime = 0.0f;
                     arriveBoat.enabled = false;
-                    break;
+                    break;                
 
             }
 
@@ -138,7 +143,7 @@ namespace FSM
                     break;
                 case State.STAYB:
                     elapsedTime = 0.0f;
-                    break;
+                    break;                
 
             }
 
