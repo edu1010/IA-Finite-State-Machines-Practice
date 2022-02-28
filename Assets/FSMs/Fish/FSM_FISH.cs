@@ -22,6 +22,7 @@ namespace FSM
         private float elapsedTime;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -69,10 +70,11 @@ namespace FSM
 
                 case State.FLOKING:
                     elapsedTimeFlocking += Time.deltaTime;
+                    elapsedTime += Time.deltaTime;
 
                     if (elapsedTime > 1)
                     {
-                        blackboard.IncrementHungry();
+                      blackboard.IncrementHungry();
                         elapsedTime = 0f;
                     }
                     if (blackboard.currentHungry > blackboard.timeFloking)
@@ -152,4 +154,5 @@ namespace FSM
             currentState = newState;
         }
     }
+    
 }

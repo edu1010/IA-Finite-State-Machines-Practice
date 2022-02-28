@@ -22,7 +22,7 @@ namespace FSM
         private WanderAround wanderAround;
         private Arrive arrive;
         private GameObject food;
-
+        private FSM_FISH fsm_fish;
         // Start is called before the first frame update
         void Awake()
         {
@@ -30,6 +30,7 @@ namespace FSM
             flocking = GetComponent<FlockingAround>();
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
+            fsm_fish = GetComponent<FSM_FISH>();
         }
         public override void Exit()
         {
@@ -82,7 +83,7 @@ namespace FSM
                     if (elapsedTime>= blackboard.timeToEat)
                     {
                         Destroy(food);
-                        blackboard.currentHungry--;
+                        blackboard.DecrementHungry();
                         if (blackboard.currentHungry <= 0)
                         {
                             //FISH MACHINE CHANGE THE STATE

@@ -150,7 +150,7 @@ MonoBehaviour:
   maxDistanceToShark: 10
   WhenIsfeed: 10
   eatPlnktonValue: 1
-  timeFloking: 2
+  timeFloking: 4
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 4
