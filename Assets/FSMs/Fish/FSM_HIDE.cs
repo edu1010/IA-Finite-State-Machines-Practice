@@ -20,7 +20,7 @@ namespace FSM
         private float elapsedTimeSearch = 0;
         private GameObject anemona;
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             blackboard = GetComponent<FISH_Blackboard>();
             wanderAround = GetComponent<WanderAround>();
