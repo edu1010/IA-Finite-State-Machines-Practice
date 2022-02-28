@@ -11,16 +11,16 @@ GameObject:
   - component: {fileID: 1406885550891484151}
   - component: {fileID: 1406885550891484144}
   - component: {fileID: 1406885550891484145}
-  - component: {fileID: 1406885550891484146}
   - component: {fileID: 1406885550891484147}
   - component: {fileID: 1406885550891498508}
   - component: {fileID: 1406885550891498509}
   - component: {fileID: 1406885550891498510}
   - component: {fileID: 1406885550891498511}
+  - component: {fileID: 8353187572292751805}
   m_Layer: 0
   m_Name: Fish
   m_TagString: FISH
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1406885550891498504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.260185, y: 0.18141413, z: 0.7449138}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1406885551225127886}
@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 2
-  maxSpeed: 10
-  maxAngularAcceleration: 45
-  maxAngularSpeed: 45
+  maxAcceleration: 60
+  maxSpeed: 15
+  maxAngularAcceleration: 360
+  maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
   orientation: 0
   linearVelocity: {x: 0, y: 0, z: 0}
@@ -77,34 +77,6 @@ MonoBehaviour:
   slowDownRadius: 20
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
---- !u!114 &1406885550891484146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406885550891498504}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9611247310b0a594fa570ec05694096e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationalPolicy: 1
-  attractor: {fileID: 0}
-  idTag: BOID
-  cohesionThreshold: 40
-  repulsionThreshold: 10
-  wanderRate: 10
-  seekWeight: 0.2
-  vmWeight: 0.08
-  rpWeight: 0.46
-  coWeight: 0.23
-  wdWeight: 0.23
-  showWhisker: 1
-  lookAheadLength: 10
-  avoidDistance: 1.22
-  secondaryWhiskerAngle: 30
-  secondaryWhiskerRatio: 0.7
 --- !u!114 &1406885550891484147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +163,29 @@ MonoBehaviour:
   radiusNearTortoise: 20
   maxFishInTortoise: 5
   maxTimeSearchAnemona: 4
+--- !u!114 &8353187572292751805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406885550891498504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5118be52c9d2ae4c8b093c8c7c71c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationalPolicy: 1
+  idTag: BOID
+  cohesionThreshold: 40
+  repulsionThreshold: 15
+  wanderRate: 10
+  vmWeight: 0.08
+  rpWeight: 0.46
+  coWeight: 0.23
+  wdWeight: 0.23
+  attractor: {fileID: 0}
+  seekWeight: 0.2
 --- !u!1 &1406885551225127887
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,12 +6,12 @@ namespace FSM
 {
     [RequireComponent(typeof(FSM_EAT_EAT_PLANKTON))]
     [RequireComponent(typeof(FSM_HIDE))]
-    
+    [RequireComponent(typeof(FlockingAround))]
     public class FSM_FISH : FiniteStateMachine
     {
         public enum State
         {
-            INITIAL,EAT,HIDE
+            INITIAL,EAT,HIDE,FLOKING
         };
 
         public State currentState = State.INITIAL;
@@ -19,13 +19,16 @@ namespace FSM
        
         private FSM_EAT_EAT_PLANKTON eatFSM;
         private FSM_HIDE hideFSM;
-        
+        private float elapsedTime;
+        private float elapsedTimeFlocking;
+        private FlockingAround flocking;
         // Start is called before the first frame update
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
             hideFSM = GetComponent<FSM_HIDE>();
             blackboard = GetComponent<FISH_Blackboard>();
+            flocking = GetComponent<FlockingAround>();
         }
         public override void Exit()
         {
@@ -46,20 +49,64 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.EAT);
+                    ChangeState(State.FLOKING);
                     break;
                 case State.EAT:
                     if(blackboard.maxDistanceToShark > SensingUtils.DistanceToTarget(gameObject, blackboard.shark)){
                         ChangeState(State.HIDE);
                     }
-
+                    if (blackboard.currentHungry <= 0)
+                    {
+                        ChangeState(State.FLOKING);
+                    }
                     break;
                 case State.HIDE:
                     if (blackboard.maxDistanceToShark < SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
                     {
                         ChangeState(State.EAT);
                     }
+                    break;
 
+                case State.FLOKING:
+                    elapsedTimeFlocking += Time.deltaTime;
+
+                    if (elapsedTime > 1)
+                    {
+                        blackboard.currentHungry += blackboard.eatPlnktonValue;
+                        elapsedTime = 0f;
+                    }
+                    if (blackboard.currentHungry > blackboard.timeFloking)
+                    {
+                        ChangeState(State.EAT);
+                        break;
+                    }
+
+                    //SetWeight
+                    /*
+                    if (SensingUtils.DistanceToTarget(gameObject, flocking.attractor) >= blackboard.maxDistanceAtractor)
+                    {
+                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTimeFlocking = 0f;
+                            flocking.seekWeight += blackboard.incrementSeekWeight;
+                            if (flocking.seekWeight < blackboard.minWeight)
+                            {
+                                flocking.seekWeight = blackboard.minWeight;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
+                        {
+                            elapsedTimeFlocking = 0f;
+                            flocking.seekWeight -= blackboard.incrementSeekWeight;
+                            if (flocking.seekWeight < blackboard.minWeight)
+                            {
+                                flocking.seekWeight = blackboard.minWeight;
+                            }
+                        }
+                    }*/
                     break;
             }
         }
@@ -80,6 +127,9 @@ namespace FSM
                 case State.HIDE:
                     hideFSM.Exit();
                     break;
+                case State.FLOKING:
+                    flocking.enabled = false;
+                    break;
 
             }
 
@@ -91,6 +141,12 @@ namespace FSM
                     break;
                 case State.HIDE:
                     hideFSM.ReEnter();
+                    break;
+                case State.FLOKING:
+                    elapsedTime = 0f;
+                    flocking.enabled = true;
+                    flocking.idTag = "FISH";
+                    flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     break;
             }
             currentState = newState;
