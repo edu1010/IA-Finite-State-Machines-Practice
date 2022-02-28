@@ -5,7 +5,7 @@ using Steerings;
 
 namespace FSM
 {
-    //[RequireComponent(typeof(Arrive))]
+    [RequireComponent(typeof(Arrive))]
     //[RequireComponent(typeof(Seek))]
     [RequireComponent(typeof(HARPOON_Blackboard))]
     //[RequireComponent(typeof(FSM_BOAT_HARPOON))]
@@ -100,7 +100,7 @@ namespace FSM
             switch (newState)
             {                
                 case State.ATTACK_SHARK:
-                    gameObject.transform.parent = null;
+                    //gameObject.transform.parent = null;
                     elapsedTime = 0;
                     //seek.target = blackboard.shark;
                     //seek.enabled = true;
@@ -116,7 +116,7 @@ namespace FSM
                     break;
                 case State.DO_NOTHING:
                     //blackboard.harpoonPicked = true;
-                    gameObject.transform.parent = blackboard.boat.transform;                    
+                    //gameObject.transform.parent = blackboard.boat.transform;                    
                     elapsedTime = 0.0f;
                     //fsmBoatAndHarpoon.ReEnter();
                     break;
