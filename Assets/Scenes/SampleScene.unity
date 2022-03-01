@@ -10460,10 +10460,17 @@ MonoBehaviour:
   attractorB: {fileID: 191513530}
   shark: {fileID: 1580934759}
   submarine: {fileID: 7314543299783357029}
+  missil: {fileID: 3116221061318559996}
   sharkDetectableRadious: 200
   timeAttack: 5
   timeToAttackAgain: 10
   submarineCloseEnoughtRadius: 10
+  sharkLifes:
+  - {fileID: 72468676}
+  - {fileID: 233024321}
+  - {fileID: 993132559}
+  sharkAttackRadious: 2
+  sharkAttacked: 3
   attractorReachedRadious: 10
   maxTimeStay: 4
   missileHided: 0

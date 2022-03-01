@@ -24,6 +24,7 @@ namespace FSM
         private Arrive arrive;
 
         private float elapsedTime = 0.0f;
+        private float missileElapsedTime = 0.0f;
 
         // Start is called before the first frame update
         void Start()
@@ -60,11 +61,33 @@ namespace FSM
                         ChangeState(State.HIDE_MISSILE);
                         Debug.Log("Me retiro");
                     }
+                    if(SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.missileRadious)
+                    {
+                        blackboard.sharkAttacked -= 1;
+                        Debug.Log("Tiburon Atacado!!!!!!!!!!!!!!!!!!!!!!");
+                        if(blackboard.sharkAttacked == 2)
+                        {
+                            Destroy(blackboard.sharkLifes[2]);
+                            blackboard.canTakeDamage = false;
+                        }
+                        else if (blackboard.sharkAttacked == 1 && blackboard.canTakeDamage == true)
+                        {
+                            Destroy(blackboard.sharkLifes[1]);
+                            blackboard.canTakeDamage = false;
+                        }
+                        else if (blackboard.sharkAttacked == 0 && blackboard.canTakeDamage == true)
+                        {
+                            Destroy(blackboard.sharkLifes[0]);
+                            blackboard.canTakeDamage = false;
+                        }
+                        
+                    }
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.HIDE_MISSILE:
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.submarine) <= blackboard.submarineCloseEnoughtRadius)
                     {
+                        Debug.Log("hide missile");
                         blackboard.missileHided = true;
                         ChangeState(State.ATTACK_SHARK);
                         break;
@@ -103,6 +126,7 @@ namespace FSM
                 case State.ATTACK_SHARK:
                     blackboard.canAttack = false;
                     arrive.enabled = false;
+                    blackboard.canTakeDamage = false;
                     break;
                 case State.HIDE_MISSILE:
                     arrive.enabled = false;
