@@ -14,7 +14,7 @@ public class SHARK_Blackboard : MonoBehaviour
     [Header("Escape")]
     public float hideoutDetectionRadius = 50.0f;
     public float hideoutReachedRadius = 5.0f;
-    public float harpoonDetectionRadius = 20.0f;
+    public float harpoonDetectionRadius = 70.0f;
     public float hideTime = 5.0f;
 
     [Header("Eating")]

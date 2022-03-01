@@ -11,7 +11,7 @@ namespace FSM
     public class FSM_SHARK_Escape : FiniteStateMachine
     {
         
-        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, MOVEMENT};
+        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN};
              
         public State currentState = State.INITIAL;
 
@@ -19,8 +19,9 @@ namespace FSM
         private SHARK_Blackboard blackboard;
 
         private GameObject hideout;
-
-        private float elapsedTime;
+        private float elapsedTime = 0.0f;
+        private float originalMaxSpeed;
+        private float originalMaxAcceleration;
 
         // Start is called before the first frame update
         void Awake()
@@ -28,10 +29,15 @@ namespace FSM
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
 
+            originalMaxSpeed = GetComponent<KinematicState>().maxSpeed;
+            originalMaxAcceleration = GetComponent<KinematicState>().maxAcceleration;
+
             arrive.enabled = false;
         }
         public override void Exit()
         {
+            GetComponent<KinematicState>().maxSpeed = originalMaxSpeed;
+            GetComponent<KinematicState>().maxAcceleration = originalMaxAcceleration;
             arrive.enabled = false;
             base.Exit();
         }
@@ -39,6 +45,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            elapsedTime = 0.0f;
             blackboard.changeToMovementState = false;
             base.ReEnter();
         }
@@ -85,6 +92,8 @@ namespace FSM
                 case State.SEARCH_HIDEOUT:                    
                     break;
                 case State.REACHING_HIDEOUT:
+                    GetComponent<KinematicState>().maxAcceleration /= 7;
+                    GetComponent<KinematicState>().maxSpeed /= 7;
                     arrive.enabled = false;
                     break;
                 case State.WAIT_IN:
@@ -97,6 +106,8 @@ namespace FSM
                 case State.SEARCH_HIDEOUT:                                    
                     break;
                 case State.REACHING_HIDEOUT:
+                    GetComponent<KinematicState>().maxAcceleration *= 7;
+                    GetComponent<KinematicState>().maxSpeed *= 7;
                     arrive.enabled = true;
                     arrive.target = hideout;
                     break;
