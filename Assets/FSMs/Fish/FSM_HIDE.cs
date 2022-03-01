@@ -55,7 +55,7 @@ namespace FSM
                     ChangeState(State.SHARK_FLEE);
                     break; 
                 case State.GOTO_TORTOISE:
-                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.turtleReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
                         if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
                         {
@@ -99,7 +99,7 @@ namespace FSM
                     elapsedTime = blackboard.ChangeWeightWander(wanderAround, elapsedTime);
                     break; 
                 case State.GOTO_ANEMONA:
-                    if (SensingUtils.DistanceToTarget(gameObject, anemona) <= blackboard.foodReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, anemona) <= blackboard.generalReachedRadius)
                     {
                         transform.parent = anemona.transform;
                         ChangeState(State.WAIT);
