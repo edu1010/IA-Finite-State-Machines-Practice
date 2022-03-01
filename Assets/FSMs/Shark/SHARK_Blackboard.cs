@@ -27,6 +27,7 @@ public class SHARK_Blackboard : MonoBehaviour
     public int maxFishes = 5; 
     public int currentFishes = 0;
     public float maxTimeEatting = 3.0f;
+    public int totalEatenFishes = 0;
 
 
     [Header("General")]

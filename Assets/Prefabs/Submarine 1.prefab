@@ -52,15 +52,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.6922
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8.6922
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8.6922
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 3645107857170927866, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,7 +104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5445777499435410966, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
       propertyPath: m_Name
-      value: Submarine
+      value: Submarine 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 846423294249241565, guid: 20fc26423b7f0db449660aed8c5625f5, type: 3}
