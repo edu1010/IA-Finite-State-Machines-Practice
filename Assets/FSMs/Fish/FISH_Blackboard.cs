@@ -29,8 +29,13 @@ public class FISH_Blackboard : MonoBehaviour
     public string tagFishHide = "FISH_HIDE";
     public string tagFisH = "FISH";
     public string tagTurtle= "TORTOISE";
-    
+    public float speedMultiplayer = 7;
     public float generalReachedRadius = 10f;
+    public GameObject[] targets;
+    private void Awake()
+    {
+        targets = GameObject.FindGameObjectsWithTag(tagTurtle);
+    }
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
         if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= maxDistanceAtractor)
@@ -71,20 +76,18 @@ public class FISH_Blackboard : MonoBehaviour
     
     public GameObject GetNearTurtleAvalible(Transform me)
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(tagTurtle);
         GameObject nearTurtle = targets[0];
         bool isAllTurtlesFull = false;
-        float dist;
         for (int i = 1; i < targets.Length; i++)
         { 
             if(targets[i].transform.childCount < maxFishInTortoise)
             {
+                isAllTurtlesFull = true;
                 if (( targets[i].transform.position - me.position ).magnitude <
                     (nearTurtle.transform.position - me.position).magnitude
                     )
                 {
                     nearTurtle = targets[i];
-                    isAllTurtlesFull = true;
                 }
                 
             }
@@ -95,6 +98,7 @@ public class FISH_Blackboard : MonoBehaviour
         }
         else
         {
+           
             return null;
         }
     }
