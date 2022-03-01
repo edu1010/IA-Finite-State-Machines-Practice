@@ -37,6 +37,7 @@ namespace FSM
             flee.enabled = false;
             transform.parent = null;
             blackboard.isHiding = false;
+            transform.tag = blackboard.tagFisH;
             base.Exit();
         }
 
@@ -138,6 +139,7 @@ namespace FSM
                     arrive.enabled = false;
                     break;
                 case State.WAIT:
+                    transform.tag = blackboard.tagFisH;
                     break;
             }
 
@@ -168,6 +170,7 @@ namespace FSM
                     break;
                 case State.WAIT:
                   blackboard.isHiding = true;
+                    transform.tag = blackboard.tagFishHide;
                     break;
             }
             currentState = newState;
