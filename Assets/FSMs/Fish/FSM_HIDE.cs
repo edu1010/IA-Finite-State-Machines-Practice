@@ -38,6 +38,7 @@ namespace FSM
             transform.parent = null;
             blackboard.isHiding = false;
             transform.tag = blackboard.tagFisH;
+            transform.tag = blackboard.tagFisH;
             base.Exit();
         }
 

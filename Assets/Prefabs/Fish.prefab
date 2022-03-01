@@ -195,7 +195,7 @@ MonoBehaviour:
   coWeight: 0.23
   wdWeight: 0.23
   attractor: {fileID: 0}
-  seekWeight: 0.2
+  seekWeight: 0.4
 --- !u!114 &6831388817581496618
 MonoBehaviour:
   m_ObjectHideFlags: 0
