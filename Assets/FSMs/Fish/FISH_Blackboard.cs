@@ -32,6 +32,8 @@ public class FISH_Blackboard : MonoBehaviour
     public float speedMultiplayer = 7;
     public float generalReachedRadius = 10f;
     public GameObject[] targets;
+    public List<GameObject> avalibleTargets;
+    public List<GameObject> donTargets;
     private void Awake()
     {
         targets = GameObject.FindGameObjectsWithTag(tagTurtle);
@@ -79,9 +81,19 @@ public class FISH_Blackboard : MonoBehaviour
         GameObject nearTurtle = targets[0];
         bool isAllTurtlesFull = false;
         for (int i = 1; i < targets.Length; i++)
-        { 
-            if(targets[i].transform.childCount < maxFishInTortoise)
+        {
+            Debug.Log("lo " + targets[i].transform.childCount);
+            if (targets[i].transform.childCount < maxFishInTortoise)
             {
+                if (avalibleTargets.Find(x => x = targets[i]) == null)
+                {
+                    avalibleTargets.Add(targets[i]);
+                    if (donTargets.Find(x => x = targets[i]) != null)
+                    {
+                        donTargets.Remove(targets[i]);
+                    }
+
+                }
                 isAllTurtlesFull = true;
                 if (( targets[i].transform.position - me.position ).magnitude <
                     (nearTurtle.transform.position - me.position).magnitude
@@ -89,6 +101,20 @@ public class FISH_Blackboard : MonoBehaviour
                 {
                     nearTurtle = targets[i];
                 }
+
+            }
+            else
+            {
+                if (avalibleTargets.Find(x => x = targets[i]) != null)
+                {
+                    avalibleTargets.Remove(targets[i]);
+                }
+
+                if (donTargets.Find(x => x= targets[i]) == null)
+                {
+                    donTargets.Add(targets[i]);
+                }
+                   
                 
             }
         }

@@ -72,6 +72,10 @@ namespace FSM
                         break;
                     
                     }
+                    if(nearTortoise.transform.childCount > 1)
+                    {
+                        nearTortoise = blackboard.GetNearTurtleAvalible(gameObject.transform);
+                    }
                     if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
                         if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)

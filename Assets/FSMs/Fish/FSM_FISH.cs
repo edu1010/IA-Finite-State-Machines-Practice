@@ -159,7 +159,8 @@ namespace FSM
                 case State.FLOKING:
                     elapsedTime = 0f;
                     flocking.idTag = "FISH";
-                    flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
+                    // flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
+                    flocking.attractor = blackboard.atractorA;
                     flocking.enabled = true;
                     break;
             }
