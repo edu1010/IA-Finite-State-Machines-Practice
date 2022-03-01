@@ -78,6 +78,7 @@ namespace FSM
                         {
                             GameObject.Destroy(target);
                         }
+                        blackboard.totalEatenFishes += blackboard.currentFishes;
                         blackboard.currentFishes = 0;
                         blackboard.changeToMovementState = true;
                         break;
