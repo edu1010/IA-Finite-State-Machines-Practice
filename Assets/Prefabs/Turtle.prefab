@@ -213,7 +213,7 @@ Transform:
   m_GameObject: {fileID: 8430387869863801367}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -11.03, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8430387868091598291}
@@ -278,12 +278,17 @@ MonoBehaviour:
   maxTimeSayingIt: 3
   Attractor: {fileID: 0}
   textTurtle: {fileID: 0}
-  surface: {fileID: 0}
   oxigenToBreathe: 20
   currentOxigen: 0
   maxOxigen: 50
   surfaceReachedRadius: 15
   changeToWander: 0
+  posibleBreathingPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  definitiveBreathingPoint: {fileID: 0}
 --- !u!114 &8430387869863801357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +333,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8430387869863801367}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31c46aa3c5804c24eb2407508e76a4bc, type: 3}
   m_Name: 
