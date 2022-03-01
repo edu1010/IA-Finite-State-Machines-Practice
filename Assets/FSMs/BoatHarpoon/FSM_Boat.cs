@@ -71,11 +71,6 @@ namespace FSM
                         break;
                     }
 
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
-                    {
-                        ChangeState(State.STAY_ATTACK);
-                        break;
-                    }
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.GO_TO_B:
@@ -85,11 +80,6 @@ namespace FSM
                         break;
                     }
 
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
-                    {
-                        ChangeState(State.STAY_ATTACK);
-                        break;
-                    }
                     break;
                 case State.STAYA:
                     if (elapsedTime >= blackboard.maxTimeStay)
@@ -97,12 +87,7 @@ namespace FSM
                         ChangeState(State.GO_TO_B);
                         break;
                     }
-
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
-                    {
-                        ChangeState(State.STAY_ATTACK);
-                        break;
-                    }
+                    
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.STAYB:
@@ -111,12 +96,7 @@ namespace FSM
                         ChangeState(State.GO_TO_A);
                         break;
                     }
-
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
-                    {
-                        ChangeState(State.STAY_ATTACK);
-                        break;
-                    }
+                                        
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.STAY_ATTACK:

@@ -22,12 +22,14 @@ namespace FSM
         private FSM_Harpoon fsmHarpoon;
         private FSM_Boat fsmBoat;
 
+        private float elapsedTime = 0.0f;
+
         // Start is called before the first frame update
         void Start()
         {
             blackboard = GetComponent<HARPOON_Blackboard>();
             fsmHarpoon = GetComponentInChildren<FSM_Harpoon>();
-            fsmBoat = GetComponentInChildren<FSM_Boat>();
+            fsmBoat = GetComponent<FSM_Boat>();
 
             fsmHarpoon.Exit();
             fsmBoat.Exit();
@@ -57,14 +59,20 @@ namespace FSM
                     ChangeState(State.BOAT_WANDER);
                     break;
                 case State.BOAT_WANDER:
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious)
+                    if (elapsedTime >= blackboard.timeToAttackAgain)
+                    {
+                        blackboard.canAttack = true;
+                    }
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
                     {
                         ChangeState(State.ATTACK);
                         break;
                     }
+                    elapsedTime += Time.deltaTime;
                     break;
                 case State.ATTACK:
-                    if (blackboard.harpoonPicked)
+                    if (blackboard.harpoonPicked && blackboard.canAttack == false)
                     {
                         ChangeState(State.BOAT_WANDER);
                         break;
@@ -79,6 +87,7 @@ namespace FSM
             switch (newState)
             {
                 case State.BOAT_WANDER:
+                    elapsedTime = 0.0f;
                     fsmBoat.ReEnter();
                     break;
                 case State.ATTACK:
