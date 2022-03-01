@@ -26,7 +26,6 @@ namespace FSM
         {
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
-
             arrive.enabled = false;
         }
         
@@ -59,6 +58,7 @@ namespace FSM
                         }
                         else
                         {
+                            blackboard.fishPicked.transform.position = blackboard.fishPositionInFishbowl[blackboard.currentFishes-1].transform.position;
                             blackboard.fishPicked.transform.parent = null;
                             blackboard.fishPicked.tag = "FishEated";
                             blackboard.changeToMovementState = true; // exits this fsm and reEnters() on the Movement's fsm.
