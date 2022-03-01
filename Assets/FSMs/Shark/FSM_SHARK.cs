@@ -58,7 +58,10 @@ namespace FSM
                     }
                     
                     //Change to Eat Fish
-                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
+                    if(blackboard.fishPicked == null)
+                    {
+                        blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
+                    }
                     if (blackboard.fishPicked != null)
                     {
                         Debug.Log("Fish picked");
@@ -80,10 +83,6 @@ namespace FSM
                     }
                     break;
                 case State.ESCAPE:
-                    if(blackboard.fishPicked != null)
-                    {
-                        ChangeState(State.EAT_FISH); break;
-                    }
                     if (blackboard.changeToMovementState)
                     {
                         ChangeState(State.MOVEMENT); break;
