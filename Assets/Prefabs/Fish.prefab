@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shark: {fileID: 0}
-  maxDistanceToShark: 40
+  maxDistanceToShark: 80
   WhenIsfeed: 10
   eatPlnktonValue: 1
   timeFloking: 4
@@ -172,6 +172,7 @@ MonoBehaviour:
   stopFlee: 70
   tagFishHide: FISH_HIDE
   tagFisH: FISH
+  tagTurtle: TORTOISE
   generalReachedRadius: 10
 --- !u!114 &8353187572292751805
 MonoBehaviour:
