@@ -76,7 +76,7 @@ public class SensingUtils
 		
 	}
 
-	public static GameObject FindInstanceDescartng(GameObject me, string tag, GameObject[] turtles)
+	public static GameObject FindAllInstanceDescartng(GameObject me, string tag)
 	{
 
 		GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);

@@ -57,6 +57,13 @@ namespace FSM
                     ChangeState(State.SHARK_FLEE);
                     break; 
                 case State.GOTO_TORTOISE:
+                    nearTortoise = blackboard.GetNearTurtleAvalible(gameObject.transform);
+                    if(nearTortoise==null)
+                    {
+                        ChangeState(State.GOTO_ANEMONA);
+                        break;
+                    
+                    }
                     if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
                         if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
