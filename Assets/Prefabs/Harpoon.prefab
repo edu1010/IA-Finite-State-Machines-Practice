@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 5980369973846335311}
   - component: {fileID: 5980369973846335310}
   - component: {fileID: 5980369973846335298}
-  - component: {fileID: 5980369973846335299}
   m_Layer: 0
   m_Name: Harpoon
   m_TagString: Untagged
@@ -113,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 5980369973846335309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.46, y: 7.45, z: -0.036211144}
-  m_LocalScale: {x: 3.32, y: 3.32, z: 3.32}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6752650345707691357}
@@ -132,10 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 2
-  maxSpeed: 10
-  maxAngularAcceleration: 45
-  maxAngularSpeed: 45
+  maxAcceleration: 40
+  maxSpeed: 50
+  maxAngularAcceleration: 90
+  maxAngularSpeed: 100
   position: {x: 0, y: 0, z: 0}
   orientation: 0
   linearVelocity: {x: 0, y: 0, z: 0}
@@ -147,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5980369973846335309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c999bce5de0a640b007c1f49d01742, type: 3}
   m_Name: 
@@ -166,25 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 0
-  closeEnoughRadius: 2
+  closeEnoughRadius: 10
   slowDownRadius: 20
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
---- !u!114 &5980369973846335299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5980369973846335309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6426297da9ced4499fd3f898997ee6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractorA: {fileID: 0}
-  attractorB: {fileID: 0}
-  shark: {fileID: 0}
-  attractorReachedRadious: 10
-  sharkDetectableRadious: 10
-  timeAttack: 5
