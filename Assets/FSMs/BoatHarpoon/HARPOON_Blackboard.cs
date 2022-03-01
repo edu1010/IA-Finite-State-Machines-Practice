@@ -14,6 +14,7 @@ public class HARPOON_Blackboard : MonoBehaviour
     public float sharkDetectableRadious = 10.0f;
     public float timeAttack = 5.0f;
     //public float pickHarpoonTime = 8.0f;
+    //public float currentTimeToAttack = 0.0f;
     public float timeToAttackAgain = 10.0f;
     public float boatCloseEnoughtRadius = 10.0f;
 
@@ -24,6 +25,7 @@ public class HARPOON_Blackboard : MonoBehaviour
 
     public bool attack = false;
     public bool harpoonPicked = false;
+    public bool canAttack;
 
 
 }

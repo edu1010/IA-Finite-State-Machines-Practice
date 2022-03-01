@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace FSM
 {
-    [RequireComponent(typeof(FSM_Boat))]
-    [RequireComponent(typeof(FSM_Harpoon))]
+    //[RequireComponent(typeof(FSM_Boat))]
+    //[RequireComponent(typeof(FSM_Harpoon))]
     [RequireComponent(typeof(HARPOON_Blackboard))]
     public class FSM_BOAT_HARPOON : FiniteStateMachine
     {
@@ -26,20 +26,20 @@ namespace FSM
         void Start()
         {
             blackboard = GetComponent<HARPOON_Blackboard>();
-            fsmHarpoon = GetComponent<FSM_Harpoon>();
-            fsmBoat = GetComponent<FSM_Boat>();            
+            fsmHarpoon = GetComponentInChildren<FSM_Harpoon>();
+            fsmBoat = GetComponentInChildren<FSM_Boat>();
 
-            fsmHarpoon.Exit();            
+            fsmHarpoon.Exit();
             fsmBoat.Exit();
-            fsmHarpoon.enabled = false;
-            fsmBoat.enabled = false;
+            //fsmHarpoon.enabled = false;
+            //fsmBoat.enabled = false;
         }
         public override void Exit()
         {
             fsmHarpoon.Exit();
             fsmBoat.Exit();
-            fsmHarpoon.enabled = false;
-            fsmBoat.enabled = false;
+            //fsmHarpoon.enabled = false;
+            //fsmBoat.enabled = false;
             base.Exit();
         }
 
@@ -75,17 +75,6 @@ namespace FSM
 
         private void ChangeState(State newState)
         {
-            // EXIT STATE LOGIC. Depends on current state
-            switch (currentState)
-            {
-                case State.BOAT_WANDER:
-                    fsmBoat.Exit();
-                    break;
-                case State.ATTACK:
-                    fsmHarpoon.Exit();
-                    break;
-            }
-
             // ENTER STATE LOGIC. Depends on newState
             switch (newState)
             {
@@ -94,6 +83,17 @@ namespace FSM
                     break;
                 case State.ATTACK:
                     fsmHarpoon.ReEnter();
+                    break;
+            }
+
+            // EXIT STATE LOGIC. Depends on current state
+            switch (currentState)
+            {
+                case State.BOAT_WANDER:
+                    fsmBoat.Exit();
+                    break;
+                case State.ATTACK:
+                    fsmHarpoon.Exit();
                     break;
             }
             currentState = newState;

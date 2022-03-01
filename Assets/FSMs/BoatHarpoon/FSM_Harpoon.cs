@@ -7,10 +7,10 @@ namespace FSM
 {
     [RequireComponent(typeof(Arrive))]
     //[RequireComponent(typeof(Seek))]
-    [RequireComponent(typeof(HARPOON_Blackboard))]
+    //[RequireComponent(typeof(HARPOON_Blackboard))]
     //[RequireComponent(typeof(FSM_BOAT_HARPOON))]
     public class FSM_Harpoon : FiniteStateMachine
-    {        
+    {
         public enum State
         {
             INITIAL,
@@ -26,7 +26,7 @@ namespace FSM
         //private Seek seek;
         //private FSM_BOAT_HARPOON fsmBoatAndHarpoon;
 
-        private float elapsedTime = 0.0f;
+        private float elapsedTime = 0.0f;        
 
         // Start is called before the first frame update
         void Start()
@@ -60,32 +60,30 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    if(SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious)
-                    {
-                        ChangeState(State.ATTACK_SHARK);
-                        break;
-                    }
+                    ChangeState(State.ATTACK_SHARK);
                     break;
                 case State.ATTACK_SHARK:
                     Debug.Log("attack shark");
                     if (elapsedTime >= blackboard.timeAttack)
                     {
+                        blackboard.canAttack = false;
                         ChangeState(State.PICK_HARPOON);
                         Debug.Log("Me retiro");
                     }
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.PICK_HARPOON:
-                    if(SensingUtils.DistanceToTarget(gameObject, blackboard.boat) <= blackboard.boatCloseEnoughtRadius)
-                    {                       
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.boat) <= blackboard.boatCloseEnoughtRadius)
+                    {
                         ChangeState(State.DO_NOTHING);
                         break;
                     }
                     //elapsedTime += Time.deltaTime;
                     break;
                 case State.DO_NOTHING:
-                    if(elapsedTime >= blackboard.timeToAttackAgain)
+                    if (elapsedTime >= blackboard.timeToAttackAgain)
                     {
+                        blackboard.canAttack = true;
                         ChangeState(State.INITIAL);
                         break;
                     }
@@ -98,14 +96,14 @@ namespace FSM
         {
             // ENTER STATE LOGIC. Depends on newState
             switch (newState)
-            {                
-                case State.ATTACK_SHARK:
+            {
+                case State.ATTACK_SHARK:                    
                     //gameObject.transform.parent = null;
                     elapsedTime = 0;
                     //seek.target = blackboard.shark;
                     //seek.enabled = true;
-                    arrive.target = blackboard.shark; 
-                    arrive.enabled = true;
+                    arrive.target = blackboard.shark;
+                    arrive.enabled = true;                    
                     break;
                 case State.PICK_HARPOON:
                     elapsedTime = 0.0f;
@@ -115,7 +113,7 @@ namespace FSM
                     arrive.enabled = true;
                     break;
                 case State.DO_NOTHING:
-                    //blackboard.harpoonPicked = true;
+                    blackboard.harpoonPicked = true;                    
                     //gameObject.transform.parent = blackboard.boat.transform;                    
                     elapsedTime = 0.0f;
                     //fsmBoatAndHarpoon.ReEnter();
@@ -124,15 +122,16 @@ namespace FSM
 
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
-            {               
+            {
                 case State.ATTACK_SHARK:
                     elapsedTime = 0;                    
                     break;
                 case State.PICK_HARPOON:
                     arrive.enabled = false;
                     break;
-                case State.DO_NOTHING:                    
+                case State.DO_NOTHING:
                     //fsmBoatAndHarpoon.Exit();
+                    blackboard.harpoonPicked = false;
                     break;
             }
 

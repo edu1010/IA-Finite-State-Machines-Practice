@@ -16,7 +16,8 @@ namespace FSM
             GO_TO_A,
             GO_TO_B,
             STAYA,
-            STAYB            
+            STAYB,
+            STAY_ATTACK
 
         };
 
@@ -28,6 +29,7 @@ namespace FSM
 
         private float elapsedTime = 0.0f;
 
+
         private float posY;
 
         // Start is called before the first frame update
@@ -35,7 +37,7 @@ namespace FSM
         {
             posY = transform.position.y;
             arriveBoat = GetComponent<ArriveBoat>();
-            blackboard = GetComponentInParent<HARPOON_Blackboard>();
+            blackboard = GetComponent<HARPOON_Blackboard>();
             //fsmHarpoon = GetComponent<FSM_Harpoon>();
 
             arriveBoat.enabled = false;
@@ -63,43 +65,74 @@ namespace FSM
                     ChangeState(State.GO_TO_A);
                     break;
                 case State.GO_TO_A:
-                    if ((transform.position - blackboard.attractorA.transform.position).magnitude < blackboard.attractorReachedRadious)
+                    if ((transform.position - blackboard.attractorA.transform.position).magnitude <= blackboard.attractorReachedRadious)
                     {
                         ChangeState(State.STAYA);
+                        break;
                     }
-                    
-                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
                     {
-                        //blackboard.attack = true;
+                        ChangeState(State.STAY_ATTACK);
+                        break;
                     }
+                    elapsedTime += Time.deltaTime;
                     break;
                 case State.GO_TO_B:
-                    if ((transform.position - blackboard.attractorB.transform.position).magnitude < blackboard.attractorReachedRadious)
+                    if ((transform.position - blackboard.attractorB.transform.position).magnitude <= blackboard.attractorReachedRadious)
                     {
                         ChangeState(State.STAYA);
+                        break;
                     }
-                    
-                    if ((transform.position - blackboard.shark.transform.position).magnitude < blackboard.sharkDetectableRadious)
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
                     {
-                        //blackboard.attack = true;
-                        //ChangeState(State.STAY);
+                        ChangeState(State.STAY_ATTACK);
+                        break;
                     }
                     break;
                 case State.STAYA:
                     if (elapsedTime >= blackboard.maxTimeStay)
                     {
                         ChangeState(State.GO_TO_B);
+                        break;
                     }
-                    
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
+                    {
+                        ChangeState(State.STAY_ATTACK);
+                        break;
+                    }
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.STAYB:
                     if (elapsedTime >= blackboard.maxTimeStay)
                     {
                         ChangeState(State.GO_TO_A);
+                        break;
                     }
-                    
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
+                    {
+                        ChangeState(State.STAY_ATTACK);
+                        break;
+                    }
                     elapsedTime += Time.deltaTime;
+                    break;
+                case State.STAY_ATTACK:
+                    if (blackboard.harpoonPicked)
+                    {
+                        if (arriveBoat.target == blackboard.attractorA)
+                        {
+                            ChangeState(State.GO_TO_A);
+                            break;
+                        }
+                        else
+                        {
+                            ChangeState(State.GO_TO_B);
+                            break;
+                        }
+                    }
                     break;
 
             }
@@ -111,11 +144,11 @@ namespace FSM
             switch (newState)
             {
                 case State.GO_TO_A:
-                    arriveBoat.target = blackboard.attractorA; //target gusano seleccionado
+                    arriveBoat.target = blackboard.attractorA; 
                     arriveBoat.enabled = true;
                     break;
                 case State.GO_TO_B:
-                    arriveBoat.target = blackboard.attractorB; //target gusano seleccionado
+                    arriveBoat.target = blackboard.attractorB; 
                     arriveBoat.enabled = true;
                     break;
                 case State.STAYA:
@@ -125,7 +158,10 @@ namespace FSM
                 case State.STAYB:
                     elapsedTime = 0.0f;
                     arriveBoat.enabled = false;
-                    break;                
+                    break;
+                case State.STAY_ATTACK:
+                    arriveBoat.enabled = false;
+                    break;
 
             }
 
@@ -133,17 +169,20 @@ namespace FSM
             switch (currentState)
             {
                 case State.GO_TO_A:
-                    //arriveBoat.enabled = false;
+                    arriveBoat.enabled = false;
                     break;
                 case State.GO_TO_B:
-                    //arriveBoat.enabled = false;
+                    arriveBoat.enabled = false;
                     break;
                 case State.STAYA:
                     elapsedTime = 0.0f;
                     break;
                 case State.STAYB:
                     elapsedTime = 0.0f;
-                    break;                
+                    break;
+                case State.STAY_ATTACK:
+                    //arriveBoat.enabled = true;
+                    break;
 
             }
 
