@@ -25,6 +25,9 @@ namespace FSM
         private Arrive arrive;
         private WanderAround wanderAround;
 
+        private float originalMaxSpeed;
+        private float originalMaxAcceleration;
+
         void Awake()
         {
             wanderAround = GetComponent<WanderAround>();
@@ -32,6 +35,9 @@ namespace FSM
             blackboard = GetComponent<SHARK_Blackboard>();
 
             wanderAround.attractor = blackboard.Attractor;
+
+            originalMaxSpeed = GetComponent<KinematicState>().maxSpeed;
+            originalMaxAcceleration = GetComponent<KinematicState>().maxAcceleration;
 
             wanderAround.enabled = false;
             arrive.enabled = false;
@@ -42,6 +48,8 @@ namespace FSM
         {
             arrive.enabled = false;
             wanderAround.enabled = false;
+            GetComponent<KinematicState>().maxSpeed = originalMaxSpeed;
+            GetComponent<KinematicState>().maxAcceleration = originalMaxAcceleration;
             base.Exit();
         }
 

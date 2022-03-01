@@ -29,5 +29,6 @@ public class SHARK_Blackboard : MonoBehaviour
     [Header("General")]
     public bool changeToMovementState = false;
     public GameObject fishPicked;
+    public GameObject fishPickedPosition;
     public GameObject harpoon;
 }

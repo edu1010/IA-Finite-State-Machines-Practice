@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1406885550891498510}
   - component: {fileID: 1406885550891498511}
   - component: {fileID: 8353187572292751805}
+  - component: {fileID: 6831388817581496618}
   m_Layer: 0
   m_Name: Fish
   m_TagString: FISH
@@ -189,6 +190,20 @@ MonoBehaviour:
   wdWeight: 0.23
   attractor: {fileID: 0}
   seekWeight: 0.2
+--- !u!114 &6831388817581496618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406885550891498504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cd11f86bca8c84ab84a152c899a1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationalPolicy: 1
+  target: {fileID: 0}
 --- !u!1 &1406885551225127887
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +276,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 4526178de04022e47a0c5e9c28792869, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1

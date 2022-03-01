@@ -5843,10 +5843,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1654342259}
     - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: fishReachedRadius
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: FishbowlGameObject
       value: 
       objectReference: {fileID: 861425843}

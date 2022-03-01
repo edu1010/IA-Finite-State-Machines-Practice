@@ -59,7 +59,9 @@ namespace FSM
                         }
                         else
                         {
-                            blackboard.changeToMovementState = true;
+                            blackboard.fishPicked.transform.parent = null;
+                            blackboard.fishPicked.tag = "FishEated";
+                            blackboard.changeToMovementState = true; // exits this fsm and reEnters() on the Movement's fsm.
                         }
                         break;
                     }
@@ -92,6 +94,7 @@ namespace FSM
                     arrive.enabled = true;
                     arrive.target = blackboard.FishbowlGameObject;
                     blackboard.fishPicked.GetComponent<FSM_FISH>().Exit();
+                    blackboard.fishPicked.transform.position = blackboard.fishPickedPosition.transform.position;
                     blackboard.fishPicked.transform.parent = transform;
                     break;
                 case State.EAT_FISH:
