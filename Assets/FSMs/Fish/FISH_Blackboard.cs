@@ -28,7 +28,7 @@ public class FISH_Blackboard : MonoBehaviour
     public float stopFlee = 70f;
     public string tagFishHide = "FISH_HIDE";
     public string tagFisH = "FISH";
-
+    GameObject[] turtles;
     public float generalReachedRadius = 10f;
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
