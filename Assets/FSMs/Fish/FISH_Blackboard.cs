@@ -23,6 +23,11 @@ public class FISH_Blackboard : MonoBehaviour
     public float maxTimeSearchAnemona = 4f;
     public float currentHungry;
     public float maxWeitghWander = 0.6f;
+    public bool isHiding = false;
+    public float maxTimeHiding = 2;
+    public float stopFlee = 70f;
+
+    public float turtleReachedRadius = 10f;
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
         if (SensingUtils.DistanceToTarget(gameObject, wanderAround.attractor) >= maxDistanceAtractor)

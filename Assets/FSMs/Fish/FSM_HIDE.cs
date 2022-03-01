@@ -9,7 +9,7 @@ namespace FSM
     {
         public enum State
         {
-            INITIAL,GOTO_TORTOISE,SEARCH_ANEMONA,GOTO_ANEMONA,WAIT,SEARCH_TORTOISE
+            INITIAL,GOTO_TORTOISE,SEARCH_ANEMONA,GOTO_ANEMONA,WAIT,SHARK_FLEE
         };
 
         public State currentState = State.INITIAL;
@@ -28,6 +28,7 @@ namespace FSM
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
             flee = GetComponent<Flee>();
+            flee.target = blackboard.shark;
         }
         public override void Exit()
         {
@@ -35,6 +36,7 @@ namespace FSM
             wanderAround.enabled = false;
             flee.enabled = false;
             transform.parent = null;
+            blackboard.isHiding = false;
             base.Exit();
         }
 
@@ -50,10 +52,10 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.SEARCH_TORTOISE);
+                    ChangeState(State.SHARK_FLEE);
                     break; 
                 case State.GOTO_TORTOISE:
-                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.foodReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.turtleReachedRadius)
                     {
                         if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
                         {
@@ -63,12 +65,17 @@ namespace FSM
                         }
                         else
                         {
-                            ChangeState(State.SEARCH_ANEMONA);
+                            ChangeState(State.GOTO_ANEMONA);
                             break;
                         }
                     }
                     break;
-                case State.SEARCH_TORTOISE:
+                case State.SHARK_FLEE:
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) > blackboard.stopFlee )
+                    {
+                        ChangeState(State.GOTO_TORTOISE);
+                        break;
+                    }
                     nearTortoise = SensingUtils.FindInstanceWithinRadius(gameObject, "TORTOISE", blackboard.radiusNearTortoise);
                     if(nearTortoise != null)
                     {
@@ -99,6 +106,8 @@ namespace FSM
                         break;
                     }
                     break;
+                case State.WAIT:
+                    break;
             }
         }
 
@@ -118,7 +127,7 @@ namespace FSM
                     elapsedTime = 0;
                     wanderAround.enabled = false;
                     break; 
-                case State.SEARCH_TORTOISE:
+                case State.SHARK_FLEE:
                     elapsedTime = 0;
                     wanderAround.enabled = false;
                     flee.enabled = false;
@@ -138,24 +147,27 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
-                  arrive.enabled = true;
+                    nearTortoise = SensingUtils.FindInstance(gameObject, "TORTOISE");
+                    arrive.enabled = true;
                   arrive.target = nearTortoise;
 
                     break;
                 case State.SEARCH_ANEMONA:
                     wanderAround.enabled = true;
                     break;
-                case State.SEARCH_TORTOISE:
+                case State.SHARK_FLEE:
                     flee.enabled = true;
                     flee.target = blackboard.shark;
                    // wanderAround.enabled = true;
                     wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     break;
                 case State.GOTO_ANEMONA:
+                    anemona = SensingUtils.FindInstance(gameObject, "ANEMONA");
                     arrive.enabled = true;
                     arrive.target = anemona;
                     break;
                 case State.WAIT:
+                  blackboard.isHiding = true;
                     break;
             }
             currentState = newState;

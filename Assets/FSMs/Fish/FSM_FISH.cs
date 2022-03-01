@@ -65,10 +65,19 @@ namespace FSM
                     }
                     break;
                 case State.HIDE:
-                    if (blackboard.maxDistanceToShark < SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
+                    if (blackboard.isHiding)
                     {
-                        ChangeState(State.EAT);
+                        elapsedTime += Time.deltaTime;
+                        if (elapsedTime > blackboard.maxTimeHiding)
+                        {
+                            ChangeState(State.FLOKING);
+                            break;
+                        }
                     }
+                   /* if (blackboard.maxDistanceToShark < SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
+                    {
+                        
+                    }*/
                     break;
 
                 case State.FLOKING:

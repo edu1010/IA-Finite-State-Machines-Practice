@@ -52,5 +52,30 @@ public class SensingUtils
 		return (target.transform.position - me.transform.position).magnitude;
 	}
 
+	//Find instance wihout radius
+	public static GameObject FindInstance(GameObject me, string tag)
+	{
+
+		GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
+		if (targets.Length == 0) return null;
+
+		float dist = 0;
+		GameObject closest = targets[0];
+		float minDistance = (closest.transform.position - me.transform.position).magnitude;
+
+		for (int i = 1; i < targets.Length; i++)
+		{
+			dist = (targets[i].transform.position - me.transform.position).magnitude;
+			if (dist < minDistance)
+			{
+				minDistance = dist;
+				closest = targets[i];
+			}
+		}
+		return closest;
+		
+	}
+
+
 }
 
