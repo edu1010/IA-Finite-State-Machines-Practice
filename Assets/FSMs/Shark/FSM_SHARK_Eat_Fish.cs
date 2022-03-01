@@ -100,7 +100,6 @@ namespace FSM
                     blackboard.fishPicked.transform.parent = transform;
                     break;
                 case State.EAT_FISH:
-                    blackboard.currentFishes = 0;
                     break;
             }
             
@@ -113,6 +112,7 @@ namespace FSM
                     blackboard.fishPicked.tag = "FishEated";
                     break;
                 case State.EAT_FISH:
+                    blackboard.currentFishes = 0;
                     break;
             }
             currentState = newState;
