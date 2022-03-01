@@ -65,8 +65,8 @@ namespace FSM
                     }
                     else 
                     {
-                        blackboard.currentOxigen += 10 * Time.deltaTime;
-                    }                   
+                        blackboard.currentOxigen += Time.deltaTime*5;
+                    }
                 break;
             }
         }
