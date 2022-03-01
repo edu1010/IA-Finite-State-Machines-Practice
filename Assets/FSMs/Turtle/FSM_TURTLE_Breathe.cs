@@ -38,6 +38,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            blackboard.definitiveBreathingPoint = blackboard.posibleBreathingPoints[Random.Range(0, blackboard.posibleBreathingPoints.Count)];
             blackboard.changeToWander = false;
             base.ReEnter();
         }
@@ -80,6 +81,7 @@ namespace FSM
                     break;
                 case State.TAKING_BREATH:
                     blackboard.currentOxigen = blackboard.maxOxigen;
+                    blackboard.definitiveBreathingPoint = null;
                     break;
             }
 
