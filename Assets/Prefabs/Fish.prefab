@@ -163,7 +163,7 @@ MonoBehaviour:
   maxDistanceAtractor: 40
   minWeight: 0.2
   radiusNearTortoise: 20
-  maxFishInTortoise: 5
+  maxFishInTortoise: 1
   maxTimeSearchAnemona: 4
   currentHungry: 0
   maxWeitghWander: 0.6
