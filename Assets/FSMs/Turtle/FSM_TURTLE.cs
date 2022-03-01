@@ -21,8 +21,6 @@ namespace FSM
         private FSM_TURTLE_Wander turtleFsmWander;
         private FSM_TURTLE_Breathe turtleFsmBreathe;
 
-        public float oxigen = 100.0f;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -32,6 +30,8 @@ namespace FSM
 
             turtleFsmWander.enabled = false;
             turtleFsmBreathe.enabled = false;
+
+            blackboard.currentOxigen = blackboard.maxOxigen;
         }
         public override void Exit()
         {
@@ -54,21 +54,20 @@ namespace FSM
                     ChangeState(State.WANDER);
                     break;
                 case State.WANDER:                    
-                    if(oxigen <= blackboard.oxigenToBreathe)
+                    if(blackboard.currentOxigen <= blackboard.oxigenToBreathe)
                     {
-                        blackboard.currentOxigen = oxigen;
                         ChangeState(State.BREATHE);
                         break;
                     }
-                    oxigen -= 2 * Time.deltaTime;
+                    blackboard.currentOxigen -= 2 * Time.deltaTime;
                     break;
                 case State.BREATHE:
-                    if (oxigen >= blackboard.maxOxigen)
+                    if (blackboard.currentOxigen >= blackboard.maxOxigen)
                     {
+                        blackboard.currentOxigen = blackboard.maxOxigen;
                         ChangeState(State.WANDER);
                         break;
                     }
-                    oxigen = blackboard.currentOxigen;
                     break;
             }
         }

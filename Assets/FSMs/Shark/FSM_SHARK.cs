@@ -62,26 +62,26 @@ namespace FSM
                     if (blackboard.fishPicked != null)
                     {
                         Debug.Log("Fish picked");
-                        ChangeState(State.EAT_FISH);
+                        ChangeState(State.EAT_FISH); break;
                     }
                     break;
                 case State.EAT_FISH:
                     //Change to Escape  
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.harpoon) < blackboard.harpoonDetectionRadius)
                     {
-                        ChangeState(State.ESCAPE);
+                        ChangeState(State.ESCAPE); break;
                     }
                     
                     //Change to Movement
                     if (blackboard.changeToMovementState)
                     {
-                        ChangeState(State.MOVEMENT);
+                        ChangeState(State.MOVEMENT); break;
                     }
                     break;
                 case State.ESCAPE:
                     if (blackboard.changeToMovementState)
                     {
-                        ChangeState(State.MOVEMENT);
+                        ChangeState(State.MOVEMENT); break;
                     }
                     break;
             }

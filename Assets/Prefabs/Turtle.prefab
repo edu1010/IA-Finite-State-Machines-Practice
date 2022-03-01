@@ -190,13 +190,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8430387869863801361}
+  - component: {fileID: 8430387869863801353}
   - component: {fileID: 8430387869863801363}
   - component: {fileID: 8430387869863801352}
   - component: {fileID: 8430387869863801358}
   - component: {fileID: 8430387869863801357}
   - component: {fileID: 8430387869863801356}
   - component: {fileID: 8430387869863801359}
-  - component: {fileID: 8430387869863801353}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: TORTOISE
@@ -221,7 +221,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!114 &8430387869863801363
+--- !u!114 &8430387869863801353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,6 +229,19 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8430387869863801367}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5344d58ff9ae3ca4fb2966cb33dd9741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+--- !u!114 &8430387869863801363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430387869863801367}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfb1e9e52fe048340852ee07c9ac1aaf, type: 3}
   m_Name: 
@@ -268,8 +281,9 @@ MonoBehaviour:
   surface: {fileID: 0}
   oxigenToBreathe: 20
   currentOxigen: 0
-  maxOxigen: 100
-  surfaceReachedRadius: 2
+  maxOxigen: 50
+  surfaceReachedRadius: 15
+  changeToWander: 0
 --- !u!114 &8430387869863801357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,17 +339,3 @@ MonoBehaviour:
   wanderOffset: 20
   attractor: {fileID: 0}
   seekWeight: 0.5
---- !u!114 &8430387869863801353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8430387869863801367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5344d58ff9ae3ca4fb2966cb33dd9741, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  oxigen: 100

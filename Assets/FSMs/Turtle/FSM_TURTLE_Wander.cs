@@ -16,7 +16,6 @@ namespace FSM
             WANDER,
             HAVING_FUN,
             SAY_IT,
-            BREATH // ?
         };
 
         public State currentState = State.INITIAL;
@@ -26,7 +25,7 @@ namespace FSM
         private float elapsedTime = 0.0f;
         private float wanderingTime = 0.0f;
 
-        void Start()
+        void Awake()
         {
             wanderAround = GetComponent<WanderAround>();
             blackboard = GetComponent<TURTLE_BLACKBOARD>();
@@ -38,6 +37,7 @@ namespace FSM
         public override void Exit()
         {
             wanderAround.enabled = false;
+            blackboard.SayIt(false);
             base.Exit();
         }
 
@@ -62,7 +62,7 @@ namespace FSM
                     }
                     break;
                 case State.HAVING_FUN:
-                    transform.Rotate(new Vector3(0.0f, 0.0f, 4.0f));
+                    transform.Rotate(new Vector3(0.0f, 0.0f, 5.0f));
                     elapsedTime += Time.deltaTime;
                     if(elapsedTime >= blackboard.maxTimeHavingFun)
                     {
