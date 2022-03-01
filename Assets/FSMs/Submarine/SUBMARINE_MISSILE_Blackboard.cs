@@ -14,7 +14,7 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
     public float sharkDetectableRadious = 10.0f;
     public float timeAttack = 5.0f;
     public float timeToAttackAgain = 10.0f;
-    public float submarineCloseEnoughtRadius = 10.0f;
+    public float submarineCloseEnoughtRadius = 4.0f;
    
     [Header("Submarine")]
     public float attractorReachedRadious = 10.0f;

@@ -30,6 +30,7 @@ namespace FSM
         {
             blackboard = GetComponent<SUBMARINE_MISSILE_Blackboard>();
             fsmMissile = GetComponentInChildren<FSM_Missile>();
+            //fsmMissile = GetComponent<FSM_Missile>();
             fsmSubmarine = GetComponent<FSM_Submarine>();
 
             fsmMissile.Exit();

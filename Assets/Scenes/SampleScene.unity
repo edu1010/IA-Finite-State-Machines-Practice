@@ -10008,7 +10008,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7314543299783357029}
   m_LocalRotation: {x: -0, y: -0, z: -0.7060855, w: 0.70812666}
-  m_LocalPosition: {x: 0.07, y: -3.02, z: 0}
+  m_LocalPosition: {x: 0.07, y: 9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10051,8 +10051,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3116221061318559996}
   m_LocalRotation: {x: -0, y: -0, z: -0.53222495, w: 0.84660304}
-  m_LocalPosition: {x: -0.68, y: -4.68, z: -0.004165936}
-  m_LocalScale: {x: 0.9018645, y: 0.9018644, z: 0.9018643}
+  m_LocalPosition: {x: -0.67999995, y: -4.680001, z: -0.004165936}
+  m_LocalScale: {x: 0.9018649, y: 0.9018647, z: 0.9018644}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2627775561718385388}
@@ -10460,21 +10460,21 @@ MonoBehaviour:
   attractorB: {fileID: 191513530}
   shark: {fileID: 1580934759}
   submarine: {fileID: 7314543299783357029}
-  missil: {fileID: 3116221061318559996}
   sharkDetectableRadious: 200
   timeAttack: 5
   timeToAttackAgain: 10
   submarineCloseEnoughtRadius: 10
-  sharkLifes:
-  - {fileID: 72468676}
-  - {fileID: 233024321}
-  - {fileID: 993132559}
-  sharkAttackRadious: 2
-  sharkAttacked: 3
   attractorReachedRadious: 10
   maxTimeStay: 4
   missileHided: 0
   canAttack: 1
+  sharkLifes:
+  - {fileID: 72468676}
+  - {fileID: 233024321}
+  - {fileID: 993132559}
+  missileRadious: 10
+  sharkAttacked: 3
+  canTakeDamage: 0
 --- !u!1001 &8430387867831991324
 PrefabInstance:
   m_ObjectHideFlags: 0
