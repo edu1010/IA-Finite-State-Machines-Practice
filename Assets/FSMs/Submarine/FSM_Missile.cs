@@ -14,6 +14,7 @@ namespace FSM
         public enum State
         {
             INITIAL,
+            RESET_POS,
             ATTACK_SHARK,
             HIDE_MISSILE
         };
@@ -53,9 +54,19 @@ namespace FSM
                 case State.INITIAL:
                     ChangeState(State.ATTACK_SHARK);
                     break;
+                case State.RESET_POS:
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.submarine) <= blackboard.submarineCloseEnoughtRadius)
+                    {
+                        transform.position = blackboard.submarine.transform.position;
+                        Debug.Log("hide missile");
+                        //blackboard.missileHided = true;
+                        ChangeState(State.ATTACK_SHARK);
+                        break;
+                    }
+                    missileElapsedTime += Time.deltaTime;
+                    break;
                 case State.ATTACK_SHARK:
                     Debug.Log("attack shark");
-                    blackboard.missileHided = false;
                     if (elapsedTime >= blackboard.timeAttack)
                     {
                         ChangeState(State.HIDE_MISSILE);
@@ -68,30 +79,24 @@ namespace FSM
                         if(blackboard.sharkAttacked == 2)
                         {
                             Destroy(blackboard.sharkLifes[2]);
-                            blackboard.canTakeDamage = false;
+                            ChangeState(State.HIDE_MISSILE);
                         }
-                        else if (blackboard.sharkAttacked == 1 && blackboard.canTakeDamage == true)
+                        if (blackboard.sharkAttacked == 1)
                         {
                             Destroy(blackboard.sharkLifes[1]);
-                            blackboard.canTakeDamage = false;
+                            ChangeState(State.HIDE_MISSILE);
                         }
-                        else if (blackboard.sharkAttacked == 0 && blackboard.canTakeDamage == true)
+                        if (blackboard.sharkAttacked == 0)
                         {
                             Destroy(blackboard.sharkLifes[0]);
-                            blackboard.canTakeDamage = false;
+                            ChangeState(State.HIDE_MISSILE);
                         }
                         
                     }
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.HIDE_MISSILE:
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.submarine) <= blackboard.submarineCloseEnoughtRadius)
-                    {
-                        Debug.Log("hide missile");
-                        blackboard.missileHided = true;
-                        ChangeState(State.ATTACK_SHARK);
-                        break;
-                    }
+                    ChangeState(State.RESET_POS);
                     //elapsedTime += Time.deltaTime;
                     break;
 
@@ -111,11 +116,17 @@ namespace FSM
                     break;
                 case State.HIDE_MISSILE:
                     //gameObject.SetActive(false);
+                    transform.position = blackboard.submarine.transform.position;
                     elapsedTime = 0.0f;
                     gameObject.transform.position = blackboard.submarine.transform.position;
                     gameObject.transform.rotation = blackboard.submarine.transform.rotation;
-                    //arrive.target = blackboard.submarine;
-                    //arrive.enabled = true;
+                    arrive.target = blackboard.submarine;
+                    arrive.enabled = true;
+                    break;
+                case State.RESET_POS:
+                    //gameObject.SetActive(true);
+                    missileElapsedTime = 0;
+                    arrive.enabled = false;
                     break;
 
             }
