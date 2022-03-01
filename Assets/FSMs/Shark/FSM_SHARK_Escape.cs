@@ -11,7 +11,7 @@ namespace FSM
     public class FSM_SHARK_Escape : FiniteStateMachine
     {
         
-        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, MOVEMENT};
+        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN};
              
         public State currentState = State.INITIAL;
 
@@ -20,7 +20,7 @@ namespace FSM
 
         private GameObject hideout;
 
-        private float elapsedTime;
+        private float elapsedTime = 0.0f;
 
         // Start is called before the first frame update
         void Awake()
@@ -39,6 +39,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            elapsedTime = 0.0f;
             blackboard.changeToMovementState = false;
             base.ReEnter();
         }

@@ -31,6 +31,7 @@ namespace FSM
         
         public override void Exit()
         {
+            elapsedTime = 0.0f;
             arrive.enabled = false;
             base.Exit();
         }
