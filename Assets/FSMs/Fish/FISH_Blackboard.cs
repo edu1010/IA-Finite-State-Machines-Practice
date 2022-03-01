@@ -26,6 +26,8 @@ public class FISH_Blackboard : MonoBehaviour
     public bool isHiding = false;
     public float maxTimeHiding = 2;
     public float stopFlee = 70f;
+    public string tagFishHide = "FISH_HIDE";
+    public string tagFisH = "FISH";
 
     public float generalReachedRadius = 10f;
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )

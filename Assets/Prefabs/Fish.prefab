@@ -167,6 +167,12 @@ MonoBehaviour:
   maxTimeSearchAnemona: 4
   currentHungry: 0
   maxWeitghWander: 0.6
+  isHiding: 0
+  maxTimeHiding: 5
+  stopFlee: 70
+  tagFishHide: FISH_HIDE
+  tagFisH: FISH
+  generalReachedRadius: 10
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0
