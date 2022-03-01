@@ -37,6 +37,7 @@ namespace FSM
             flee.enabled = false;
             transform.parent = null;
             blackboard.isHiding = false;
+            transform.tag = blackboard.tagFisH;
             base.Exit();
         }
 
@@ -55,7 +56,7 @@ namespace FSM
                     ChangeState(State.SHARK_FLEE);
                     break; 
                 case State.GOTO_TORTOISE:
-                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.turtleReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
                         if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
                         {
@@ -99,7 +100,7 @@ namespace FSM
                     elapsedTime = blackboard.ChangeWeightWander(wanderAround, elapsedTime);
                     break; 
                 case State.GOTO_ANEMONA:
-                    if (SensingUtils.DistanceToTarget(gameObject, anemona) <= blackboard.foodReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, anemona) <= blackboard.generalReachedRadius)
                     {
                         transform.parent = anemona.transform;
                         ChangeState(State.WAIT);
@@ -138,6 +139,7 @@ namespace FSM
                     arrive.enabled = false;
                     break;
                 case State.WAIT:
+                    transform.tag = blackboard.tagFisH;
                     break;
             }
 
@@ -168,6 +170,7 @@ namespace FSM
                     break;
                 case State.WAIT:
                   blackboard.isHiding = true;
+                    transform.tag = blackboard.tagFishHide;
                     break;
             }
             currentState = newState;
