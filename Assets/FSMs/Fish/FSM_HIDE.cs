@@ -21,6 +21,7 @@ namespace FSM
         private float elapsedTimeSearch = 0;
         private GameObject anemona;
         private Flee flee;
+        private KinematicState kinematicState;
         // Start is called before the first frame update
         void Awake()
         {
@@ -29,6 +30,7 @@ namespace FSM
             arrive = GetComponent<Arrive>();
             flee = GetComponent<Flee>();
             flee.target = blackboard.shark;
+            kinematicState = GetComponent<KinematicState>();
         }
         public override void Exit()
         {
@@ -39,12 +41,18 @@ namespace FSM
             blackboard.isHiding = false;
             transform.tag = blackboard.tagFisH;
             transform.tag = blackboard.tagFisH;
+
+
+            kinematicState.maxSpeed = kinematicState.maxSpeed / blackboard.speedMultiplayer;
+            kinematicState.maxAcceleration = kinematicState.maxAcceleration / blackboard.speedMultiplayer;
             base.Exit();
         }
 
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            kinematicState.maxSpeed = kinematicState.maxSpeed * blackboard.speedMultiplayer;
+            kinematicState.maxAcceleration = kinematicState.maxAcceleration * blackboard.speedMultiplayer;
             base.ReEnter();
         }
 
@@ -70,11 +78,6 @@ namespace FSM
                         {
                             transform.parent = nearTortoise.transform;
                             ChangeState(State.WAIT);
-                            break;
-                        }
-                        else
-                        {
-                            ChangeState(State.GOTO_ANEMONA);
                             break;
                         }
                     }
@@ -143,7 +146,6 @@ namespace FSM
                     break;
                 case State.GOTO_ANEMONA:
                     elapsedTime = 0;
-
                     arrive.enabled = false;
                     break;
                 case State.WAIT:

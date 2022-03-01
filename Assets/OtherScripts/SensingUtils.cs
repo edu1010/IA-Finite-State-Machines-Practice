@@ -76,7 +76,7 @@ public class SensingUtils
 		
 	}
 
-	public static GameObject FindAllInstanceDescartng(GameObject me, string tag)
+	public static GameObject FindAllInstance(GameObject me, string tag)
 	{
 
 		GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);

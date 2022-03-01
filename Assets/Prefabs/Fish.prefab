@@ -155,8 +155,8 @@ MonoBehaviour:
   timeFloking: 4
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
-  foodDetectableRadius: 4
-  foodReachedRadius: 4
+  foodDetectableRadius: 10
+  foodReachedRadius: 2
   timeToEat: 2
   incrementSeekWeight: 0.2
   frecuencyIncrementWeight: 0.5
@@ -168,12 +168,14 @@ MonoBehaviour:
   currentHungry: 0
   maxWeitghWander: 0.6
   isHiding: 0
-  maxTimeHiding: 5
+  maxTimeHiding: 20
   stopFlee: 70
   tagFishHide: FISH_HIDE
   tagFisH: FISH
   tagTurtle: TORTOISE
+  speedMultiplayer: 10
   generalReachedRadius: 10
+  targets: []
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0
