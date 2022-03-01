@@ -82,12 +82,12 @@ public class FISH_Blackboard : MonoBehaviour
         { 
             if(targets[i].transform.childCount < maxFishInTortoise)
             {
+                isAllTurtlesFull = true;
                 if (( targets[i].transform.position - me.position ).magnitude <
                     (nearTurtle.transform.position - me.position).magnitude
                     )
                 {
                     nearTurtle = targets[i];
-                    isAllTurtlesFull = true;
                 }
                 
             }
