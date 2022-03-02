@@ -16,8 +16,9 @@ namespace FSM
         public State currentState = State.INITIAL;
         private SUBMARINE_MISSILE_Blackboard blackboard;
 
-        private FSM_Missile fsmMissile;
+        public FSM_Missile fsmMissile;
         private FSM_Submarine fsmSubmarine;
+        GameObject missile;
 
         private float elapsedTime = 0.0f;
 
@@ -25,11 +26,10 @@ namespace FSM
         // Start is called before the first frame update
         void Awake()
         {
+            missile = GameObject.FindGameObjectWithTag("MISSILE");
             blackboard = GetComponent<SUBMARINE_MISSILE_Blackboard>();
-            fsmMissile = GetComponentInChildren<FSM_Missile>();
-            //fsmMissile = GetComponent<FSM_Missile>();
+            fsmMissile = missile.GetComponent<FSM_Missile>();
             fsmSubmarine = GetComponent<FSM_Submarine>();
-
 
             fsmMissile.enabled = false;
             fsmSubmarine.enabled = false;           
@@ -37,14 +37,13 @@ namespace FSM
         public override void Exit()
         {
             fsmMissile.Exit();
-            fsmSubmarine.Exit();            
+            fsmSubmarine.Exit();
             base.Exit();
         }
 
         public override void ReEnter()
         {
             currentState = State.INITIAL;
-            elapsedTime = 0.0f;
             base.ReEnter();
         }
         // Update is called once per frame
@@ -56,10 +55,11 @@ namespace FSM
                     ChangeState(State.SUBMARINE_WANDER);
                     break;
                 case State.SUBMARINE_WANDER:
-                    elapsedTime += Time.deltaTime;
-                    if (elapsedTime >= blackboard.timeToAttackAgain) //wait
+                    missile.transform.position = transform.position;
+                    missile.GetComponent<KinematicState>().transform.position = GetComponent<KinematicState>().transform.position;
+                    if (elapsedTime >= blackboard.timeToAttackAgain)
                     {
-                        //blackboard.canAttack = true;
+                        Debug.Log("change to attack");
                         ChangeState(State.ATTACK); break;
                     }
                     /*
@@ -69,11 +69,12 @@ namespace FSM
                         break;
                     }
                     */
-                    
+                    elapsedTime += Time.deltaTime;
                     break;
                 case State.ATTACK:
-                    if (blackboard.missileHided)// && blackboard.canAttack == false)
+                    if (blackboard.canAttack)
                     {
+                        Debug.Log("change to wander");
                         ChangeState(State.SUBMARINE_WANDER);
                         break;
                     }
@@ -87,13 +88,12 @@ namespace FSM
             switch (newState)
             {
                 case State.SUBMARINE_WANDER:
-                    //blackboard.canAttack = false;
                     elapsedTime = 0.0f;
+                    blackboard.canAttack = false;
                     fsmSubmarine.ReEnter();
                     break;
                 case State.ATTACK:
-                    //blackboard.canAttack = false;
-                    fsmMissile.ReEnter();                    
+                    fsmMissile.ReEnter(); 
                     break;
             }
 

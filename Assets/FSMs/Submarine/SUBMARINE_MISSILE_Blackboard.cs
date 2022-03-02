@@ -8,7 +8,7 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
     public GameObject attractorA;
     public GameObject attractorB;
     public GameObject shark;
-    public GameObject submarine;
+    public GameObject missileHidePosition;
 
     [Header("Missile")]
     public float sharkDetectableRadious = 10.0f;
@@ -17,15 +17,11 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
     public float submarineCloseEnoughtRadius = 4.0f;
     public float missileHideoutDetection = 30.0f;
     public float missileCloseToHideout = 10.0f;
-    
-   
+    public bool canAttack = false;
+
     [Header("Submarine")]
     public float attractorReachedRadious = 10.0f;
     public float maxTimeStay = 4.0f;
-
-    //public bool attack = false;
-    public bool missileHided = false;
-    public bool canAttack = false;
 
     [Header("Damage")]
     public GameObject[] sharkLifes;

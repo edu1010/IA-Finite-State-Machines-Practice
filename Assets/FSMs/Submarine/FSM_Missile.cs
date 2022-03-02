@@ -20,6 +20,7 @@ namespace FSM
         private SUBMARINE_MISSILE_Blackboard blackboard;
         private Arrive arrive;
         private GameObject hideout;
+        private GameObject submarine;
 
         private float elapsedTime = 0.0f;
         private float missileElapsedTime = 0.0f;
@@ -27,14 +28,15 @@ namespace FSM
         // Start is called before the first frame update
         void Awake()
         {
+            submarine = GameObject.FindGameObjectWithTag("SUBMARINE");
             arrive = GetComponent<Arrive>();
-            blackboard = GetComponentInParent<SUBMARINE_MISSILE_Blackboard>();
+            blackboard = submarine.GetComponent<SUBMARINE_MISSILE_Blackboard>();
 
             arrive.enabled = false;
         }
         public override void Exit()
         {
-            blackboard.missileHided = false;
+            blackboard.canAttack = false;
             arrive.enabled = false;
             base.Exit();
         }
@@ -42,6 +44,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            //GetComponent<KinematicState>().transform.parent = null;
             base.ReEnter();
         }
         // Update is called once per frame
@@ -53,19 +56,17 @@ namespace FSM
                     ChangeState(State.ATTACK_SHARK);
                     break;
                 case State.ATTACK_SHARK:
-                    //Debug.Log("attack shark");
                     //hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.missileHideoutDetection);
                     
-                    if (elapsedTime >= blackboard.timeAttack)
+                    if (elapsedTime >= blackboard.timeAttack) //mejor mirar si se sale d la pantalla
                     {
                         ChangeState(State.HIDE_MISSILE);
-                        //Debug.Log("Me retiro");
                         break;
                     }
+                    
                     if(SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.missileRadious)
                     {
                         blackboard.sharkAttacked -= 1;
-                        //Debug.Log("Tiburon Atacado!!!!!!!!!!!!!!!!!!!!!!");
                         if(blackboard.sharkAttacked == 2)
                         {
                             Destroy(blackboard.sharkLifes[2]);
@@ -114,23 +115,20 @@ namespace FSM
             switch (newState)
             {
                 case State.ATTACK_SHARK:
-                    blackboard.missileHided = false;
                     elapsedTime = 0.0f;
                     arrive.target = blackboard.shark;
                     arrive.enabled = true;
                     break;
                 case State.HIDE_MISSILE:
-                    blackboard.missileHided = true;
-                    gameObject.transform.position = blackboard.submarine.transform.position;
+                    blackboard.canAttack = true;
+                    GetComponent<KinematicState>().transform.position = submarine.GetComponent<KinematicState>().transform.position;
                     break;
-
             }
 
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
             {
                 case State.ATTACK_SHARK:
-                    //blackboard.canAttack = false;
                     arrive.enabled = false;
                     blackboard.canTakeDamage = false;
                     break;

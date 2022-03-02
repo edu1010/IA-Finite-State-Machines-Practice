@@ -15,6 +15,8 @@ TagManager:
   - SURFACE
   - SHARK
   - FISH_HIDE
+  - MISSILE
+  - SUBMARINE
   layers:
   - Default
   - TransparentFX
