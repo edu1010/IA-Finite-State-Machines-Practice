@@ -16,8 +16,7 @@ namespace FSM
 
         public State currentState = State.INITIAL;
         private FISH_Blackboard blackboard;
-        private float elapsedTime = 0;
-        private float elapsedTimeFlocking = 0;
+        private float elapsedTime = 0;        
         private FlockingAround flocking;
         private WanderAround wanderAround;
         private Arrive arrive;
@@ -80,19 +79,20 @@ namespace FSM
                     break;
                 case State.EAT:
                     elapsedTime += Time.deltaTime;
+                    Destroy(food);
+                    blackboard.DecrementHungry();
+                    if (blackboard.currentHungry <= 0)
+                    {
+                        //FISH MACHINE CHANGE THE STATE
+                    }
+                    else
+                    {
+                        ChangeState(State.SEARCH);
+                        break;
+                    }
                     if (elapsedTime>= blackboard.timeToEat)
                     {
-                        Destroy(food);
-                        blackboard.DecrementHungry();
-                        if (blackboard.currentHungry <= 0)
-                        {
-                            //FISH MACHINE CHANGE THE STATE
-                        }
-                        else
-                        {
-                            ChangeState(State.SEARCH);
-                            break;
-                        }
+                        
                     }
                     break;
 
@@ -132,6 +132,7 @@ namespace FSM
                     wanderAround.enabled = true;
                     break;
                 case State.GOTO_PLANKTON:
+                    food.tag = "FISH_FOOD_PICKED";
                     elapsedTime = 0f;
                     arrive.target = food;
                     arrive.enabled = true;

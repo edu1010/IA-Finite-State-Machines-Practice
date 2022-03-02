@@ -19,7 +19,7 @@ namespace FSM
        
         private FSM_EAT_EAT_PLANKTON eatFSM;
         private FSM_HIDE hideFSM;
-        private float elapsedTime;
+        private float elapsedTime = 0;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
         public float distance;
@@ -88,7 +88,7 @@ namespace FSM
                     elapsedTimeFlocking += Time.deltaTime;
                     elapsedTime += Time.deltaTime;
                     
-                    if (Time.time - time > 1f)
+                    if (elapsedTime > 1f)
                     {
                       blackboard.IncrementHungry();
                         elapsedTime = 0f;

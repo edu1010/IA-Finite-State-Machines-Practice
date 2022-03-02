@@ -17,6 +17,7 @@ TagManager:
   - FISH_HIDE
   - MISSILE
   - SUBMARINE
+  - FISH_FOOD_PICKED
   layers:
   - Default
   - TransparentFX
