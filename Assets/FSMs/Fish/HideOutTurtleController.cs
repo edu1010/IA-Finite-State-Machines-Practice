@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class HideOutTurtleController : MonoBehaviour
 {
-    public static List<GameObject> avalibleTargets;
+    public  List<GameObject> avalibleTargets;
+    public  List<GameObject> allTargets;
     public string tagTurtle = "TORTOISE";
-    static HideOutTurtleController hideOutTurtleController = null;
+    public static HideOutTurtleController hideOutTurtleController = null;
     // Start is called before the first frame update
     void Awake()
     {
@@ -14,14 +15,30 @@ public class HideOutTurtleController : MonoBehaviour
         {
             hideOutTurtleController = this;
             GameObject.DontDestroyOnLoad(gameObject);
+            avalibleTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(tagTurtle));
+            allTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(tagTurtle));
         }
         else
         {
             GameObject.Destroy(this); // ya existe, no hace falta crearla
         }
-        avalibleTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(tagTurtle));
+        
     }
-    public static GameObject GetNearTurtleAvalible(Transform me)
+    private void Update()
+    {
+       
+        if(avalibleTargets.Count <= 0)
+        {
+            foreach (var item in allTargets)
+            {
+                if (item.transform.childCount == 0)
+                {
+                    avalibleTargets.Add(item);
+                }
+            }
+        }
+    }
+    public  GameObject GetNearTurtleAvalible(Transform me)
     {
         
         if (avalibleTargets.Count <= 0)
@@ -41,14 +58,14 @@ public class HideOutTurtleController : MonoBehaviour
         avalibleTargets.Remove(near);
         return near;
     }
-    public static void AddAvalibleTarget(GameObject hide)
+    public  void AddAvalibleTarget(GameObject hide)
     {
         if (hide.tag.Equals(hideOutTurtleController.tagTurtle))
         {
             avalibleTargets.Add(hide);
         }
     }
-    public static void RemoveTarget(GameObject toRemove)
+    public void RemoveTarget(GameObject toRemove)
     {
         avalibleTargets.Remove(toRemove);
     }
