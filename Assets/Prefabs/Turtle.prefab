@@ -437,7 +437,8 @@ MonoBehaviour:
   maxTimeHavingFun: 5
   maxTimeSayingIt: 3
   Attractor: {fileID: 0}
-  textTurtle: {fileID: 0}
+  textTurtle: {fileID: 8430387868091598290}
+  sprite: {fileID: 1317692277133605511}
   oxigenToBreathe: 20
   currentOxigen: 0
   maxOxigen: 50
