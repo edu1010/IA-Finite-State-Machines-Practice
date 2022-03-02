@@ -113,6 +113,7 @@ namespace FSM
                     break;
                 case State.EAT_FISH:
                     blackboard.currentFishes = 0;
+                    elapsedTime = 0;
                     break;
             }
             currentState = newState;
