@@ -162,6 +162,7 @@ namespace FSM
                     // flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     flocking.attractor = blackboard.atractorA;
                     flocking.enabled = true;
+                    blackboard.currentHungry = 0;
                     break;
             }
             currentState = newState;

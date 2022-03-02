@@ -8,6 +8,8 @@ public class FoodSpawner : MonoBehaviour
     float time;
     public float frequency;
     public float range;
+    public int maxNumberOfFood = 50;
+    private int currentNumberOfFood = 0 ;
 
     // Update is called once per frame
     void Update()
@@ -15,7 +17,11 @@ public class FoodSpawner : MonoBehaviour
         time += Time.deltaTime;
         if (time >= frequency)
         {
-            CreateObject();
+            currentNumberOfFood++;
+            if (currentNumberOfFood < maxNumberOfFood)
+            {
+                CreateObject();
+            }
             time = 0f;
         }
     }

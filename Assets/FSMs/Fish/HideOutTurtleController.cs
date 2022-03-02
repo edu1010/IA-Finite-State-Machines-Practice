@@ -43,7 +43,10 @@ public class HideOutTurtleController : MonoBehaviour
     }
     public static void AddAvalibleTarget(GameObject hide)
     {
-        avalibleTargets.Add(hide);
+        if (hide.tag.Equals(hideOutTurtleController.tagTurtle))
+        {
+            avalibleTargets.Add(hide);
+        }
     }
     public static void RemoveTarget(GameObject toRemove)
     {
