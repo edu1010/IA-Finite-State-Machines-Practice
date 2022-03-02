@@ -8,15 +8,16 @@ namespace FSM
     [RequireComponent(typeof(WanderAround))]
     [RequireComponent(typeof(Arrive))]
     [RequireComponent(typeof(SHARK_Blackboard))]
+    [RequireComponent(typeof(FSM_SHARK_Eat_Fish))]
     public class FSM_SHARK_Movement : FiniteStateMachine
     {
-
         public enum State
         {
             INITIAL,
             WANDER,
             ARRIVE_AT_MARK,
-            DASH
+            DASH,
+            FSM_EAT_FISH
         };
 
         public State currentState = State.INITIAL;
@@ -24,21 +25,18 @@ namespace FSM
         private SHARK_Blackboard blackboard;
         private Arrive arrive;
         private WanderAround wanderAround;
-
-        private float originalMaxSpeed;
-        private float originalMaxAcceleration;
+        private FSM_SHARK_Eat_Fish fsm_eat_fish;
 
         void Awake()
         {
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
+            fsm_eat_fish = GetComponent<FSM_SHARK_Eat_Fish>();
 
             wanderAround.attractor = blackboard.Attractor;
 
-            originalMaxSpeed = GetComponent<KinematicState>().maxSpeed;
-            originalMaxAcceleration = GetComponent<KinematicState>().maxAcceleration;
-
+            fsm_eat_fish.enabled = false;
             wanderAround.enabled = false;
             arrive.enabled = false;
             arrive.target = null;
@@ -48,8 +46,6 @@ namespace FSM
         {
             arrive.enabled = false;
             wanderAround.enabled = false;
-            GetComponent<KinematicState>().maxSpeed = originalMaxSpeed;
-            GetComponent<KinematicState>().maxAcceleration = originalMaxAcceleration;
             base.Exit();
         }
 
@@ -84,6 +80,13 @@ namespace FSM
                     ChangeState(State.WANDER);
                     break;
                 case State.WANDER:
+                    //change to eat fsm
+                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
+                    if (blackboard.fishPicked != null)
+                    {
+                        ChangeState(State.FSM_EAT_FISH); break;
+                    }
+
                     if (blackboard.currentStamina < blackboard.maxStamina)
                     {
                         blackboard.currentStamina += Time.deltaTime;
@@ -92,14 +95,20 @@ namespace FSM
                     {
                         ChangeState(State.DASH); break;
                     }
-
                     if (arrive.target != null)
                     {
                         ChangeState(State.ARRIVE_AT_MARK); break;
                     }
                     break;
                 case State.ARRIVE_AT_MARK:
-                    if(blackboard.currentStamina < blackboard.maxStamina)
+                    //change to eat fsm
+                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
+                    if (blackboard.fishPicked != null)
+                    {
+                        ChangeState(State.FSM_EAT_FISH); break;
+                    }
+
+                    if (blackboard.currentStamina < blackboard.maxStamina)
                     {
                         blackboard.currentStamina += Time.deltaTime;
                     }
@@ -114,8 +123,21 @@ namespace FSM
                     }
                     break;
                 case State.DASH:
+                    //change to eat fsm
+                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
+                    if (blackboard.fishPicked != null)
+                    {
+                        ChangeState(State.FSM_EAT_FISH); break;
+                    }
+
                     blackboard.currentStamina -= Time.deltaTime*2;
                     if (blackboard.currentStamina <= 0.0f || blackboard.canDash == false)
+                    {
+                        ChangeState(State.WANDER); break;
+                    }
+                    break;
+                case State.FSM_EAT_FISH:
+                    if(blackboard.changeToMovementState)
                     {
                         ChangeState(State.WANDER); break;
                     }
@@ -141,6 +163,10 @@ namespace FSM
                     GetComponent<KinematicState>().maxSpeed /= 7.0f;
                     GetComponent<KinematicState>().maxAcceleration /= 7.0f;
                     break;
+                case State.FSM_EAT_FISH:
+                    blackboard.changeToMovementState = false;
+                    fsm_eat_fish.Exit();
+                    break;
             }
 
             // ENTER STATE LOGIC. Depends on newState
@@ -154,11 +180,13 @@ namespace FSM
                     arrive.enabled = true;
                     break;
                 case State.DASH:
-                    
                     arrive.target = blackboard.ArriveGameObject;
                     arrive.enabled = true;
                     GetComponent<KinematicState>().maxSpeed *= 7.0f;
                     GetComponent<KinematicState>().maxAcceleration *= 7.0f;
+                    break;
+                case State.FSM_EAT_FISH:
+                    fsm_eat_fish.ReEnter();
                     break;
             }
             currentState = newState;

@@ -7,18 +7,18 @@ namespace FSM
 {
     [RequireComponent(typeof(SHARK_Blackboard))]
     [RequireComponent(typeof(Arrive))]
-    [RequireComponent(typeof(FSM_SHARK_Eat_Fish))]
+    [RequireComponent(typeof(FSM_SHARK_Movement))]
 
     public class FSM_SHARK_Escape : FiniteStateMachine
     {
         
-        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, FSM_EAT_FISH};
+        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, FSM_MOVEMENT};
              
         public State currentState = State.INITIAL;
 
         private Arrive arrive;
         private SHARK_Blackboard blackboard;
-        private FSM_SHARK_Eat_Fish fsm_eatFish;
+        private FSM_SHARK_Movement fsm_movement;
 
         private GameObject hideout;
         private float elapsedTime = 0.0f;
@@ -27,9 +27,9 @@ namespace FSM
         {            
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
-            fsm_eatFish = GetComponent<FSM_SHARK_Eat_Fish>();
+            fsm_movement = GetComponent<FSM_SHARK_Movement>();
 
-            fsm_eatFish.enabled = false;
+            fsm_movement.enabled = false;
             arrive.enabled = false;
         }
         public override void Exit()
@@ -49,7 +49,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.SEARCH_HIDEOUT);
+                    ChangeState(State.FSM_MOVEMENT);
                     break;
                 case State.SEARCH_HIDEOUT:
                     hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.hideoutDetectionRadius);
@@ -71,12 +71,12 @@ namespace FSM
                     if (elapsedTime >= blackboard.hideTime)
                     {
                         //Change to the second level of the FSM: EAT_FISH
-                        ChangeState(State.FSM_EAT_FISH);
+                        ChangeState(State.FSM_MOVEMENT);
                         break;
                     }
                     elapsedTime += Time.deltaTime;                    
                     break;
-                case State.FSM_EAT_FISH:
+                case State.FSM_MOVEMENT:
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.missile) < blackboard.missileDetectionRadius)
                     {
                         ChangeState(State.SEARCH_HIDEOUT); break;
@@ -99,8 +99,8 @@ namespace FSM
                     break;
                 case State.WAIT_IN:
                     break;
-                case State.FSM_EAT_FISH:
-                    fsm_eatFish.Exit();
+                case State.FSM_MOVEMENT:
+                    fsm_movement.Exit();
                     break;
             }
 
@@ -119,8 +119,8 @@ namespace FSM
                     Debug.Log("Hiding");
                     elapsedTime = 0.0f;
                     break;
-                case State.FSM_EAT_FISH:
-                    fsm_eatFish.ReEnter();
+                case State.FSM_MOVEMENT:
+                    fsm_movement.ReEnter();
                     break;
             }
             currentState = newState;

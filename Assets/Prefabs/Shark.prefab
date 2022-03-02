@@ -78,7 +78,7 @@ MonoBehaviour:
   ArriveGameObject: {fileID: 0}
   Attractor: {fileID: 0}
   hideoutDetectionRadius: 600
-  hideoutReachedRadius: 15
+  hideoutReachedRadius: 25
   missileDetectionRadius: 70
   hideTime: 5
   FishbowlGameObject: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   fishReachedRadius: 25
-  fishBowlReachedRadius: 15
+  fishBowlReachedRadius: 25
   maxFishes: 5
   currentFishes: 0
   maxTimeEatting: 3
