@@ -19,17 +19,19 @@ namespace FSM
        
         private FSM_EAT_EAT_PLANKTON eatFSM;
         private FSM_HIDE hideFSM;
-        private float elapsedTime;
+        private float elapsedTime = 0;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
         public float distance;
-        
+        float time;
+        KinematicState kinematic;
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
             hideFSM = GetComponent<FSM_HIDE>();
             blackboard = GetComponent<FISH_Blackboard>();
             flocking = GetComponent<FlockingAround>();
+            kinematic = GetComponent<KinematicState>();
         }
         public override void Exit()
         {
@@ -44,6 +46,7 @@ namespace FSM
             currentState = State.INITIAL;
             hideFSM.enabled = false;
             eatFSM.enabled = false;
+           
             base.ReEnter();
         }
 
@@ -84,8 +87,8 @@ namespace FSM
                     }
                     elapsedTimeFlocking += Time.deltaTime;
                     elapsedTime += Time.deltaTime;
-
-                    if (elapsedTime > 1)
+                    
+                    if (elapsedTime > 1f)
                     {
                       blackboard.IncrementHungry();
                         elapsedTime = 0f;
@@ -95,11 +98,16 @@ namespace FSM
                         ChangeState(State.EAT);
                         break;
                     }
+                    time = Time.time;
                     break;
             }
         }
 
-
+        private void LateUpdate()
+        {
+            kinematic.linearVelocity.z = 0;
+            kinematic.position.z = 0;
+        }
         private void ChangeState(State newState)
         {
             // EXIT STATE LOGIC. Depends on current state
@@ -131,7 +139,10 @@ namespace FSM
                     hideFSM.ReEnter();
                     break;
                 case State.FLOKING:
+                    time = Time.time;
                     elapsedTime = 0f;
+                    elapsedTimeFlocking = 0;
+                    blackboard.currentHungry = 0;
                     flocking.idTag = "FISH";
                     // flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     flocking.attractor = blackboard.atractorA;

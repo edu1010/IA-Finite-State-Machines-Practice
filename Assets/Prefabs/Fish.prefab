@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406885550891498504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 60
-  maxSpeed: 15
+  maxAcceleration: 240
+  maxSpeed: 60
   maxAngularAcceleration: 360
   maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 10
-  foodReachedRadius: 2
+  foodReachedRadius: 6
   timeToEat: 0.5
   incrementSeekWeight: 0.2
   frecuencyIncrementWeight: 0.5
@@ -191,14 +191,14 @@ MonoBehaviour:
   rotationalPolicy: 1
   idTag: BOID
   cohesionThreshold: 40
-  repulsionThreshold: 15
+  repulsionThreshold: 20
   wanderRate: 10
   vmWeight: 0.08
-  rpWeight: 0.46
-  coWeight: 0.23
+  rpWeight: 2.18
+  coWeight: 4.88
   wdWeight: 0.23
   attractor: {fileID: 0}
-  seekWeight: 0.4
+  seekWeight: 0.1
 --- !u!114 &6831388817581496618
 MonoBehaviour:
   m_ObjectHideFlags: 0

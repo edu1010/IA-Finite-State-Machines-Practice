@@ -4,16 +4,21 @@ using UnityEngine;
 using Steerings;
 public class FISH_Blackboard : MonoBehaviour
 {
+    [Header ("SHARK")]
     public GameObject shark;
     public float maxDistanceToShark = 20f;
+    [Header("HUNGRY")]
     public float WhenIsfeed = 10f;
     public float eatPlnktonValue = 1f;
+    [Header("FLOCKING")]
     public float timeFloking = 4f;
     public GameObject atractorA;
     public GameObject atractorB;
+    [Header("WANDER_FOOD")]
     public float foodDetectableRadius;
     public float foodReachedRadius=2f;
     public float timeToEat = 2f;
+    [Header("WEIGHT")]
     public float incrementSeekWeight = 0.2f;
     public float frecuencyIncrementWeight = 0.5f;
     public float maxDistanceAtractor = 40;
@@ -26,6 +31,7 @@ public class FISH_Blackboard : MonoBehaviour
     public bool isHiding = false;
     public float maxTimeHiding = 2;
     public float stopFlee = 70f;
+    [Header("TAGS")]
     public string tagFishHide = "FISH_HIDE";
     public string tagFisH = "FISH";
     public string tagTurtle= "TORTOISE";
