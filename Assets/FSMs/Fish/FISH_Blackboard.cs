@@ -31,13 +31,9 @@ public class FISH_Blackboard : MonoBehaviour
     public string tagTurtle= "TORTOISE";
     public float speedMultiplayer = 7;
     public float generalReachedRadius = 10f;
-    public GameObject[] targets;
-    public List<GameObject> avalibleTargets;
-    public List<GameObject> donTargets;
     public GameObject anemona;
     private void Awake()
     {
-        targets = GameObject.FindGameObjectsWithTag(tagTurtle);
         anemona = SensingUtils.FindInstance(gameObject, "ANEMONA");
     }
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
@@ -78,56 +74,5 @@ public class FISH_Blackboard : MonoBehaviour
         currentHungry -= eatPlnktonValue;
     }
     
-    public GameObject GetNearTurtleAvalible(Transform me)
-    {
-        GameObject nearTurtle = targets[0];
-        bool isAllTurtlesFull = false;
-        for (int i = 1; i < targets.Length; i++)
-        {
-            Debug.Log("lo "+i+" " + targets[i].transform.childCount);
-            if (targets[i].transform.childCount < maxFishInTortoise)
-            {
-                if (avalibleTargets.Find(x => x = targets[i]) == null)
-                {
-                    avalibleTargets.Add(targets[i]);
-                    if (donTargets.Find(x => x = targets[i]) != null)
-                    {
-                        donTargets.Remove(targets[i]);
-                    }
-
-                }
-                isAllTurtlesFull = true;
-                if (( targets[i].transform.position - me.position ).magnitude <
-                    (nearTurtle.transform.position - me.position).magnitude
-                    )
-                {
-                    nearTurtle = targets[i];
-                }
-
-            }
-            else
-            {
-                if (avalibleTargets.Find(x => x = targets[i]) != null)
-                {
-                    avalibleTargets.Remove(targets[i]);
-                }
-
-                if (donTargets.Find(x => x= targets[i]) == null)
-                {
-                    donTargets.Add(targets[i]);
-                }
-                   
-                
-            }
-        }
-        if (isAllTurtlesFull)
-        {
-            return nearTurtle;
-        }
-        else
-        {
-           
-            return null;
-        }
-    }
+    
 }

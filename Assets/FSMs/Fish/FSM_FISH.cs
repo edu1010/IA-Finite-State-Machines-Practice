@@ -74,13 +74,14 @@ namespace FSM
                             break;
                         }
                     }
-                   /* if (blackboard.maxDistanceToShark < SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
-                    {
-                        
-                    }*/
                     break;
 
                 case State.FLOKING:
+                    distance = SensingUtils.DistanceToTarget(gameObject, blackboard.shark);
+                    if (blackboard.maxDistanceToShark > SensingUtils.DistanceToTarget(gameObject, blackboard.shark))
+                    {
+                        ChangeState(State.HIDE);
+                    }
                     elapsedTimeFlocking += Time.deltaTime;
                     elapsedTime += Time.deltaTime;
 
@@ -94,33 +95,6 @@ namespace FSM
                         ChangeState(State.EAT);
                         break;
                     }
-
-                    //SetWeight
-                    /*
-                    if (SensingUtils.DistanceToTarget(gameObject, flocking.attractor) >= blackboard.maxDistanceAtractor)
-                    {
-                        if (elapsedTimeFlocking > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTimeFlocking = 0f;
-                            flocking.seekWeight += blackboard.incrementSeekWeight;
-                            if (flocking.seekWeight < blackboard.minWeight)
-                            {
-                                flocking.seekWeight = blackboard.minWeight;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (elapsedTime > blackboard.frecuencyIncrementWeight)
-                        {
-                            elapsedTimeFlocking = 0f;
-                            flocking.seekWeight -= blackboard.incrementSeekWeight;
-                            if (flocking.seekWeight < blackboard.minWeight)
-                            {
-                                flocking.seekWeight = blackboard.minWeight;
-                            }
-                        }
-                    }*/
                     break;
             }
         }

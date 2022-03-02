@@ -76,9 +76,12 @@ namespace FSM
                     {
                         ChangeState(State.GOTO_ANEMONA);
                         break;
-
                     }
-                        if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
+                    if (nearTortoise.transform.childCount > blackboard.maxFishInTortoise)
+                    {
+                        nearTortoise = HideOutTurtleController.hideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
+                    }
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
                             transform.parent = nearTortoise.transform;
                             ChangeState(State.WAIT);

@@ -175,9 +175,6 @@ MonoBehaviour:
   tagTurtle: TORTOISE
   speedMultiplayer: 10
   generalReachedRadius: 10
-  targets: []
-  avalibleTargets: []
-  donTargets: []
   anemona: {fileID: 0}
 --- !u!114 &8353187572292751805
 MonoBehaviour:
