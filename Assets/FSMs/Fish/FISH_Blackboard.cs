@@ -82,7 +82,7 @@ public class FISH_Blackboard : MonoBehaviour
         bool isAllTurtlesFull = false;
         for (int i = 1; i < targets.Length; i++)
         {
-            Debug.Log("lo " + targets[i].transform.childCount);
+            Debug.Log("lo "+i+" " + targets[i].transform.childCount);
             if (targets[i].transform.childCount < maxFishInTortoise)
             {
                 if (avalibleTargets.Find(x => x = targets[i]) == null)

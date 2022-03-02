@@ -43,7 +43,6 @@ namespace FSM
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(currentState);
             switch (currentState)
             {
                 case State.INITIAL:

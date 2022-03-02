@@ -37,7 +37,12 @@ namespace FSM
             arrive.enabled = false;
             wanderAround.enabled = false;
             flee.enabled = false;
-            transform.parent = null;
+            if(transform.parent != null && transform.parent.tag.Equals(blackboard.tagTurtle))
+            {
+                HideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
+                transform.parent = null;
+            }
+            
             blackboard.isHiding = false;
             transform.tag = blackboard.tagFisH;
             transform.tag = blackboard.tagFisH;
@@ -65,25 +70,17 @@ namespace FSM
                     ChangeState(State.SHARK_FLEE);
                     break; 
                 case State.GOTO_TORTOISE:
-                    nearTortoise = blackboard.GetNearTurtleAvalible(gameObject.transform);
-                    if(nearTortoise==null)
+                    if (nearTortoise == null || nearTortoise.Equals(null))
                     {
                         ChangeState(State.GOTO_ANEMONA);
                         break;
-                    
+
                     }
-                    if(nearTortoise.transform.childCount > 1)
+                        if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
                     {
-                        nearTortoise = blackboard.GetNearTurtleAvalible(gameObject.transform);
-                    }
-                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
-                    {
-                        if (nearTortoise.transform.childCount < blackboard.maxFishInTortoise)
-                        {
                             transform.parent = nearTortoise.transform;
                             ChangeState(State.WAIT);
                             break;
-                        }
                     }
                     break;
                 case State.SHARK_FLEE:
@@ -163,9 +160,11 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
-                    nearTortoise = SensingUtils.FindInstance(gameObject, "TORTOISE");
+                    nearTortoise = HideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
                     arrive.enabled = true;
-                  arrive.target = nearTortoise;
+                    arrive.target = nearTortoise;
+                    
+                    
 
                     break;
                 case State.SEARCH_ANEMONA:
