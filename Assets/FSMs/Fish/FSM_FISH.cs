@@ -24,12 +24,14 @@ namespace FSM
         private FlockingAround flocking;
         public float distance;
         float time;
+        KinematicState kinematic;
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
             hideFSM = GetComponent<FSM_HIDE>();
             blackboard = GetComponent<FISH_Blackboard>();
             flocking = GetComponent<FlockingAround>();
+            kinematic = GetComponent<KinematicState>();
         }
         public override void Exit()
         {
@@ -101,7 +103,11 @@ namespace FSM
             }
         }
 
-
+        private void LateUpdate()
+        {
+            kinematic.linearVelocity.z = 0;
+            kinematic.position.z = 0;
+        }
         private void ChangeState(State newState)
         {
             // EXIT STATE LOGIC. Depends on current state
