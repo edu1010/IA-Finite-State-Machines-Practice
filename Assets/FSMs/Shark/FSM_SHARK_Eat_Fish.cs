@@ -52,6 +52,7 @@ namespace FSM
                     ChangeState(State.ARRIVE_AT_FISHBOWL);
                     break;
                 case State.ARRIVE_AT_FISHBOWL:
+                    Debug.Log("arrive");
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.FishbowlGameObject) <= blackboard.fishBowlReachedRadius)
                     {
                         blackboard.currentFishes += 1;
@@ -84,7 +85,7 @@ namespace FSM
                     blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
                     if (blackboard.fishPicked != null)
                     {
-                        ChangeState(State.INITIAL); break;
+                        ChangeState(State.ARRIVE_AT_FISHBOWL); break;
                     }
                     break;
             }

@@ -79,7 +79,7 @@ namespace FSM
                 case State.FSM_EAT_FISH:
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.missile) < blackboard.missileDetectionRadius)
                     {
-                        ChangeState(State.INITIAL);
+                        ChangeState(State.SEARCH_HIDEOUT); break;
                     }
                     break;
             }
