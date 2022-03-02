@@ -121,7 +121,7 @@ namespace FSM
                     break;
                 case State.HIDE_MISSILE:
                     blackboard.canAttack = true;
-                    GetComponent<KinematicState>().transform.position = submarine.GetComponent<KinematicState>().transform.position;
+                    GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
                     break;
             }
 
