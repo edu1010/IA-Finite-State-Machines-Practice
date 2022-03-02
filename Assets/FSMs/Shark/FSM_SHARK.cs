@@ -50,17 +50,15 @@ namespace FSM
                     break;
                 case State.MOVEMENT:
                     //Change to Escape
-                    
+                    /*
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.missile) < blackboard.missileDetectionRadius)
                     {
                         ChangeState(State.ESCAPE);
                     }
-                    
+                    */
                     //Change to Eat Fish
-                    if(blackboard.fishPicked == null)
-                    {
-                        blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
-                    }
+
+                    blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
                     if (blackboard.fishPicked != null)
                     {
                         Debug.Log("Fish picked");
@@ -69,12 +67,12 @@ namespace FSM
                     break;
                 case State.EAT_FISH:
                     //Change to Escape  
-                    
+                    /*
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.missile) < blackboard.missileDetectionRadius)
                     {
                         ChangeState(State.ESCAPE); break;
                     }
-                    
+                    */
                     //Change to Movement
                     if (blackboard.changeToMovementState)
                     {
