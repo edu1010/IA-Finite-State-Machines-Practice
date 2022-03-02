@@ -19,8 +19,8 @@ public class SHARK_Blackboard : MonoBehaviour
 
     [Header("Eating")]
     public GameObject FishbowlGameObject;
-    //public GameObject fishPickedPosition;
-    //public List<GameObject> fishPositionInFishbowl;
+    public GameObject fishPickedPosition;
+    public List<GameObject> fishPositionInFishbowl;
 
     public float fishReachedRadius = 25.0f; //enough close to pick it
     public float fishBowlReachedRadius = 2.0f; 

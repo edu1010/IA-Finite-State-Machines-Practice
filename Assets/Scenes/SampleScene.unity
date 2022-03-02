@@ -1755,7 +1755,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297626580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.2, y: -6.48, z: 0}
+  m_LocalPosition: {x: 21.5, y: 20.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10132,11 +10132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -228.8
+      value: 26.1
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -114.7
+      value: -51
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453337, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10171,10 +10171,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: harpoon
-      value: 
-      objectReference: {fileID: 3116221061318559996}
-    - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: missile
       value: 
       objectReference: {fileID: 3116221061318559996}
@@ -10190,10 +10186,6 @@ PrefabInstance:
       propertyPath: FishbowlGameObject
       value: 
       objectReference: {fileID: 861425843}
-    - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: hideoutDetectionRadius
-      value: 550
-      objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453340, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: fishPositionInFishbowl.Array.data[0]
       value: 

@@ -59,7 +59,7 @@ namespace FSM
                         }
                         else
                         {
-                            //blackboard.fishPicked.transform.position = blackboard.fishPositionInFishbowl[blackboard.currentFishes-1].transform.position;
+                            blackboard.fishPicked.transform.position = blackboard.fishPositionInFishbowl[blackboard.currentFishes-1].transform.position;
                             blackboard.fishPicked.transform.parent = null;
                             blackboard.fishPicked.tag = "FishEated";
                             blackboard.changeToMovementState = true; // exits this fsm and reEnters() on the Movement's fsm.
@@ -95,8 +95,8 @@ namespace FSM
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = true;
                     arrive.target = blackboard.FishbowlGameObject;
-                    //blackboard.fishPicked.GetComponent<FSM_FISH>().Exit();
-                    //blackboard.fishPicked.transform.position = blackboard.fishPickedPosition.transform.position;
+                    blackboard.fishPicked.GetComponent<FSM_FISH>().Exit();
+                    blackboard.fishPicked.transform.position = blackboard.fishPickedPosition.transform.position;
                     blackboard.fishPicked.transform.parent = transform;
                     break;
                 case State.EAT_FISH:
@@ -108,12 +108,12 @@ namespace FSM
             {
                 case State.ARRIVE_AT_FISHBOWL:
                     arrive.enabled = false;
-                    //blackboard.fishPicked.transform.parent = null;
-                    //blackboard.fishPicked.tag = "FishEated";
+                    blackboard.fishPicked.transform.parent = null;
+                    blackboard.fishPicked.tag = "FishEated";
                     break;
                 case State.EAT_FISH:
                     blackboard.currentFishes = 0;
-                    //elapsedTime = 0;
+                    elapsedTime = 0.0f;
                     break;
             }
             currentState = newState;

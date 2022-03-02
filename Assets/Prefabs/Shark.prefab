@@ -92,9 +92,9 @@ MonoBehaviour:
   canDash: 0
   ArriveGameObject: {fileID: 0}
   Attractor: {fileID: 0}
-  hideoutDetectionRadius: 500
+  hideoutDetectionRadius: 600
   hideoutReachedRadius: 15
-  harpoonDetectionRadius: 70
+  missileDetectionRadius: 70
   hideTime: 5
   FishbowlGameObject: {fileID: 0}
   fishPickedPosition: {fileID: 5753195457184981756}
@@ -109,9 +109,10 @@ MonoBehaviour:
   maxFishes: 5
   currentFishes: 0
   maxTimeEatting: 3
+  totalEatenFishes: 0
   changeToMovementState: 0
   fishPicked: {fileID: 0}
-  harpoon: {fileID: 0}
+  missile: {fileID: 0}
 --- !u!114 &3126093857882453341
 MonoBehaviour:
   m_ObjectHideFlags: 0
