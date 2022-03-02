@@ -44,7 +44,8 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
-            //GetComponent<KinematicState>().transform.parent = null;
+            GetComponent<KinematicState>().transform.parent = null;
+            GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
             base.ReEnter();
         }
         // Update is called once per frame

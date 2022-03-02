@@ -55,8 +55,6 @@ namespace FSM
                     ChangeState(State.SUBMARINE_WANDER);
                     break;
                 case State.SUBMARINE_WANDER:
-                    missile.transform.position = transform.position;
-                    missile.GetComponent<KinematicState>().position = GetComponent<KinematicState>().position;
                     if (elapsedTime >= blackboard.timeToAttackAgain)
                     {
                         Debug.Log("change to attack");

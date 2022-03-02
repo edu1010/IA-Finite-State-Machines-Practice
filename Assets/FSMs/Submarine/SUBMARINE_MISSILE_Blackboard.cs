@@ -8,7 +8,6 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
     public GameObject attractorA;
     public GameObject attractorB;
     public GameObject shark;
-    public GameObject missileHidePosition;
 
     [Header("Missile")]
     public float sharkDetectableRadious = 10.0f;
