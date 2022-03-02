@@ -70,7 +70,8 @@ namespace FSM
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.ATTACK:
-                    if (/*blackboard.missileHided &&*/ blackboard.canAttack == false)
+                    blackboard.canAttack = false;
+                    if (blackboard.missileHided && blackboard.canAttack == false)
                     {
                         ChangeState(State.SUBMARINE_WANDER);
                         break;
@@ -89,7 +90,7 @@ namespace FSM
                     fsmSubmarine.ReEnter();
                     break;
                 case State.ATTACK:
-                    fsmMissile.ReEnter();
+                    fsmMissile.ReEnter();                    
                     break;
             }
 

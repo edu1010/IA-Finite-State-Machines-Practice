@@ -15,6 +15,9 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
     public float timeAttack = 5.0f;
     public float timeToAttackAgain = 10.0f;
     public float submarineCloseEnoughtRadius = 4.0f;
+    public float missileHideoutDetection = 30.0f;
+    public float missileCloseToHideout = 10.0f;
+    
    
     [Header("Submarine")]
     public float attractorReachedRadious = 10.0f;

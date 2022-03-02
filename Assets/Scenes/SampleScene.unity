@@ -10466,8 +10466,10 @@ MonoBehaviour:
   submarine: {fileID: 7314543299783357029}
   sharkDetectableRadious: 200
   timeAttack: 5
-  timeToAttackAgain: 10
+  timeToAttackAgain: 5
   submarineCloseEnoughtRadius: 10
+  missileHideoutDetection: 100
+  missileCloseToHideout: 50
   attractorReachedRadious: 10
   maxTimeStay: 4
   missileHided: 0
