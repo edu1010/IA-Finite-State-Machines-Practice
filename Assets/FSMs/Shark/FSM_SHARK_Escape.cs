@@ -7,37 +7,33 @@ namespace FSM
 {
     [RequireComponent(typeof(SHARK_Blackboard))]
     [RequireComponent(typeof(Arrive))]
+    [RequireComponent(typeof(FSM_SHARK_Eat_Fish))]
 
     public class FSM_SHARK_Escape : FiniteStateMachine
     {
         
-        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN};
+        public enum State {INITIAL, SEARCH_HIDEOUT, REACHING_HIDEOUT, WAIT_IN, FSM_EAT_FISH};
              
         public State currentState = State.INITIAL;
 
         private Arrive arrive;
         private SHARK_Blackboard blackboard;
+        private FSM_SHARK_Eat_Fish fsm_eatFish;
 
         private GameObject hideout;
         private float elapsedTime = 0.0f;
-        private float originalMaxSpeed;
-        private float originalMaxAcceleration;
 
-        // Start is called before the first frame update
         void Awake()
         {            
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
+            fsm_eatFish = GetComponent<FSM_SHARK_Eat_Fish>();
 
-            originalMaxSpeed = GetComponent<KinematicState>().maxSpeed;
-            originalMaxAcceleration = GetComponent<KinematicState>().maxAcceleration;
-
+            fsm_eatFish.enabled = false;
             arrive.enabled = false;
         }
         public override void Exit()
         {
-            GetComponent<KinematicState>().maxSpeed = originalMaxSpeed;
-            GetComponent<KinematicState>().maxAcceleration = originalMaxAcceleration;
             arrive.enabled = false;
             base.Exit();
         }
@@ -45,11 +41,9 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
-            elapsedTime = 0.0f;
-            blackboard.changeToMovementState = false;
             base.ReEnter();
         }
-        // Update is called once per frame
+
         void Update()
         {
             switch (currentState)
@@ -76,10 +70,17 @@ namespace FSM
                 case State.WAIT_IN:
                     if (elapsedTime >= blackboard.hideTime)
                     {
-                        blackboard.changeToMovementState = true;
+                        //Change to the second level of the FSM: EAT_FISH
+                        ChangeState(State.FSM_EAT_FISH);
                         break;
                     }
                     elapsedTime += Time.deltaTime;                    
+                    break;
+                case State.FSM_EAT_FISH:
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.missile) < blackboard.missileDetectionRadius)
+                    {
+                        ChangeState(State.INITIAL);
+                    }
                     break;
             }
         }
@@ -98,6 +99,9 @@ namespace FSM
                     break;
                 case State.WAIT_IN:
                     break;
+                case State.FSM_EAT_FISH:
+                    fsm_eatFish.Exit();
+                    break;
             }
 
             // ENTER STATE LOGIC. Depends on newState
@@ -114,6 +118,9 @@ namespace FSM
                 case State.WAIT_IN:
                     Debug.Log("Hiding");
                     elapsedTime = 0.0f;
+                    break;
+                case State.FSM_EAT_FISH:
+                    fsm_eatFish.ReEnter();
                     break;
             }
             currentState = newState;
