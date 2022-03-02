@@ -23,7 +23,7 @@ namespace FSM
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
         public float distance;
-        
+        float time;
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
@@ -44,6 +44,7 @@ namespace FSM
             currentState = State.INITIAL;
             hideFSM.enabled = false;
             eatFSM.enabled = false;
+           
             base.ReEnter();
         }
 
@@ -84,8 +85,8 @@ namespace FSM
                     }
                     elapsedTimeFlocking += Time.deltaTime;
                     elapsedTime += Time.deltaTime;
-
-                    if (elapsedTime > 1)
+                    
+                    if (Time.time - time > 1f)
                     {
                       blackboard.IncrementHungry();
                         elapsedTime = 0f;
@@ -95,6 +96,7 @@ namespace FSM
                         ChangeState(State.EAT);
                         break;
                     }
+                    time = Time.time;
                     break;
             }
         }
@@ -131,7 +133,10 @@ namespace FSM
                     hideFSM.ReEnter();
                     break;
                 case State.FLOKING:
+                    time = Time.time;
                     elapsedTime = 0f;
+                    elapsedTimeFlocking = 0;
+                    blackboard.currentHungry = 0;
                     flocking.idTag = "FISH";
                     // flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     flocking.attractor = blackboard.atractorA;

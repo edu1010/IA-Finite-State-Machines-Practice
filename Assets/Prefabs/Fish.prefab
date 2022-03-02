@@ -195,7 +195,7 @@ MonoBehaviour:
   wanderRate: 10
   vmWeight: 0.08
   rpWeight: 0.46
-  coWeight: 0.23
+  coWeight: 4.88
   wdWeight: 0.23
   attractor: {fileID: 0}
   seekWeight: 0.4
