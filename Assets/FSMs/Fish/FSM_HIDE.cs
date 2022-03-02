@@ -38,7 +38,7 @@ namespace FSM
             flee.enabled = false;
             if(transform.parent != null && transform.parent.tag.Equals(blackboard.tagTurtle))
             {
-                HideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
+                HideOutTurtleController.hideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
                 kinematicState.position = transform.TransformPoint(transform.position);//Pasamos de local a mundo la posicion
                 transform.parent = null;
             }
@@ -142,7 +142,7 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
-                    nearTortoise = HideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
+                    nearTortoise = HideOutTurtleController.hideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
                     arrive.enabled = true;
                     arrive.target = nearTortoise;
                     break;
