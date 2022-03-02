@@ -152,12 +152,12 @@ MonoBehaviour:
   maxDistanceToShark: 80
   WhenIsfeed: 10
   eatPlnktonValue: 1
-  timeFloking: 4
+  timeFloking: 10
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}
   foodDetectableRadius: 10
   foodReachedRadius: 2
-  timeToEat: 2
+  timeToEat: 0.5
   incrementSeekWeight: 0.2
   frecuencyIncrementWeight: 0.5
   maxDistanceAtractor: 40
@@ -176,6 +176,9 @@ MonoBehaviour:
   speedMultiplayer: 10
   generalReachedRadius: 10
   targets: []
+  avalibleTargets: []
+  donTargets: []
+  anemona: {fileID: 0}
 --- !u!114 &8353187572292751805
 MonoBehaviour:
   m_ObjectHideFlags: 0

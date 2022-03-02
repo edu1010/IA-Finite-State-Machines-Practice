@@ -9,7 +9,7 @@ namespace FSM
     {
         public enum State
         {
-            INITIAL,GOTO_TORTOISE,SEARCH_ANEMONA,GOTO_ANEMONA,WAIT,SHARK_FLEE
+            INITIAL,GOTO_TORTOISE,GOTO_ANEMONA,WAIT,SHARK_FLEE
         };
 
         public State currentState = State.INITIAL;
@@ -19,7 +19,6 @@ namespace FSM
         private GameObject nearTortoise;
         private float elapsedTime = 0;
         private float elapsedTimeSearch = 0;
-        private GameObject anemona;
         private Flee flee;
         private KinematicState kinematicState;
         // Start is called before the first frame update
@@ -40,8 +39,11 @@ namespace FSM
             if(transform.parent != null && transform.parent.tag.Equals(blackboard.tagTurtle))
             {
                 HideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
+                kinematicState.position = transform.TransformPoint(transform.position);//Pasamos de local a mundo la posicion
                 transform.parent = null;
             }
+
+            transform.parent = null;
             
             blackboard.isHiding = false;
             transform.tag = blackboard.tagFisH;
@@ -95,26 +97,10 @@ namespace FSM
                         ChangeState(State.GOTO_TORTOISE);
                     }
                     break;
-                case State.SEARCH_ANEMONA:
-                    elapsedTime += Time.deltaTime;
-                    elapsedTimeSearch += Time.deltaTime;
-                    if (elapsedTimeSearch > blackboard.maxTimeSearchAnemona)
-                    {
-                        ChangeState(State.GOTO_TORTOISE);
-                        break;
-                    }
-                    anemona = SensingUtils.FindInstanceWithinRadius(gameObject, "ANEMONA", blackboard.foodDetectableRadius);
-                    if (anemona != null)
-                    {
-                        ChangeState(State.GOTO_ANEMONA);
-                        break;
-                    }
-                    elapsedTime = blackboard.ChangeWeightWander(wanderAround, elapsedTime);
-                    break; 
                 case State.GOTO_ANEMONA:
-                    if (SensingUtils.DistanceToTarget(gameObject, anemona) <= blackboard.generalReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject,blackboard.anemona) <= blackboard.generalReachedRadius)
                     {
-                        transform.parent = anemona.transform;
+                        transform.parent = blackboard.anemona.transform;
                         ChangeState(State.WAIT);
                         break;
                     }
@@ -136,10 +122,6 @@ namespace FSM
                     elapsedTime = 0;
                     arrive.enabled = false;
                     break;
-                case State.SEARCH_ANEMONA:
-                    elapsedTime = 0;
-                    wanderAround.enabled = false;
-                    break; 
                 case State.SHARK_FLEE:
                     elapsedTime = 0;
                     wanderAround.enabled = false;
@@ -163,12 +145,6 @@ namespace FSM
                     nearTortoise = HideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
                     arrive.enabled = true;
                     arrive.target = nearTortoise;
-                    
-                    
-
-                    break;
-                case State.SEARCH_ANEMONA:
-                    wanderAround.enabled = true;
                     break;
                 case State.SHARK_FLEE:
                     flee.enabled = true;
@@ -177,9 +153,9 @@ namespace FSM
                     wanderAround.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     break;
                 case State.GOTO_ANEMONA:
-                    anemona = SensingUtils.FindInstance(gameObject, "ANEMONA");
+                    
                     arrive.enabled = true;
-                    arrive.target = anemona;
+                    arrive.target = blackboard.anemona;
                     break;
                 case State.WAIT:
                   blackboard.isHiding = true;

@@ -34,9 +34,11 @@ public class FISH_Blackboard : MonoBehaviour
     public GameObject[] targets;
     public List<GameObject> avalibleTargets;
     public List<GameObject> donTargets;
+    public GameObject anemona;
     private void Awake()
     {
         targets = GameObject.FindGameObjectsWithTag(tagTurtle);
+        anemona = SensingUtils.FindInstance(gameObject, "ANEMONA");
     }
     public float ChangeWeightWander(WanderAround wanderAround, float elapsedTime )
     {
