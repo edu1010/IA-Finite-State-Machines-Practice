@@ -5,8 +5,6 @@ using Steerings;
 
 namespace FSM
 {
-    //[RequireComponent(typeof(FSM_Boat))]
-    //[RequireComponent(typeof(FSM_Harpoon))]
     [RequireComponent(typeof(SUBMARINE_MISSILE_Blackboard))]
     public class FSM_Submarine_Missile : FiniteStateMachine
     {
@@ -17,7 +15,6 @@ namespace FSM
 
         public State currentState = State.INITIAL;
         private SUBMARINE_MISSILE_Blackboard blackboard;
-        //private GameObject harpoon;
 
         private FSM_Missile fsmMissile;
         private FSM_Submarine fsmSubmarine;
@@ -26,15 +23,16 @@ namespace FSM
 
         
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             blackboard = GetComponent<SUBMARINE_MISSILE_Blackboard>();
             fsmMissile = GetComponentInChildren<FSM_Missile>();
             //fsmMissile = GetComponent<FSM_Missile>();
             fsmSubmarine = GetComponent<FSM_Submarine>();
 
-            fsmMissile.Exit();
-            fsmSubmarine.Exit();           
+
+            fsmMissile.enabled = false;
+            fsmSubmarine.enabled = false;           
         }
         public override void Exit()
         {
@@ -46,6 +44,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
+            elapsedTime = 0.0f;
             base.ReEnter();
         }
         // Update is called once per frame
@@ -57,21 +56,23 @@ namespace FSM
                     ChangeState(State.SUBMARINE_WANDER);
                     break;
                 case State.SUBMARINE_WANDER:
-                    if (elapsedTime >= blackboard.timeToAttackAgain)
+                    elapsedTime += Time.deltaTime;
+                    if (elapsedTime >= blackboard.timeToAttackAgain) //wait
                     {
-                        blackboard.canAttack = true;
+                        //blackboard.canAttack = true;
+                        ChangeState(State.ATTACK); break;
                     }
-
+                    /*
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
                     {
                         ChangeState(State.ATTACK);
                         break;
                     }
-                    elapsedTime += Time.deltaTime;
+                    */
+                    
                     break;
                 case State.ATTACK:
-                    blackboard.canAttack = false;
-                    if (blackboard.missileHided && blackboard.canAttack == false)
+                    if (blackboard.missileHided)// && blackboard.canAttack == false)
                     {
                         ChangeState(State.SUBMARINE_WANDER);
                         break;
@@ -86,10 +87,12 @@ namespace FSM
             switch (newState)
             {
                 case State.SUBMARINE_WANDER:
+                    //blackboard.canAttack = false;
                     elapsedTime = 0.0f;
                     fsmSubmarine.ReEnter();
                     break;
                 case State.ATTACK:
+                    //blackboard.canAttack = false;
                     fsmMissile.ReEnter();                    
                     break;
             }

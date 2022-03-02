@@ -61,7 +61,6 @@ namespace FSM
                     blackboard.fishPicked = SensingUtils.FindInstanceWithinRadius(gameObject, "FISH", blackboard.fishReachedRadius);
                     if (blackboard.fishPicked != null)
                     {
-                        Debug.Log("Fish picked");
                         ChangeState(State.EAT_FISH); break;
                     }
                     break;

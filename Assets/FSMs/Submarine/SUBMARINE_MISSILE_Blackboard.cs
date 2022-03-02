@@ -25,7 +25,7 @@ public class SUBMARINE_MISSILE_Blackboard : MonoBehaviour
 
     //public bool attack = false;
     public bool missileHided = false;
-    public bool canAttack;
+    public bool canAttack = false;
 
     [Header("Damage")]
     public GameObject[] sharkLifes;

@@ -1186,6 +1186,7 @@ MonoBehaviour:
   prefab: {fileID: 379184020862896420, guid: b0cbaa7d626e21240ae0bc6b04550e47, type: 3}
   frequency: 0.2
   range: 40
+  maxNumberOfFood: 50
 --- !u!4 &180357112
 Transform:
   m_ObjectHideFlags: 0
@@ -4196,6 +4197,7 @@ MonoBehaviour:
   prefab: {fileID: 379184020862896420, guid: b0cbaa7d626e21240ae0bc6b04550e47, type: 3}
   frequency: 0.2
   range: 40
+  maxNumberOfFood: 50
 --- !u!4 &938431619
 Transform:
   m_ObjectHideFlags: 0
@@ -9961,6 +9963,14 @@ PrefabInstance:
       propertyPath: attractorB
       value: 
       objectReference: {fileID: 191513530}
+    - target: {fileID: 9040940026704723305, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
+      propertyPath: missileHided
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040940026704723305, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
+      propertyPath: timeToAttackAgain
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9040940026704723305, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
       propertyPath: sharkLifes.Array.data[0]
       value: 

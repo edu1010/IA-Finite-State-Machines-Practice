@@ -5,8 +5,6 @@ using Steerings;
 
 namespace FSM
 {
-    //[RequireComponent(typeof(ArriveBoat))]
-    //[RequireComponent(typeof(FSM_Harpoon))]
     [RequireComponent(typeof(SUBMARINE_MISSILE_Blackboard))]
     public class FSM_Submarine : FiniteStateMachine
     {
@@ -31,20 +29,17 @@ namespace FSM
         private float posY;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             posY = transform.position.y;
             arriveBoat = GetComponent<ArriveBoat>();
             blackboard = GetComponent<SUBMARINE_MISSILE_Blackboard>();
-            //fsmHarpoon = GetComponent<FSM_Harpoon>();
 
             arriveBoat.enabled = false;
-            //fsmHarpoon.Exit();
         }
         public override void Exit()
         {
             arriveBoat.enabled = false;
-            //fsmHarpoon.Exit();
             base.Exit();
         }
 

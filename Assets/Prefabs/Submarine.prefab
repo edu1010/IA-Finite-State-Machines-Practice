@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 5749940635850866596}
   - component: {fileID: 527109609865688445}
   - component: {fileID: 527109609865688439}
-  - component: {fileID: 2550486848796493756}
   - component: {fileID: 9040940026704723304}
   - component: {fileID: 9040940026704723305}
   - component: {fileID: 9040940026704720528}
@@ -115,7 +114,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5151268247605287096}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -45.112995, y: 109.3, z: 0}
   m_LocalScale: {x: 4.11, y: 4.11, z: 4.11}
   m_ConstrainProportionsScale: 1
@@ -214,26 +213,6 @@ MonoBehaviour:
   slowDownRadius: 20
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
---- !u!114 &2550486848796493756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151268247605287096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxAcceleration: 8
-  maxSpeed: 10
-  maxAngularAcceleration: 45
-  maxAngularSpeed: 45
-  position: {x: 0, y: 0, z: 0}
-  orientation: 0
-  linearVelocity: {x: 0, y: 0, z: 0}
-  angularSpeed: 0
 --- !u!114 &9040940026704723304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,15 +243,15 @@ MonoBehaviour:
   shark: {fileID: 0}
   submarine: {fileID: 8484959742514811061}
   sharkDetectableRadious: 200
-  timeAttack: 5
-  timeToAttackAgain: 5
+  timeAttack: 10
+  timeToAttackAgain: 20
   submarineCloseEnoughtRadius: 10
   missileHideoutDetection: 100
   missileCloseToHideout: 50
   attractorReachedRadious: 10
   maxTimeStay: 4
-  missileHided: 0
-  canAttack: 1
+  missileHided: 1
+  canAttack: 0
   sharkLifes:
   - {fileID: 0}
   - {fileID: 0}
