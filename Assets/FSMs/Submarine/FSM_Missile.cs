@@ -20,7 +20,7 @@ namespace FSM
         private SUBMARINE_MISSILE_Blackboard blackboard;
         private Arrive arrive;
         private GameObject hideout;
-        private GameObject submarine;       
+        private GameObject submarine;
 
         private float elapsedTime = 0.0f;
         private float missileElapsedTime = 0.0f;
@@ -77,6 +77,7 @@ namespace FSM
                         {
                             Destroy(blackboard.sharkLifes[2]);
                             ChangeState(State.HIDE_MISSILE);
+                            FindObjectOfType<GameManager>().LoseGame();
                             break;
                         }
                         if (blackboard.sharkAttacked == 1)
