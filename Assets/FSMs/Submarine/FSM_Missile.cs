@@ -62,9 +62,8 @@ namespace FSM
                 case State.INITIAL:                   
                     ChangeState(State.ATTACK_SHARK);
                     break;
-                case State.ATTACK_SHARK:
-                    //hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.missileHideoutDetection);                                       
-                    if (elapsedTime >= blackboard.timeAttack || blackboard.shark.GetComponent<SHARK_Blackboard>().IsHided) //mejor mirar si se sale d la pantalla
+                case State.ATTACK_SHARK:                                                          
+                    if (/*elapsedTime >= blackboard.timeAttack || */ blackboard.shark.GetComponent<SHARK_Blackboard>().IsHided) 
                     {
                         ChangeState(State.HIDE_MISSILE);
                         break;
