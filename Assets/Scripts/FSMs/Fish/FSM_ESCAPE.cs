@@ -59,7 +59,7 @@ namespace FSM
                     }
                     break;
                 case State.FISH_HIDE:
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) < blackboard.stopFlee)
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) < blackboard.stopFlee && !blackboard.isHiding )
                     {
                         ChangeState(State.FISH_SHARK_FLEE);
                         break;
