@@ -5,7 +5,7 @@ using Steerings;
 namespace FSM
 {
     [RequireComponent(typeof(FSM_EAT_EAT_PLANKTON))]
-    [RequireComponent(typeof(FSM_HIDE))]
+    [RequireComponent(typeof(FSM_FISH_HIDE))]
     [RequireComponent(typeof(FlockingAround))]
     public class FSM_FISH : FiniteStateMachine
     {
@@ -18,7 +18,7 @@ namespace FSM
         private FISH_Blackboard blackboard;
        
         private FSM_EAT_EAT_PLANKTON eatFSM;
-        private FSM_HIDE hideFSM;
+        private FSM_FISH_HIDE hideFSM;
         private float elapsedTime = 0;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
@@ -28,7 +28,7 @@ namespace FSM
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
-            hideFSM = GetComponent<FSM_HIDE>();
+            hideFSM = GetComponent<FSM_FISH_HIDE>();
             blackboard = GetComponent<FISH_Blackboard>();
             flocking = GetComponent<FlockingAround>();
             kinematic = GetComponent<KinematicState>();
