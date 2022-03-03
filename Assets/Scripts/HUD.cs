@@ -25,7 +25,7 @@ public class HUD : MonoBehaviour
             Time.timeScale = 0;
         }
         textEatenFishes.text = "Eaten fishes: " + shark_Blackboard.totalEatenFishes + " / 15";
-        textCapturedFishes.text = "Captured fishes: " + shark_Blackboard.currentFishes + "/5";
+        textCapturedFishes.text = "Captured fishes: " + shark_Blackboard.currentFishes + " / 5";
         dashSlider.value = shark_Blackboard.currentStamina / shark_Blackboard.maxStamina;
     }
 }
