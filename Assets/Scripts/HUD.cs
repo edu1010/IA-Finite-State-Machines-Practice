@@ -10,7 +10,7 @@ public class HUD : MonoBehaviour
     public Slider dashSlider;
 
     public TextMeshProUGUI textEatenFishes;
-    public TextMeshProUGUI textCapturedFishes;
+    public TextMeshProUGUI textCapturedFishes;  
     
     void Start()
     {
