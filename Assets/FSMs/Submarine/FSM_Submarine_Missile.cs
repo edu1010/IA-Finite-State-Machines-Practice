@@ -89,6 +89,7 @@ namespace FSM
                 case State.SUBMARINE_WANDER:
                     elapsedTime = 0.0f;
                     blackboard.canAttack = false;
+                    //missile.SetActive(false);                    
                     fsmSubmarine.ReEnter();
                     break;
                 case State.ATTACK:
@@ -100,6 +101,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.SUBMARINE_WANDER:
+                    //missile.SetActive(true);
                     fsmSubmarine.Exit();
                     break;
                 case State.ATTACK:

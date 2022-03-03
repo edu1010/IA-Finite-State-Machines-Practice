@@ -25,26 +25,31 @@ namespace FSM
         private float elapsedTime = 0.0f;
         private float missileElapsedTime = 0.0f;
 
+        private SpriteRenderer sprite;
+
         // Start is called before the first frame update
         void Awake()
         {
             submarine = GameObject.FindGameObjectWithTag("SUBMARINE");
             arrive = GetComponent<Arrive>();
-            blackboard = submarine.GetComponent<SUBMARINE_MISSILE_Blackboard>();            
+            blackboard = submarine.GetComponent<SUBMARINE_MISSILE_Blackboard>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
 
             arrive.enabled = false;
         }
         public override void Exit()
         {
             //blackboard.canAttack = false;
+            //GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
             arrive.enabled = false;
             base.Exit();
         }
 
         public override void ReEnter()
         {
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
             currentState = State.INITIAL;
+            sprite.enabled = true;
             GetComponent<KinematicState>().transform.parent = null;
             GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;            
             base.ReEnter();
@@ -58,15 +63,14 @@ namespace FSM
                     ChangeState(State.ATTACK_SHARK);
                     break;
                 case State.ATTACK_SHARK:
-                    //hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.missileHideoutDetection);
-                    
-                    if (elapsedTime >= blackboard.timeAttack /*|| blackboard.shark.GetComponent<SHARK_Blackboard>().IsHided*/) //mejor mirar si se sale d la pantalla
+                    //hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.missileHideoutDetection);                                       
+                    if (elapsedTime >= blackboard.timeAttack || blackboard.shark.GetComponent<SHARK_Blackboard>().IsHided) //mejor mirar si se sale d la pantalla
                     {
                         ChangeState(State.HIDE_MISSILE);
                         break;
                     }
-                    
-                    if(SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.missileRadious)
+
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.missileRadious)
                     {
                         blackboard.sharkAttacked -= 1;
                         if(blackboard.sharkAttacked == 2)
@@ -88,8 +92,8 @@ namespace FSM
                             break;
                         }
                         
-                    }                    
-                    
+                    }                   
+
                     /*
                     if (SensingUtils.DistanceToTarget(gameObject, hideout) <= blackboard.missileCloseToHideout)
                     {
@@ -125,10 +129,12 @@ namespace FSM
                     break;
                 case State.HIDE_MISSILE:
                     //blackboard.canAttack = true;
-                    arrive.enabled = false;
-                    //sprite.enabled = false;
+                    arrive.enabled = false;                    
                     GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
-                    gameObject.SetActive(false);
+                    gameObject.transform.position = submarine.transform.position;
+                    gameObject.transform.parent = submarine.transform;
+                    sprite.enabled = false;
+                    //gameObject.SetActive(false);
                     break;
             }
 

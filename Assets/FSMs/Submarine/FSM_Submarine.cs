@@ -22,6 +22,7 @@ namespace FSM
 
         private SUBMARINE_MISSILE_Blackboard blackboard;
         private ArriveBoat arriveBoat;
+        private int decideInit;
 
         private float elapsedTime = 0.0f;
 
@@ -55,8 +56,18 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.GO_TO_A);
-                    break;
+                    decideInit = Random.Range(0, 2);
+                    if (decideInit == 0)
+                    {
+                        ChangeState(State.GO_TO_A);
+                        break;
+                    }
+                    else
+                    {
+                        ChangeState(State.GO_TO_B);
+                        break;
+                    }                  
+                    
                 case State.GO_TO_A:
                     if ((transform.position - blackboard.attractorA.transform.position).magnitude <= blackboard.attractorReachedRadious)
                     {

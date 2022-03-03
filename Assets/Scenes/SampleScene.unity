@@ -9122,7 +9122,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_ForceModuleActive: 254
 --- !u!114 &2045032894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10047,7 +10047,15 @@ PrefabInstance:
     - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
       propertyPath: attractorB
       value: 
-      objectReference: {fileID: 2121602777}
+      objectReference: {fileID: 191513530}
+    - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
+      propertyPath: timeAttack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
+      propertyPath: timeToAttackAgain
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
       propertyPath: sharkLifes.Array.data[0]
       value: 

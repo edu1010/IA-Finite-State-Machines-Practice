@@ -16,6 +16,7 @@ public class SHARK_Blackboard : MonoBehaviour
     public float hideoutReachedRadius = 5.0f;
     public float missileDetectionRadius = 70.0f;
     public float hideTime = 5.0f;
+    public bool IsHided;
 
     [Header("Eating")]
     public GameObject FishbowlGameObject;
