@@ -20,7 +20,7 @@ namespace FSM
         private SUBMARINE_MISSILE_Blackboard blackboard;
         private Arrive arrive;
         private GameObject hideout;
-        private GameObject submarine;
+        private GameObject submarine;       
 
         private float elapsedTime = 0.0f;
         private float missileElapsedTime = 0.0f;
@@ -30,22 +30,23 @@ namespace FSM
         {
             submarine = GameObject.FindGameObjectWithTag("SUBMARINE");
             arrive = GetComponent<Arrive>();
-            blackboard = submarine.GetComponent<SUBMARINE_MISSILE_Blackboard>();
+            blackboard = submarine.GetComponent<SUBMARINE_MISSILE_Blackboard>();            
 
             arrive.enabled = false;
         }
         public override void Exit()
         {
-            blackboard.canAttack = false;
+            //blackboard.canAttack = false;
             arrive.enabled = false;
             base.Exit();
         }
 
         public override void ReEnter()
         {
+            gameObject.SetActive(true);
             currentState = State.INITIAL;
             GetComponent<KinematicState>().transform.parent = null;
-            GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
+            GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;            
             base.ReEnter();
         }
         // Update is called once per frame
@@ -53,13 +54,13 @@ namespace FSM
         {
             switch (currentState)
             {
-                case State.INITIAL:
+                case State.INITIAL:                   
                     ChangeState(State.ATTACK_SHARK);
                     break;
                 case State.ATTACK_SHARK:
                     //hideout = SensingUtils.FindInstanceWithinRadius(gameObject, "HIDEOUT", blackboard.missileHideoutDetection);
                     
-                    if (elapsedTime >= blackboard.timeAttack) //mejor mirar si se sale d la pantalla
+                    if (elapsedTime >= blackboard.timeAttack /*|| blackboard.shark.GetComponent<SHARK_Blackboard>().IsHided*/) //mejor mirar si se sale d la pantalla
                     {
                         ChangeState(State.HIDE_MISSILE);
                         break;
@@ -87,17 +88,19 @@ namespace FSM
                             break;
                         }
                         
-                    }
+                    }                    
+                    
                     /*
                     if (SensingUtils.DistanceToTarget(gameObject, hideout) <= blackboard.missileCloseToHideout)
                     {
                         ChangeState(State.HIDE_MISSILE);
                         //Debug.Log("paro por el hideout");
                         break;
-                    }*/
+                    }
+                    */
                     elapsedTime += Time.deltaTime;
                     break;
-                case State.HIDE_MISSILE:
+                case State.HIDE_MISSILE:                    
                     /*
                     if (SensingUtils.DistanceToTarget(gameObject, blackboard.submarine) <= blackboard.submarineCloseEnoughtRadius)
                     {
@@ -121,8 +124,11 @@ namespace FSM
                     arrive.enabled = true;
                     break;
                 case State.HIDE_MISSILE:
-                    blackboard.canAttack = true;
+                    //blackboard.canAttack = true;
+                    arrive.enabled = false;
+                    //sprite.enabled = false;
                     GetComponent<KinematicState>().position = submarine.GetComponent<KinematicState>().position;
+                    gameObject.SetActive(false);
                     break;
             }
 
@@ -132,8 +138,9 @@ namespace FSM
                 case State.ATTACK_SHARK:
                     arrive.enabled = false;
                     blackboard.canTakeDamage = false;
+                    blackboard.canAttack = false;
                     break;
-                case State.HIDE_MISSILE:
+                case State.HIDE_MISSILE:                    
                     break;
             }
             currentState = newState;

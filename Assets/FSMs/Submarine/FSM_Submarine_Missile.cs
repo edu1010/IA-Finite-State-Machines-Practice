@@ -58,6 +58,7 @@ namespace FSM
                     if (elapsedTime >= blackboard.timeToAttackAgain)
                     {
                         Debug.Log("change to attack");
+                        blackboard.canAttack = true;
                         ChangeState(State.ATTACK); break;
                     }
                     /*
@@ -70,7 +71,7 @@ namespace FSM
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.ATTACK:
-                    if (blackboard.canAttack)
+                    if (!blackboard.canAttack)
                     {
                         Debug.Log("change to wander");
                         ChangeState(State.SUBMARINE_WANDER);
