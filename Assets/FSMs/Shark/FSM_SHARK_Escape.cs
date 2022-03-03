@@ -90,7 +90,8 @@ namespace FSM
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
             {
-                case State.SEARCH_HIDEOUT:                    
+                case State.SEARCH_HIDEOUT: 
+                    
                     break;
                 case State.REACHING_HIDEOUT:
                     GetComponent<KinematicState>().maxAcceleration /= 7;

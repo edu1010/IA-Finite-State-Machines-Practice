@@ -77,7 +77,6 @@ namespace FSM
                         {
                             Destroy(blackboard.sharkLifes[2]);
                             ChangeState(State.HIDE_MISSILE);
-                            FindObjectOfType<GameManager>().LoseGame();
                             break;
                         }
                         if (blackboard.sharkAttacked == 1)
@@ -90,6 +89,7 @@ namespace FSM
                         {
                             Destroy(blackboard.sharkLifes[0]);
                             ChangeState(State.HIDE_MISSILE);
+                            FindObjectOfType<GameManager>().LoseGame();
                             break;
                         }
                         

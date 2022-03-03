@@ -35,4 +35,6 @@ public class SHARK_Blackboard : MonoBehaviour
     public bool changeToMovementState = false;
     public GameObject fishPicked;
     public GameObject missile;
+
+    public float timeToWin = 60.0f;
 }
