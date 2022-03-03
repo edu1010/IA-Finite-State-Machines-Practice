@@ -158,6 +158,8 @@ MonoBehaviour:
   foodDetectableRadius: 10
   foodReachedRadius: 6
   timeToEat: 0.5
+  turtleReachedRadius: 1
+  turtleReachedRadiusStopArraive: 4
   incrementSeekWeight: 0.2
   frecuencyIncrementWeight: 0.5
   maxDistanceAtractor: 40

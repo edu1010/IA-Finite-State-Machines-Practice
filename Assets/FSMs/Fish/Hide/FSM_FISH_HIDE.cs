@@ -36,6 +36,7 @@ namespace FSM
             {
                 HideOutTurtleController.hideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
                 kinematicState.position = transform.TransformPoint(transform.position);//Pasamos de local a mundo la posicion
+                    
                 transform.parent = null;
             }
             if(nearTortoise != null)
@@ -75,7 +76,13 @@ namespace FSM
                     if (nearTortoise.transform.childCount > blackboard.maxFishInTortoise)
                     {
                         nearTortoise = HideOutTurtleController.hideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
+                        if (nearTortoise == null || nearTortoise.Equals(null))
+                        {
+                            ChangeState(State.GOTO_ANEMONA);
+                            break;
+                        }
                     }
+                   
                     if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.turtleReachedRadiusStopArraive)
                     {
                         transform.parent = nearTortoise.transform;
