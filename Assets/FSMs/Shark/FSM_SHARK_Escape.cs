@@ -21,7 +21,7 @@ namespace FSM
         private FSM_SHARK_Movement fsm_movement;
 
         private GameObject hideout;
-        private float elapsedTime = 0.0f;
+        private float elapsedTime = 0.0f;        
 
         void Awake()
         {            
@@ -90,7 +90,8 @@ namespace FSM
             // EXIT STATE LOGIC. Depends on current state
             switch (currentState)
             {
-                case State.SEARCH_HIDEOUT:                    
+                case State.SEARCH_HIDEOUT: 
+                    
                     break;
                 case State.REACHING_HIDEOUT:
                     GetComponent<KinematicState>().maxAcceleration /= 7;
@@ -117,9 +118,11 @@ namespace FSM
                     break;
                 case State.WAIT_IN:
                     Debug.Log("Hiding");
+                    blackboard.IsHided = true;
                     elapsedTime = 0.0f;
                     break;
                 case State.FSM_MOVEMENT:
+                    blackboard.IsHided = false;
                     fsm_movement.ReEnter();
                     break;
             }

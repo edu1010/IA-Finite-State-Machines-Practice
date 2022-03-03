@@ -162,6 +162,7 @@ namespace FSM
                     arrive.target = null;
                     GetComponent<KinematicState>().maxSpeed /= 7.0f;
                     GetComponent<KinematicState>().maxAcceleration /= 7.0f;
+                    blackboard.canDash = false;
                     break;
                 case State.FSM_EAT_FISH:
                     blackboard.changeToMovementState = false;
