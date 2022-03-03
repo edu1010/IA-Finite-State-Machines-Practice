@@ -10888,7 +10888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
       propertyPath: timeToAttackAgain
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5673408298420837351, guid: 9ee27304e90ebe048a8fb9c7296917c8, type: 3}
       propertyPath: sharkLifes.Array.data[0]
