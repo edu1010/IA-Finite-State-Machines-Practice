@@ -89,6 +89,8 @@ namespace FSM
                             Destroy(blackboard.sharkLifes[0]);
                             ChangeState(State.HIDE_MISSILE);
                             FindObjectOfType<GameManager>().LoseGame();
+                            Time.timeScale = 0;
+
                             break;
                         }
                         

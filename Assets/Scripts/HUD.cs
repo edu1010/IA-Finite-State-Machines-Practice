@@ -22,6 +22,7 @@ public class HUD : MonoBehaviour
         if (shark_Blackboard.totalEatenFishes >= 15)
         {
             FindObjectOfType<GameManager>().WinGame();
+            Time.timeScale = 0;
         }
         textEatenFishes.text = "Eaten fishes: " + shark_Blackboard.totalEatenFishes + " / 15";
         textCapturedFishes.text = "Captured fishes: " + shark_Blackboard.currentFishes + "/5";
