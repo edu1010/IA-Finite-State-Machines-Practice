@@ -11,7 +11,6 @@ public class HUD : MonoBehaviour
 
     public TextMeshProUGUI textEatenFishes;
     public TextMeshProUGUI textCapturedFishes;
-    public TextMeshProUGUI gameTime;
     
     void Start()
     {
@@ -24,9 +23,7 @@ public class HUD : MonoBehaviour
         {
             FindObjectOfType<GameManager>().WinGame();
         }
-
-        gameTime.text = ( "FISHES: " + shark_Blackboard.totalEatenFishes.ToString() + " / 15");
-        textEatenFishes.text = "Eaten fishes: " + shark_Blackboard.totalEatenFishes;
+        textEatenFishes.text = "Eaten fishes: " + shark_Blackboard.totalEatenFishes + " / 15";
         textCapturedFishes.text = "Captured fishes: " + shark_Blackboard.currentFishes + "/5";
         dashSlider.value = shark_Blackboard.currentStamina / shark_Blackboard.maxStamina;
     }
