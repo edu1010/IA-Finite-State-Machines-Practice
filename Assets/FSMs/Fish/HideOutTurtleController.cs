@@ -27,19 +27,6 @@ public class HideOutTurtleController : MonoBehaviour
     private void Update()
     {
        
-       /* if(avalibleTargets.Count <= 0)
-        {
-            foreach (var item in allTargets)
-            {
-                if (item.transform.childCount == 0)
-                {
-                    if (!(avalibleTargets.Find(x=> x.Equals(item))))
-                    {
-                        avalibleTargets.Add(item);
-                    }
-                }
-            }
-        }*/
     }
     public  GameObject GetNearTurtleAvalible(Transform me)
     {
