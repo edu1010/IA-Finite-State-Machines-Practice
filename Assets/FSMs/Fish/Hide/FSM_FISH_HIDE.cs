@@ -38,6 +38,10 @@ namespace FSM
                 kinematicState.position = transform.TransformPoint(transform.position);//Pasamos de local a mundo la posicion
                 transform.parent = null;
             }
+            if(nearTortoise != null)
+            {
+                HideOutTurtleController.hideOutTurtleController.AddAvalibleTarget(nearTortoise);
+            }
 
             transform.parent = null;
 
@@ -72,7 +76,7 @@ namespace FSM
                     {
                         nearTortoise = HideOutTurtleController.hideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
                     }
-                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.generalReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, nearTortoise) <= blackboard.turtleReachedRadiusStopArraive)
                     {
                         transform.parent = nearTortoise.transform;
                         ChangeState(State.WAIT);
@@ -122,6 +126,7 @@ namespace FSM
                     nearTortoise = HideOutTurtleController.hideOutTurtleController.GetNearTurtleAvalible(gameObject.transform);
                     arrive.enabled = true;
                     arrive.target = nearTortoise;
+                    arrive.closeEnoughRadius = blackboard.turtleReachedRadius;
                     break;
                 case State.GOTO_ANEMONA:
                     arrive.enabled = true;

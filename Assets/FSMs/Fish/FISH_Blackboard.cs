@@ -18,6 +18,9 @@ public class FISH_Blackboard : MonoBehaviour
     public float foodDetectableRadius;
     public float foodReachedRadius=2f;
     public float timeToEat = 2f;
+    [Header("ARRAIVE TURTLE")]
+    public float turtleReachedRadius = 1f;
+    public float turtleReachedRadiusStopArraive = 1.2f;
     [Header("WEIGHT")]
     public float incrementSeekWeight = 0.2f;
     public float frecuencyIncrementWeight = 0.5f;
