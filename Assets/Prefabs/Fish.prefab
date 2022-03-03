@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
   wanderRate: 5
-  wanderRadius: 2
+  wanderRadius: 20.01
   wanderOffset: 2
   attractor: {fileID: 0}
   seekWeight: 0.2
