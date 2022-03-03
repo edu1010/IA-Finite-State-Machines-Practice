@@ -34,9 +34,8 @@ namespace FSM
             wanderAround.enabled = false;
             if (transform.parent != null && transform.parent.tag.Equals(blackboard.tagTurtle))
             {
-                HideOutTurtleController.hideOutTurtleController.AddAvalibleTarget(gameObject.GetComponentInParent<Transform>().gameObject);
-                kinematicState.position = transform.TransformPoint(transform.position);//Pasamos de local a mundo la posicion
-                    
+                kinematicState.position = nearTortoise.transform.parent.GetComponent<KinematicState>().position;
+                gameObject.transform.position = nearTortoise.transform.position;
                 transform.parent = null;
             }
             if(nearTortoise != null)
