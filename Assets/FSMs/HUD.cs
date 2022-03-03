@@ -20,13 +20,12 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        shark_Blackboard.timeToWin = shark_Blackboard.timeToWin - Time.deltaTime;
-        if (shark_Blackboard.timeToWin <= 0)
+        if (shark_Blackboard.totalEatenFishes >= 15)
         {
-            FindObjectOfType<GameManager>().LoseGame();
+            FindObjectOfType<GameManager>().WinGame();
         }
 
-        gameTime.text = (shark_Blackboard.timeToWin.ToString());
+        gameTime.text = ( "FISHES: " + shark_Blackboard.totalEatenFishes.ToString() + " / 15");
         textEatenFishes.text = "Eaten fishes: " + shark_Blackboard.totalEatenFishes;
         textCapturedFishes.text = "Captured fishes: " + shark_Blackboard.currentFishes + "/5";
         dashSlider.value = shark_Blackboard.currentStamina / shark_Blackboard.maxStamina;
