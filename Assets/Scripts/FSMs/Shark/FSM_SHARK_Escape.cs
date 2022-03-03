@@ -35,6 +35,7 @@ namespace FSM
         public override void Exit()
         {
             arrive.enabled = false;
+            fsm_movement.enabled = false;
             base.Exit();
         }
 
@@ -94,8 +95,8 @@ namespace FSM
                     
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration /= 7;
-                    GetComponent<KinematicState>().maxSpeed /= 7;
+                    GetComponent<KinematicState>().maxAcceleration /= 4;
+                    GetComponent<KinematicState>().maxSpeed /= 2;
                     arrive.enabled = false;
                     break;
                 case State.WAIT_IN:
@@ -111,8 +112,8 @@ namespace FSM
                 case State.SEARCH_HIDEOUT:                                    
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration *= 7;
-                    GetComponent<KinematicState>().maxSpeed *= 7;
+                    GetComponent<KinematicState>().maxAcceleration *= 4;
+                    GetComponent<KinematicState>().maxSpeed *= 2;
                     arrive.enabled = true;
                     arrive.target = hideout;
                     break;

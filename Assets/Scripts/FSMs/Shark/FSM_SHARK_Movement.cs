@@ -27,12 +27,18 @@ namespace FSM
         private WanderAround wanderAround;
         private FSM_SHARK_Eat_Fish fsm_eat_fish;
 
+        private float initialAcceleration;
+        private float initialSpeed;
+
         void Awake()
         {
             wanderAround = GetComponent<WanderAround>();
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
             fsm_eat_fish = GetComponent<FSM_SHARK_Eat_Fish>();
+
+            initialAcceleration = GetComponent<KinematicState>().maxAcceleration;
+            initialSpeed = GetComponent<KinematicState>().maxSpeed;
 
             wanderAround.attractor = blackboard.Attractor;
 
@@ -44,6 +50,9 @@ namespace FSM
 
         public override void Exit()
         {
+            GetComponent<KinematicState>().maxAcceleration = initialAcceleration;
+            GetComponent<KinematicState>().maxSpeed = initialSpeed;
+            fsm_eat_fish.enabled = false;
             arrive.enabled = false;
             wanderAround.enabled = false;
             base.Exit();
@@ -51,6 +60,8 @@ namespace FSM
 
         public override void ReEnter()
         {
+            GetComponent<KinematicState>().maxAcceleration = initialAcceleration;
+            GetComponent<KinematicState>().maxSpeed = initialAcceleration;
             currentState = State.INITIAL;
             base.ReEnter();
         }
@@ -58,7 +69,7 @@ namespace FSM
         void Update()
         {
             //New Arrive Position
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && currentState!=State.FSM_EAT_FISH)
             {
                 Vector3 cameraPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 blackboard.ArriveGameObject.transform.position = new Vector3(cameraPos.x, cameraPos.y, 0.0f);

@@ -20,22 +20,32 @@ namespace FSM
         private SHARK_Blackboard blackboard;
         private Arrive arrive;
         private float elapsedTime = 0.0f;
-        
+
+        private float initialAcceleration;
+        private float initialSpeed;
+
         void Awake()
         {
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
             arrive.enabled = false;
+
+            initialAcceleration = GetComponent<KinematicState>().maxAcceleration;
+            initialSpeed = GetComponent<KinematicState>().maxSpeed;
         }
         
         public override void Exit()
         {
+            GetComponent<KinematicState>().maxAcceleration = initialAcceleration;
+            GetComponent<KinematicState>().maxSpeed = initialSpeed;
             elapsedTime = 0.0f;
             arrive.enabled = false;
             base.Exit();
         }
         public override void ReEnter()
         {
+            GetComponent<KinematicState>().maxAcceleration = initialAcceleration;
+            GetComponent<KinematicState>().maxSpeed = initialSpeed;
             currentState = State.INITIAL;
             base.ReEnter();
         } 
@@ -61,7 +71,6 @@ namespace FSM
                             blackboard.fishPicked.transform.parent = null;
                             blackboard.fishPicked.tag = "FishEated";
                             arrive.enabled = false;
-                            blackboard.totalEatenFishes += 1;
                             //Change to Wander in FSM SHARK Movement
                             blackboard.changeToMovementState = true;
                         }
@@ -91,6 +100,7 @@ namespace FSM
             switch (newState)
             {
                 case State.ARRIVE_AT_FISHBOWL:
+                    GetComponent<KinematicState>().maxAcceleration *= 2;
                     blackboard.fishPicked.GetComponent<FSM_FISH>().Exit();
                     blackboard.fishPicked.transform.position = blackboard.fishPickedPosition.transform.position;
                     blackboard.fishPicked.transform.parent = transform;
@@ -106,6 +116,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.ARRIVE_AT_FISHBOWL:
+                    GetComponent<KinematicState>().maxAcceleration /= 2;
                     arrive.enabled = false;
                     blackboard.fishPicked.transform.position = blackboard.fishPositionInFishbowl[blackboard.currentFishes - 1].transform.position;
                     blackboard.fishPicked.transform.parent = null;
