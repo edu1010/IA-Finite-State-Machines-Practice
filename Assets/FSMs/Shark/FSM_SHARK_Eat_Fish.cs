@@ -61,6 +61,7 @@ namespace FSM
                             blackboard.fishPicked.transform.parent = null;
                             blackboard.fishPicked.tag = "FishEated";
                             arrive.enabled = false;
+                            blackboard.totalEatenFishes += 1;
                             //Change to Wander in FSM SHARK Movement
                             blackboard.changeToMovementState = true;
                         }

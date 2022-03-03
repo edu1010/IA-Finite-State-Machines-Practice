@@ -36,5 +36,5 @@ public class SHARK_Blackboard : MonoBehaviour
     public GameObject fishPicked;
     public GameObject missile;
 
-    public float timeToWin = 60.0f;
+   
 }
