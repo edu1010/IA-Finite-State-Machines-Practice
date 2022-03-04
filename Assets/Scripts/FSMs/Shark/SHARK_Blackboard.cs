@@ -12,6 +12,7 @@ public class SHARK_Blackboard : MonoBehaviour
     public GameObject Attractor;
 
     [Header("Escape")]
+    public float maxTimeTryingToHide = 5f;
     public float hideoutDetectionRadius = 50.0f;
     public float hideoutReachedRadius = 5.0f;
     public float missileDetectionRadius = 70.0f;

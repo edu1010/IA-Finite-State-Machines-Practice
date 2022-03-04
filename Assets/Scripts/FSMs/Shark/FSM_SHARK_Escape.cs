@@ -21,13 +21,14 @@ namespace FSM
         private FSM_SHARK_Movement fsm_movement;
 
         private GameObject hideout;
-        private float elapsedTime = 0.0f;        
-
+        private float elapsedTime = 0.0f;
+        KinematicState kinematicState;
         void Awake()
         {            
             arrive = GetComponent<Arrive>();
             blackboard = GetComponent<SHARK_Blackboard>();
             fsm_movement = GetComponent<FSM_SHARK_Movement>();
+            kinematicState = GetComponent<KinematicState>();
 
             fsm_movement.enabled = false;
             arrive.enabled = false;
@@ -61,6 +62,12 @@ namespace FSM
                     }
                     break;
                 case State.REACHING_HIDEOUT:
+                    elapsedTime += Time.deltaTime;
+                    if(elapsedTime >blackboard.maxTimeTryingToHide)
+                    {
+                        kinematicState.linearVelocity = Vector3.zero;
+                        elapsedTime = 0f;
+                    }
                     if (SensingUtils.DistanceToTarget(gameObject, hideout) <= blackboard.hideoutReachedRadius)
                     {
                         ChangeState(State.WAIT_IN);
@@ -94,8 +101,8 @@ namespace FSM
                     
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration /= 4;
-                    GetComponent<KinematicState>().maxSpeed /= 3;
+                    kinematicState.maxAcceleration /= 4;
+                    kinematicState.maxSpeed /= 2;
                     arrive.enabled = false;
                     break;
                 case State.WAIT_IN:
@@ -111,8 +118,9 @@ namespace FSM
                 case State.SEARCH_HIDEOUT:                                    
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration *= 4;
-                    GetComponent<KinematicState>().maxSpeed *= 3;
+                    elapsedTime = 0f;
+                    kinematicState.maxAcceleration *= 4;
+                    kinematicState.maxSpeed *= 2;
                     arrive.enabled = true;
                     arrive.target = hideout;
                     break;
