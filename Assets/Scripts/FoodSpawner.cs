@@ -6,9 +6,11 @@ public class FoodSpawner : MonoBehaviour
 {
     public GameObject prefab;
     float time;
+    float resetTimer = 0f;
     public float frequency;
     public float range;
-    public int maxNumberOfFood = 50;
+    public int maxNumberOfFoodInTime = 50;
+    public float timeToReset = 20f;
     private int currentNumberOfFood = 0 ;
 
     // Update is called once per frame
@@ -18,9 +20,18 @@ public class FoodSpawner : MonoBehaviour
         if (time >= frequency)
         {
             currentNumberOfFood++;
-            if (currentNumberOfFood < maxNumberOfFood)
+            if (currentNumberOfFood < maxNumberOfFoodInTime)
             {
                 CreateObject();
+            }
+            else
+            {
+                resetTimer += Time.deltaTime;
+                if(resetTimer > timeToReset)
+                {
+                    currentNumberOfFood = 0;
+                    resetTimer = 0f;
+                }
             }
             time = 0f;
         }

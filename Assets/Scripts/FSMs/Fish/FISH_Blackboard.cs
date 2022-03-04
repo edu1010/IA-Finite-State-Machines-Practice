@@ -10,6 +10,7 @@ public class FISH_Blackboard : MonoBehaviour
     [Header("HUNGRY")]
     public float WhenIsfeed = 10f;
     public float eatPlnktonValue = 1f;
+    public float incrementHungry = 1f;
     [Header("FLOCKING")]
     public float timeFloking = 4f;
     public GameObject atractorA;
@@ -76,7 +77,7 @@ public class FISH_Blackboard : MonoBehaviour
     }
     public void IncrementHungry()
     {
-        currentHungry += eatPlnktonValue;
+        currentHungry += incrementHungry;
     }
     public void DecrementHungry()
     {

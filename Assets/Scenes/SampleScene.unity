@@ -1269,7 +1269,8 @@ MonoBehaviour:
   prefab: {fileID: 379184020862896420, guid: b0cbaa7d626e21240ae0bc6b04550e47, type: 3}
   frequency: 0.2
   range: 40
-  maxNumberOfFood: 50
+  maxNumberOfFoodInTime: 50
+  timeToReset: 10
 --- !u!4 &180357112
 Transform:
   m_ObjectHideFlags: 0
@@ -1756,7 +1757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297626580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.5, y: 20.7, z: 0}
+  m_LocalPosition: {x: 120.7, y: 82.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4643,7 +4644,8 @@ MonoBehaviour:
   prefab: {fileID: 379184020862896420, guid: b0cbaa7d626e21240ae0bc6b04550e47, type: 3}
   frequency: 0.2
   range: 40
-  maxNumberOfFood: 50
+  maxNumberOfFoodInTime: 50
+  timeToReset: 20
 --- !u!4 &938431619
 Transform:
   m_ObjectHideFlags: 0
