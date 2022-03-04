@@ -438,11 +438,10 @@ MonoBehaviour:
   maxTimeSayingIt: 3
   Attractor: {fileID: 0}
   textTurtle: {fileID: 8430387868091598290}
-  sprite: {fileID: 1317692277133605511}
   oxigenToBreathe: 20
   currentOxigen: 0
   maxOxigen: 50
-  surfaceReachedRadius: 15
+  bubbleReachedRadius: 1
   changeToWander: 0
   posibleBreathingPoints:
   - {fileID: 0}

@@ -19,7 +19,6 @@ namespace FSM
 
         private Arrive arrive;
 
-        // Start is called before the first frame update
         void Awake()
         {
             arrive = GetComponent<Arrive>();
@@ -51,7 +50,7 @@ namespace FSM
                     ChangeState(State.REACH_SURFACE);
                     break;
                 case State.REACH_SURFACE:
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.definitiveBreathingPoint) <= blackboard.surfaceReachedRadius)
+                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.definitiveBreathingPoint) <= blackboard.bubbleReachedRadius)
                     {
                         ChangeState(State.TAKING_BREATH);
                         break;

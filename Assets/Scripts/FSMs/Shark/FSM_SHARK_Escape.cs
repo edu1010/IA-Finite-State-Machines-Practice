@@ -94,7 +94,7 @@ namespace FSM
                     
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration /= 4;
+                    GetComponent<KinematicState>().maxAcceleration /= 5;
                     GetComponent<KinematicState>().maxSpeed /= 2;
                     arrive.enabled = false;
                     break;
@@ -111,7 +111,7 @@ namespace FSM
                 case State.SEARCH_HIDEOUT:                                    
                     break;
                 case State.REACHING_HIDEOUT:
-                    GetComponent<KinematicState>().maxAcceleration *= 4;
+                    GetComponent<KinematicState>().maxAcceleration *= 5;
                     GetComponent<KinematicState>().maxSpeed *= 2;
                     arrive.enabled = true;
                     arrive.target = hideout;
