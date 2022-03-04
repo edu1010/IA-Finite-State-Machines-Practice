@@ -61,13 +61,7 @@ namespace FSM
                         blackboard.canAttack = true;
                         ChangeState(State.ATTACK); break;
                     }
-                    /*
-                    if (SensingUtils.DistanceToTarget(gameObject, blackboard.shark) <= blackboard.sharkDetectableRadious && blackboard.canAttack)
-                    {
-                        ChangeState(State.ATTACK);
-                        break;
-                    }
-                    */
+                  
                     elapsedTime += Time.deltaTime;
                     break;
                 case State.ATTACK:
