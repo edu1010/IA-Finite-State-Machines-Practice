@@ -13,7 +13,6 @@ namespace FSM
 
         public State currentState = State.INITIAL;
         private FISH_Blackboard blackboard;
-        private GameObject nearTortoise;
         private float elapsedTime = 0;
         private Flee flee;
         // Start is called before the first frame update

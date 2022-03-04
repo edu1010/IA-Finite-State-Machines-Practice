@@ -144,7 +144,6 @@ namespace FSM
                     elapsedTimeFlocking = 0;
                     blackboard.currentHungry = 0;
                     flocking.idTag = "FISH";
-                    // flocking.attractor = (Random.Range(0f, 1f) > 0.5f ? blackboard.atractorA : blackboard.atractorB);
                     flocking.attractor = blackboard.atractorA;
                     flocking.enabled = true;
                     blackboard.currentHungry = 0;
