@@ -5,7 +5,7 @@ using Steerings;
 namespace FSM
 {
     [RequireComponent(typeof(FSM_EAT_EAT_PLANKTON))]
-    [RequireComponent(typeof(FSM_FISH_HIDE))]
+    [RequireComponent(typeof(FSM_ESCAPE))]
     [RequireComponent(typeof(FlockingAround))]
     public class FSM_FISH : FiniteStateMachine
     {
@@ -18,7 +18,7 @@ namespace FSM
         private FISH_Blackboard blackboard;
        
         private FSM_EAT_EAT_PLANKTON eatFSM;
-        private FSM_ESCAPE hideFSM;
+        private FSM_ESCAPE escapeFSM;
         private float elapsedTime = 0;
         private float elapsedTimeFlocking;
         private FlockingAround flocking;
@@ -28,7 +28,7 @@ namespace FSM
         void Start()
         {
             eatFSM = GetComponent<FSM_EAT_EAT_PLANKTON>();
-            hideFSM = GetComponent<FSM_ESCAPE>();
+            escapeFSM = GetComponent<FSM_ESCAPE>();
             blackboard = GetComponent<FISH_Blackboard>();
             flocking = GetComponent<FlockingAround>();
             kinematic = GetComponent<KinematicState>();
@@ -36,7 +36,7 @@ namespace FSM
         public override void Exit()
         {
             eatFSM.Exit();
-            hideFSM.Exit();
+            escapeFSM.Exit();
             flocking.enabled = false;
             base.Exit();
         }
@@ -44,7 +44,7 @@ namespace FSM
         public override void ReEnter()
         {
             currentState = State.INITIAL;
-            hideFSM.enabled = false;
+            escapeFSM.enabled = false;
             eatFSM.enabled = false;
            
             base.ReEnter();
@@ -114,14 +114,14 @@ namespace FSM
             switch (currentState) 
             {
                 case State.INITIAL:
-                    hideFSM.Exit();
+                    escapeFSM.Exit();
                     eatFSM.Exit();
                     break;
                 case State.EAT:
                     eatFSM.Exit();
                     break;
                 case State.HIDE:
-                    hideFSM.Exit();
+                    escapeFSM.Exit();
                     break;
                 case State.FLOKING:
                     flocking.enabled = false;
@@ -136,7 +136,7 @@ namespace FSM
                     eatFSM.ReEnter();
                     break;
                 case State.HIDE:
-                    hideFSM.ReEnter();
+                    escapeFSM.ReEnter();
                     break;
                 case State.FLOKING:
                     time = Time.time;
