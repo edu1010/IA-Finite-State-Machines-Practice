@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 4
-  maxSpeed: 15
-  maxAngularAcceleration: 45
-  maxAngularSpeed: 45
+  maxAcceleration: 15
+  maxSpeed: 30
+  maxAngularAcceleration: 180
+  maxAngularSpeed: 360
   position: {x: 0, y: 0, z: 0}
   orientation: 0
   linearVelocity: {x: 0, y: 0, z: 0}
@@ -81,6 +81,7 @@ MonoBehaviour:
   hideoutReachedRadius: 25
   missileDetectionRadius: 70
   hideTime: 5
+  IsHided: 0
   FishbowlGameObject: {fileID: 0}
   fishPickedPosition: {fileID: 5753195457184981756}
   fishPositionInFishbowl:

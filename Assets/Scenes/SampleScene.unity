@@ -11001,22 +11001,6 @@ PrefabInstance:
       propertyPath: fishPositionInFishbowl.Array.data[4]
       value: 
       objectReference: {fileID: 1872736778}
-    - target: {fileID: 3126093857882453342, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: maxSpeed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453342, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: maxAcceleration
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453342, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: maxAngularSpeed
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126093857882453342, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
-      propertyPath: maxAngularAcceleration
-      value: 180
-      objectReference: {fileID: 0}
     - target: {fileID: 3126093857882453343, guid: b62cd8685e37026419233acfda5b7f85, type: 3}
       propertyPath: target
       value: 
