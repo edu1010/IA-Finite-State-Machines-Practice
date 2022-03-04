@@ -151,7 +151,8 @@ MonoBehaviour:
   shark: {fileID: 0}
   maxDistanceToShark: 80
   WhenIsfeed: 10
-  eatPlnktonValue: 5
+  eatPlnktonValue: 5.5
+  incrementHungry: 1
   timeFloking: 10
   atractorA: {fileID: 0}
   atractorB: {fileID: 0}

@@ -11,6 +11,7 @@ public class FISH_Blackboard : MonoBehaviour
     public float WhenIsfeed = 10f;
     public float eatPlnktonValue = 1f;
     public float incrementHungry = 1f;
+    public float currentHungry;
     [Header("FLOCKING")]
     public float timeFloking = 4f;
     public GameObject atractorA;
@@ -30,7 +31,6 @@ public class FISH_Blackboard : MonoBehaviour
     public float radiusNearTortoise = 20f;
     public int maxFishInTortoise = 5;
     public float maxTimeSearchAnemona = 4f;
-    public float currentHungry;
     public float maxWeitghWander = 0.6f;
     public bool isHiding = false;
     public float maxTimeHiding = 2;

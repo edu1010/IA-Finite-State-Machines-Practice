@@ -144,7 +144,7 @@ namespace FSM
                     elapsedTimeFlocking = 0;
                     blackboard.currentHungry = 0;
                     flocking.idTag = "FISH";
-                    flocking.attractor = blackboard.atractorA;
+                    flocking.attractor = blackboard.atractorB;
                     flocking.enabled = true;
                     blackboard.currentHungry = 0;
                     break;
