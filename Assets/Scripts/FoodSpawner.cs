@@ -24,16 +24,13 @@ public class FoodSpawner : MonoBehaviour
             {
                 CreateObject();
             }
-            else
-            {
-                resetTimer += Time.deltaTime;
-                if(resetTimer > timeToReset)
-                {
-                    currentNumberOfFood = 0;
-                    resetTimer = 0f;
-                }
-            }
             time = 0f;
+        }
+        resetTimer += Time.deltaTime;
+        if (resetTimer > timeToReset)
+        {
+            currentNumberOfFood = 0;
+            resetTimer = 0f;
         }
     }
     public void CreateObject()
