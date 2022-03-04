@@ -17,8 +17,6 @@ namespace FSM
         private WanderAround wanderAround;
         private Arrive arrive;
         private GameObject nearTortoise;
-        private float elapsedTime = 0;
-        private float elapsedTimeSearch = 0;
         private KinematicState kinematicState;
         // Start is called before the first frame update
         void Awake()
@@ -111,11 +109,9 @@ namespace FSM
                 case State.INITIAL:
                     break;
                 case State.GOTO_TORTOISE:
-                    elapsedTime = 0;
                     arrive.enabled = false;
                     break;
                 case State.GOTO_ANEMONA:
-                    elapsedTime = 0;
                     arrive.enabled = false;
                     break;
                 case State.WAIT:

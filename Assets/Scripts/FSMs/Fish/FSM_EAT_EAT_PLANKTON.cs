@@ -83,7 +83,7 @@ namespace FSM
                     blackboard.DecrementHungry();
                     if (blackboard.currentHungry <= 0)
                     {
-                        //FISH MACHINE CHANGE THE STATE
+                        //FISH MACHINE (FSM PARENT) CHANGE THE STATE
                     }
                     else
                     {
@@ -126,7 +126,6 @@ namespace FSM
             switch (newState)
             {
                 case State.INITIAL:
-                   // ChangeState(State.INITIAL);
                     break;
                 case State.SEARCH:
                     wanderAround.enabled = true;
