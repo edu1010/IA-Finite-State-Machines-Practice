@@ -57,7 +57,6 @@ namespace FSM
                     if (hideout != null)
                     {
                         ChangeState(State.REACHING_HIDEOUT);
-                        Debug.Log("Target encontrado");
                         break;
                     }
                     break;
@@ -118,7 +117,6 @@ namespace FSM
                     arrive.target = hideout;
                     break;
                 case State.WAIT_IN:
-                    Debug.Log("Hiding");
                     blackboard.IsHided = true;
                     elapsedTime = 0.0f;
                     break;

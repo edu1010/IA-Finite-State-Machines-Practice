@@ -20,16 +20,15 @@ public class SHARK_Blackboard : MonoBehaviour
 
     [Header("Eating")]
     public GameObject FishbowlGameObject;
-    public GameObject fishPickedPosition;
-    public List<GameObject> fishPositionInFishbowl;
+    public GameObject fishPickedPosition; //position where the fish will be while the shark is transporting it
+    public List<GameObject> fishPositionInFishbowl; //the 5 positions where the 5 fish will be placed in the fishbowl
 
-    public float fishReachedRadius = 25.0f; //enough close to pick it
-    public float fishBowlReachedRadius = 2.0f; 
-    public int maxFishes = 5; 
+    public float fishReachedRadius = 25.0f; //close enough to pick the fish
+    public float fishBowlReachedRadius = 25.0f; //close enough to reach the fishbowl
+    public int maxFishes = 5; //max number of fishes in the fishbowl
     public int currentFishes = 0;
     public float maxTimeEatting = 3.0f;
     public int totalEatenFishes = 0;
-
 
     [Header("General")]
     public bool changeToMovementState = false;
