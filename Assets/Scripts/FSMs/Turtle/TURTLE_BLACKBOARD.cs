@@ -13,10 +13,10 @@ public class TURTLE_BLACKBOARD : MonoBehaviour
     public GameObject textTurtle;
 
     [Header("Breathe")]
-    public float oxigenToBreathe = 20.0f;
+    public float oxigenToBreathe = 20.0f; //if the current oxigen arrives to this value, the turtle will go to breath
     public float currentOxigen;
     public float maxOxigen = 100.0f;    
-    public float surfaceReachedRadius = 1.0f;
+    public float bubbleReachedRadius = 1.0f;
     public bool changeToWander = false;
     public List<GameObject> posibleBreathingPoints;
     public GameObject definitiveBreathingPoint;
