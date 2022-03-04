@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7cbbdf0d23565448d7ea26fd3b99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 15
+  maxAcceleration: 14
   maxSpeed: 30
   maxAngularAcceleration: 180
-  maxAngularSpeed: 360
+  maxAngularSpeed: 275
   position: {x: 0, y: 0, z: 0}
   orientation: 0
   linearVelocity: {x: 0, y: 0, z: 0}
@@ -77,6 +77,7 @@ MonoBehaviour:
   canDash: 0
   ArriveGameObject: {fileID: 0}
   Attractor: {fileID: 0}
+  maxTimeTryingToHide: 5
   hideoutDetectionRadius: 600
   hideoutReachedRadius: 25
   missileDetectionRadius: 70
